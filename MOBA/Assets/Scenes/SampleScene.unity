@@ -367,12 +367,12 @@ GameObject:
   - component: {fileID: 2018982018}
   - component: {fileID: 2018982017}
   - component: {fileID: 2018982016}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &2018982016
 MeshCollider:
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 32d8f7ffc2907a94e97496b15ec43c51, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &2070612861
 Transform:
