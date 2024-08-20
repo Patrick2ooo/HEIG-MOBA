@@ -28,8 +28,9 @@ public class MinionScript : Entity
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         if (Health <= 0)
         {
             Destroy(gameObject);
