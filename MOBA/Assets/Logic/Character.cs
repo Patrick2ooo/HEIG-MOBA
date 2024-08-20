@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Logic;
 using UnityEngine;
 
 public abstract class Character : Entity
 {
     protected static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
-    protected const int MaxLevel = 12;
-    protected int Level = 1, Exp = 0, PhysDefPerLevel, MagDefPerLevel;
-    private int _golds;
+    protected const int MaxLevel = 12, PassiveGold = 1, PassiveExp = 1;
+    protected int Level = 1, PhysDefPerLevel, MagDefPerLevel;
+    public int Golds, Exp;
 
-    protected float AttackPerLevel, HealthPerLevel, ExpTimer;
+    protected float AttackPerLevel, HealthPerLevel, HealthRegen, HealthRegenPerLevel, ExpTimer, AttackSpeed, Haste, CritChance, CritMult = 1.5f, PhysPen, MagPen, PhysLifeSteal, MagLifeSteal, Mana, ManaPerLevel, ManaRegen, ManaRegenPerLevel, MoveSpeed;
+
+    protected int Cores, PlayerId;
+
+    protected Item[] Items;
 
     protected Entity Target;
 
     protected void DealAutoDamage(Entity target)
     {
-        if (target.ReceiveDamage(Attack, 0))
-        {
-            _golds += target.GetGoldBounty();
-            Exp += target.GetExpBounty();
-        }
+        target.ReceiveDamage(this, Attack, 0, PhysPen, MagPen, CritChance, CritMult);
     }
 
     public void SetTarget(Entity target)

@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Assets\Logic\Entity.cs" />
     <Compile Include="Assets\Logic\GameManager.cs" />
+    <Compile Include="Assets\Logic\Item.cs" />
     <Compile Include="Assets\Logic\Character.cs" />
     <Compile Include="Assets\Logic\MinionScript.cs" />
     <Compile Include="Assets\Logic\CameraScript.cs" />
