@@ -118,9 +118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6345224438961536523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4ded76f1519804a8bc9c9c146ac34b, type: 3}
+  m_Script: {fileID: 11500000, guid: 78ea557c645a83641ad78810af1729b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  side: 0
   destination: {x: 0, y: 0, z: 0}
 --- !u!195 &1095240776852612457
 NavMeshAgent:
