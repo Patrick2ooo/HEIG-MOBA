@@ -1,27 +1,19 @@
-#if UNITY_EDITOR
 using UnityEditor;
-using UnityEngine;
+using UnityEditor.Build;
+using UnityEditor.Build.Reporting;
 
-public class CustomBuild
+public class PreBuildSetup : IPreprocessBuildWithReport
 {
-    public static void PerformBuild()
+    public int callbackOrder => 0;
+
+    public void OnPreprocessBuild(BuildReport report)
     {
-        // Specify the scenes you want to include in the build
-        string[] scenes = {
-            "Assets/Scenes/SampleScene.unity",  // Adjust the path as per your project structure
-        };
-
-        // Configure the build options
-        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
+        // Ensure scenes are added to the build settings
+        EditorBuildSettingsScene[] scenes = new EditorBuildSettingsScene[]
         {
-            scenes = scenes,
-            locationPathName = "Builds/StandaloneWindows64/MyGame.exe",  // Adjust the path as needed
-            target = BuildTarget.StandaloneWindows64,  // Specify the build target
-            options = BuildOptions.None
+            new EditorBuildSettingsScene("Assets/Scenes/SampleScene.unity", true)
         };
 
-        // Perform the build
-        BuildPipeline.BuildPlayer(buildPlayerOptions);
+        EditorBuildSettings.scenes = scenes;
     }
 }
-#endif
