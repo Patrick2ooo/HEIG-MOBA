@@ -67,6 +67,11 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
 
+        - name: Clean up previous Unity processes
+          run: |
+            pkill Unity || true
+            pkill -f UnityLicensingClient || true
+
         - name: Create LFS file list
           run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
@@ -108,7 +113,7 @@ jobs:
 
 
   buildAndroid:
-      needs: testRunner
+      needs: buildWindows
       name: Build for Android 📱
       runs-on: ubuntu-latest
       strategy:
@@ -116,6 +121,11 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
+
+        - name: Clean up previous Unity processes
+          run: |
+            pkill Unity || true
+            pkill -f UnityLicensingClient || true
 
         - name: Create LFS file list
           run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
