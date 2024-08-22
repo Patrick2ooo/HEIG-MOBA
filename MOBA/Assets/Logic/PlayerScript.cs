@@ -30,7 +30,6 @@ public class PlayerScript : Character
         AttackRange = 1.5f;
         Attack = 2;
         AttackPerLevel = 1;
-        mainCamera = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame

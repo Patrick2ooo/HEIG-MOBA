@@ -18,8 +18,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void DidConnect(Realtime realtime)
     {
-        Debug.Log("connected");
-        Realtime.Instantiate(prefabName: "Player", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
+        Realtime.Instantiate(prefabName: "PlayerComponents", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
     }
 
     // Start is called before the first frame update
