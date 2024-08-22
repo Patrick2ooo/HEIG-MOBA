@@ -36,8 +36,9 @@ jobs:
           uses: actions/cache@v2
           with:
             path: Library
-            key: Library-test-project-${{ matrix.targetPlatform }}
+            key: Library-test-project-${{ matrix.testMode }}-${{ hashFiles('**/Packages/manifest.json', '**/*.cs') }}
             restore-keys: |
+              Library-test-project-${{ matrix.testMode }}-
               Library-test-project-
               Library-
               
@@ -92,8 +93,9 @@ jobs:
           uses: actions/cache@v2
           with:
             path: Library
-            key: Library-build-StandaloneWindows64
+            key: Library-build-StandaloneWindows64-${{ hashFiles('**/Packages/manifest.json', '**/*.cs') }}
             restore-keys: |
+              Library-build-StandaloneWindows64-
               Library-build-
               Library-
 
