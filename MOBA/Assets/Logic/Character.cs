@@ -47,6 +47,7 @@ public abstract class Character : Entity
     // Update is called once per frame
     protected virtual void Update()
     {
+        base.Update();
         ExpTimer += Time.deltaTime;
         while (ExpTimer > 1)
         {

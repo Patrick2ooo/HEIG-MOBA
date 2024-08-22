@@ -10,7 +10,7 @@ public abstract class Entity : MonoBehaviour
     public ushort side;
     protected int PhysDef, MagDef;
 
-    protected float Attack, AttackRange, Health, MaxHealth, WindUpTime, AttackTime, RecoveryTime;
+    protected float Attack, AttackRange, Health = 1, MaxHealth = 1, WindUpTime, AttackTime, RecoveryTime;
 
     protected string Name;
 
