@@ -107,8 +107,7 @@ jobs:
           with:
             targetPlatform: StandaloneWindows
             projectPath: MOBA
-            buildScene: |
-              Assets/Scenes/SampleScene.unity
+            buildName: MyScene
 
         - uses: actions/upload-artifact@v2
           with:
