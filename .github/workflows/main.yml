@@ -107,6 +107,7 @@ jobs:
           with:
             targetPlatform: StandaloneWindows
             projectPath: MOBA
+            customParameters: -executeMethod CustomBuild.PerformBuild
 
         - uses: actions/upload-artifact@v2
           with:
