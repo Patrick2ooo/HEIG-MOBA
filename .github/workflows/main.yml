@@ -36,9 +36,8 @@ jobs:
           uses: actions/cache@v4
           with:
             path: Library
-            key: Library-test-project-${{ matrix.testMode }}-${{ hashFiles('**/Packages/manifest.json', '**/*.cs') }}
+            key: Library-test-project-${{ matrix.targetPlatform }}
             restore-keys: |
-              Library-test-project-${{ matrix.testMode }}-
               Library-test-project-
               Library-
               
