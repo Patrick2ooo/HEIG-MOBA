@@ -14,13 +14,13 @@ jobs:
             - PlayMode
       steps:
         - name: Checkout code
-          uses: actions/checkout@v2
+          uses: actions/checkout@v4
 
         - name: Create LFS file list
           run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
         - name: Restore LFS cache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           id: lfs-cache
           with:
             path: .git/lfs
@@ -33,7 +33,7 @@ jobs:
             git reset --hard
 
         - name: Restore Library cache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           with:
             path: Library
             key: Library-test-project-${{ matrix.testMode }}-${{ hashFiles('**/Packages/manifest.json', '**/*.cs') }}
@@ -53,7 +53,7 @@ jobs:
             projectPath: MOBA
             githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-        - uses: actions/upload-artifact@v2
+        - uses: actions/upload-artifact@v4
           with:
             name: Test results
             path: ${{ steps.testRunner.outputs.artifactsPath }}
@@ -72,7 +72,7 @@ jobs:
           run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
         - name: Restore LFS cache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           id: lfs-cache
           with:
             path: .git/lfs
@@ -85,7 +85,7 @@ jobs:
             git reset --hard
 
         - name: Restore Library cache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           with:
             path: Library
             key: Library-build-StandaloneWindows64
@@ -102,7 +102,7 @@ jobs:
             targetPlatform: StandaloneWindows
             projectPath: MOBA
 
-        - uses: actions/upload-artifact@v2
+        - uses: actions/upload-artifact@v4
           with:
             name: build-StandaloneWindows64
             path: build/StandaloneWindows64
@@ -122,7 +122,7 @@ jobs:
           run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
         - name: Restore LFS cache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           id: lfs-cache
           with:
             path: .git/lfs
@@ -135,7 +135,7 @@ jobs:
             git reset --hard
 
         - name: Restore Library cache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           with:
             path: Library
             key: Library-build-Android
@@ -152,7 +152,7 @@ jobs:
             targetPlatform: Android
             projectPath: MOBA
 
-        - uses: actions/upload-artifact@v2
+        - uses: actions/upload-artifact@v4
           with:
             name: build-Android
             path: build/Android
