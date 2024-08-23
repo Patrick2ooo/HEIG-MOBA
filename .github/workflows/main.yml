@@ -54,7 +54,7 @@ jobs:
 
         - uses: actions/upload-artifact@v3
           with:
-            name: Test results
+            name: Test-results-${{ matrix.testMode }}
             path: ${{ steps.testRunner.outputs.artifactsPath }}
 
   buildWindows:
@@ -87,7 +87,7 @@ jobs:
           uses: actions/cache@v3
           with:
             path: Library
-            key: Library-build-StandaloneWindows64
+            key: Library-build-StandaloneWindows
             restore-keys: |
               Library-build-
               Library-
@@ -103,8 +103,8 @@ jobs:
 
         - uses: actions/upload-artifact@v3
           with:
-            name: build-StandaloneWindows64
-            path: build/StandaloneWindows64
+            name: build-StandaloneWindows
+            path: build/StandaloneWindows
 
 
   buildAndroid:
