@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Normal.Realtime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -10,7 +13,13 @@ public class PlayerScript : Character
     private const int MapLayer = 3, CharactersLayer = 6;
     public GameObject icon;
     public NavMeshAgent nav;
-    private static readonly Vector3 Offset = new Vector3(0, 0.1f, 0);
+    private static readonly Vector3 Offset = new(0, 0.1f, 0);
+    private RealtimeView _view;
+
+    private void Awake()
+    {
+        _view = GetComponent<RealtimeView>();
+    }
 
     public override int GetGoldBounty()
     {
@@ -29,48 +38,55 @@ public class PlayerScript : Character
         AttackRange = 1.5f;
         Attack = 2;
         AttackPerLevel = 1;
+        if (_view.isOwnedLocallyInHierarchy)
+        {
+            GetComponent<RealtimeTransform>().RequestOwnership();
+        }
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-        if (Input.GetMouseButton(0))
+        if (_view.isOwnedLocallyInHierarchy)
         {
-            if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+            base.Update();
+            if (Input.GetMouseButton(0))
             {
-                switch (hit.collider.gameObject.layer)
+                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
                 {
-                    case MapLayer:
-                        if(icon) Instantiate(icon, hit.point + Offset, Quaternion.identity);
-                        nav.SetDestination(hit.point);
-                        Target = null;
-                        break;
-                    case CharactersLayer:
-                        Target = hit.collider.gameObject.GetComponent<Entity>();
-                        Vector3 pos = Target.transform.position;
-                        if (Target.side == side)
-                        {
-                            Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100, ~(1 << CharactersLayer));
-                            pos = hit.point;
+                    switch (hit.collider.gameObject.layer)
+                    {
+                        case MapLayer:
+                            if(icon) Instantiate(icon, hit.point + Offset, Quaternion.identity);
+                            nav.SetDestination(hit.point);
                             Target = null;
-                        }
-                        nav.SetDestination(pos);
-                        break;
+                            break;
+                        case CharactersLayer:
+                            Target = hit.collider.gameObject.GetComponent<Entity>();
+                            Vector3 pos = Target.transform.position;
+                            if (Target.side == side)
+                            {
+                                Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100, ~(1 << CharactersLayer));
+                                pos = hit.point;
+                                Target = null;
+                            }
+                            nav.SetDestination(pos);
+                            break;
+                    }
                 }
             }
-        }
-        if (Target)
-        {
-            if (Vector3.Distance(transform.position, Target.transform.position) <= AttackRange)
+            if (Target)
             {
-                // logique d'attaque
-                nav.ResetPath();
-                DealAutoDamage(Target);
-            }
-            else
-            {
-                nav.SetDestination(Target.transform.position);
+                if (Vector3.Distance(transform.position, Target.transform.position) <= AttackRange)
+                {
+                    // logique d'attaque
+                    nav.ResetPath();
+                    DealAutoDamage(Target);
+                }
+                else
+                {
+                    nav.SetDestination(Target.transform.position);
+                }
             }
         }
     }
