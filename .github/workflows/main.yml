@@ -93,9 +93,8 @@ jobs:
           uses: actions/cache@v2
           with:
             path: Library
-            key: Library-build-StandaloneWindows64-${{ hashFiles('**/Packages/manifest.json', '**/*.cs') }}
+            key: Library-build-StandaloneWindows64
             restore-keys: |
-              Library-build-StandaloneWindows64-
               Library-build-
               Library-
 
@@ -116,7 +115,7 @@ jobs:
 
 
   buildAndroid:
-      needs: buildWindows
+      needs: testRunner
       name: Build for Android 📱
       runs-on: ubuntu-latest
       strategy:
@@ -150,7 +149,7 @@ jobs:
           uses: actions/cache@v2
           with:
             path: Library
-            key: Library-build-StandaloneWindows64
+            key: Library-build-Android
             restore-keys: |
               Library-build-
               Library-
