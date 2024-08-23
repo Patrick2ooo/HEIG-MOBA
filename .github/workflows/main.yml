@@ -68,11 +68,6 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
 
-        - name: Clean up previous Unity processes
-          run: |
-            pkill Unity || true
-            pkill -f UnityLicensingClient || true
-
         - name: Create LFS file list
           run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
@@ -106,6 +101,8 @@ jobs:
           with:
             targetPlatform: StandaloneWindows
             projectPath: MOBA
+            buildName: MyGameBuild
+            buildPath: build/StandaloneWindows64/MyGame.exe
 
 
         - uses: actions/upload-artifact@v2
@@ -123,11 +120,6 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
-
-        - name: Clean up previous Unity processes
-          run: |
-            pkill Unity || true
-            pkill -f UnityLicensingClient || true
 
         - name: Create LFS file list
           run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
