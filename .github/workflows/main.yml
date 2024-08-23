@@ -93,6 +93,9 @@ jobs:
               Library-build-
               Library-
 
+        - name: Create output directory
+          run: mkdir -p build/StandaloneWindows64
+
         - uses: game-ci/unity-builder@v4
           env:
             UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -101,9 +104,6 @@ jobs:
           with:
             targetPlatform: StandaloneWindows
             projectPath: MOBA
-            buildName: MyGameBuild
-            buildPath: build/StandaloneWindows64/MyGame.exe
-
 
         - uses: actions/upload-artifact@v2
           with:
