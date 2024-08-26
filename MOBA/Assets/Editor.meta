@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:MOBA/Assets/Normal/Internal/Editor.meta
+guid: 575ed473a46ae09418279737644a6cf2
+========
+guid: 8a279348f370b724187098337dc11ef9
+>>>>>>>> pipeline:MOBA/Assets/Editor.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
