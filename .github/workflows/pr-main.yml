@@ -1,0 +1,242 @@
+﻿name: PR main 🎮
+
+on:
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests to the main branch
+
+  push:
+    branches:
+      - main  # Trigger when changes are pushed to the main branch (e.g., after a PR is merged)
+
+jobs:
+  testRunner:
+    name: Test in ${{ matrix.testMode }} ✨
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - EditMode
+          - PlayMode
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v4
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-test-project-
+          restore-keys: |
+            Library-test-project-
+            Library-
+
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        id: testRunner
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          testMode: ${{ matrix.testMode }}
+          projectPath: MOBA
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Test-results-${{ matrix.testMode }}
+          path: ${{ steps.testRunner.outputs.artifactsPath }}
+
+  buildWindows:
+    needs: testRunner
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Build for Windows 🖥️
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v4
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-build-StandaloneWindows
+          restore-keys: |
+            Library-build-
+            Library-
+
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneWindows
+          projectPath: MOBA
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-StandaloneWindows
+          path: build/StandaloneWindows
+
+  buildAndroid:
+    needs: testRunner
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Build for Android 📱
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v4
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-build-Android
+          restore-keys: |
+            Library-build-
+            Library-
+
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: Android
+          projectPath: MOBA
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-Android
+          path: build/Android
+
+  release:
+    needs: [buildWindows, buildAndroid]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Create Release 📦
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: echo "LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*')" >> $GITHUB_ENV
+
+      - name: Calculate next version
+        id: calculate_version
+        run: |
+          if [ -z "${LATEST_TAG}" ]; then
+            NEXT_VERSION="v0.1"
+          else
+            VERSION_NUM="${LATEST_TAG#v}"
+            IFS='.' read -r -a VERSION_PARTS <<< "$VERSION_NUM"
+            MINOR_VERSION=${VERSION_PARTS[1]}
+            NEXT_MINOR_VERSION=$((MINOR_VERSION + 1))
+            NEXT_VERSION="v${VERSION_PARTS[0]}.$NEXT_MINOR_VERSION"
+          fi
+          echo "NEXT_VERSION=${NEXT_VERSION}" >> $GITHUB_ENV
+
+      - name: Create new tag
+        id: create_tag
+        run: |
+          git tag ${{ env.NEXT_VERSION }}
+          git push origin ${{ env.NEXT_VERSION }}
+
+      - name: Download Windows Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-StandaloneWindows
+          path: build
+
+      - name: Download Android Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-Android
+          path: build
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.NEXT_VERSION }}
+          release_name: Release ${{ env.NEXT_VERSION }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Windows Build to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/StandaloneWindows
+          asset_name: build-StandaloneWindows-${{ env.NEXT_VERSION }}.zip
+          asset_content_type: application/zip
+
+      - name: Upload Android Build to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/Android
+          asset_name: build-Android-${{ env.NEXT_VERSION }}.zip
+          asset_content_type: application/zip

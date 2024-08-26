@@ -16,4 +16,5 @@ public class PreBuildSetup : IPreprocessBuildWithReport
 
         EditorBuildSettings.scenes = scenes;
     }
+
 }
