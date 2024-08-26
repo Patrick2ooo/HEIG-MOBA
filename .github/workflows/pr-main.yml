@@ -110,6 +110,9 @@ jobs:
           targetPlatform: StandaloneWindows
           projectPath: MOBA
 
+      - name: List build directory
+        run: ls -R build/StandaloneWindows
+
       - uses: actions/upload-artifact@v4
         with:
           name: build-StandaloneWindows
@@ -176,7 +179,10 @@ jobs:
 
       - name: Get latest tag
         id: get_latest_tag
-        run: echo "LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*')" >> $GITHUB_ENV
+        run: |
+          git fetch --tags  # Ensure all remote tags are fetched
+          LATEST_TAG=$(git tag --list 'v[0-9]*' --sort=-v:refname | head -n 1)
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
 
       - name: Calculate next version
         id: calculate_version
@@ -197,18 +203,20 @@ jobs:
         run: |
           git tag ${{ env.NEXT_VERSION }}
           git push origin ${{ env.NEXT_VERSION }}
+          
+      - name: List directories
+        run: ls
 
       - name: Download Windows Build Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build-StandaloneWindows
-          path: build
+        uses: actions/download-artifact@v4
+
+      - name: List directories
+        run: ls -R build-StandaloneWindows
 
       - name: Download Android Build Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-Android
-          path: build
 
       - name: Create GitHub Release
         id: create_release
@@ -221,13 +229,19 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Zip build-StandaloneWindows directory
+        run: zip -r build-StandaloneWindows-${{ env.NEXT_VERSION }}.zip build-StandaloneWindows
+
+      - name: Zip build-StandaloneWindows directory
+        run: zip -r build-Android-${{ env.NEXT_VERSION }}.zip build-Android
+
       - name: Upload Windows Build to Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/StandaloneWindows
+          asset_path: build-StandaloneWindows-${{ env.NEXT_VERSION }}.zip
           asset_name: build-StandaloneWindows-${{ env.NEXT_VERSION }}.zip
           asset_content_type: application/zip
 
@@ -237,6 +251,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/Android
+          asset_path: build-Android-${{ env.NEXT_VERSION }}.zip
           asset_name: build-Android-${{ env.NEXT_VERSION }}.zip
           asset_content_type: application/zip
