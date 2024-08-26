@@ -4,6 +4,7 @@
 
 # If you have folders named "obj", "library" or "temp", they will always be ignored wherever they are in the project.
 # If you want to avoid this, remove the "**" and replace it with the real folder name.
+MOBA/.idea
 .github/workflows/.idea/
 MOBA/[Ll]ibrary/*
 # Un-ignore all .asset files in the Library folder
