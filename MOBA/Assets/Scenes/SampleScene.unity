@@ -354,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minionPrefab: {fileID: 6345224438961536523, guid: 1476b468db205ec44a41019031901538, type: 3}
   leftSideSpawner: {x: 0, y: 0, z: 0}
-  rightSideSpawner: {x: 0, y: 0, z: 0}
+  rightSideSpawner: {x: 5, y: 0, z: 0}
 --- !u!4 &932198576
 Transform:
   m_ObjectHideFlags: 0
@@ -401,7 +401,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1283322892}
-  status: 0
 --- !u!1 &1283322889
 GameObject:
   m_ObjectHideFlags: 0

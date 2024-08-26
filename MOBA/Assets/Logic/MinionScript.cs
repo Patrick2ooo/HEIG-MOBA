@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Normal.Realtime;
 
 public class MinionScript : Entity
 {
@@ -34,7 +35,7 @@ public class MinionScript : Entity
         base.Update();
         if (model.health <= 0)
         {
-            Destroy(gameObject);
+            Realtime.Destroy(gameObject);
         }
     }
 }

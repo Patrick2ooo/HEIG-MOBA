@@ -48,7 +48,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     {
         if (health <= 0)
         {
-            Destroy(this);
+            Realtime.Destroy(gameObject);
         }
     }
 
