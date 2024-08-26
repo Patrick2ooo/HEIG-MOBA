@@ -20,18 +20,19 @@ public class MinionScript : Entity
     }
 
     // Start is called before the first frame update
+
     void Start()
     {
         _agent = this.GetComponent<NavMeshAgent>();
         _agent.SetDestination(destination);
-        Health = 10;
+        model.health = 10;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        if (Health <= 0)
+        if (model.health <= 0)
         {
             Destroy(gameObject);
         }

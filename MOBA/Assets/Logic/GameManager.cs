@@ -27,10 +27,10 @@ public class GameLogic : MonoBehaviour
             {
                 MinionScript minionLeft = Instantiate(minionPrefab, leftSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                 minionLeft.destination = rightSideSpawner;
-                minionLeft.side = 0;
+                minionLeft.setSide(0);
                 MinionScript minionRight = Instantiate(minionPrefab, rightSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                 minionRight.destination = leftSideSpawner;
-                minionRight.side = 1;
+                minionRight.setSide(1);
             }
         }
     }
