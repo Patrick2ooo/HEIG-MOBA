@@ -69,7 +69,6 @@ jobs:
           
   buildAndroid:
     needs: testRunner
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Build for Android 📱
     runs-on: ubuntu-latest
     strategy:
