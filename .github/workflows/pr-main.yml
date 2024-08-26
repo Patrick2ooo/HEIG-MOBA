@@ -11,7 +11,6 @@ on:
 
 jobs:
   testRunner:
-    if: github.event_name == 'pull_request'
     name: Test in ${{ matrix.testMode }} ✨
     runs-on: ubuntu-latest
     strategy:
