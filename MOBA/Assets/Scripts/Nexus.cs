@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Nexus : Entity
 {
-
-    public Image ImgHealthBar;
-
+    protected float HealthRegen = 20, RegTimer;
     public override int GetGoldBounty()
     {
         return 0;
@@ -20,12 +17,16 @@ public class Nexus : Entity
 
     void Start()
     {
-        MaxHealth = 100;   
-        Health = 100;
+        MaxHealth = 5500;   
+        Health = 5500;
     }
 
-    void Update()
-    {
-        ImgHealthBar.fillAmount = GetHealthPercent();
+    void Update() {
+        base.Update();
+        RegTimer += Time.deltaTime;
+        while (RegTimer > 1) {
+            Health = Health >= MaxHealth ? Health : Health + HealthRegen;
+            --RegTimer;
+        }
     }
 }
