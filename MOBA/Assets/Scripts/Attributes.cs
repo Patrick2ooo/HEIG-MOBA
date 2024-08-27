@@ -12,6 +12,7 @@ public partial class Attributes
     
     // local variables
     public float ExpTimer;
+    public float RegenTimer;
     
     public List<Character> LastHitters;
     protected Item[] Items;

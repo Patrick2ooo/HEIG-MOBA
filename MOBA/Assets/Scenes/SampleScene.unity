@@ -122,6 +122,83 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &33234988
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 368701239946718509, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: _realtime
+      value: 
+      objectReference: {fileID: 932198577}
+    - target: {fileID: 368701239946718509, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: _viewUUID
+      value: 2305a0eb-c9c8-484a-a84a-95512224af62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122207053630550600, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_Name
+      value: Nexus
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006348234079886196, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: _realtime
+      value: 
+      objectReference: {fileID: 932198577}
+    - target: {fileID: 5006348234079886196, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: _viewUUID
+      value: b15dcab9-a6a4-43be-a68e-56d3976233f4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602848628010192798, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8865416744682466950, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
 --- !u!1 &144247755
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +555,8 @@ MonoBehaviour:
   - componentID: 1
     component: {fileID: 0}
   - componentID: 2
+    component: {fileID: 0}
+  - componentID: 3
     component: {fileID: 932198580}
   _childViews: []
 --- !u!114 &932198580
@@ -686,7 +765,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9415d5fbf987e4d47b3c90bea3a0d824, type: 2}
+  - {fileID: 2100000, guid: b2fe7747ff278ff499d00917d23a8277, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -805,3 +884,4 @@ SceneRoots:
   - {fileID: 144247759}
   - {fileID: 1283322893}
   - {fileID: 533291048}
+  - {fileID: 33234988}
