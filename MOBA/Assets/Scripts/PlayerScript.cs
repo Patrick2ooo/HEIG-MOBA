@@ -35,12 +35,20 @@ public class PlayerScript : Character
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
-        AttackRange = 1.5f;
-        Attack = 2;
-        AttackPerLevel = 1;
+        model.attackRange = 1.5f;
+        model.attack = 2;
+        model.attackPerLevel = 1;
         if (_view.isOwnedLocallyInHierarchy)
         {
             GetComponent<RealtimeTransform>().RequestOwnership();
+        }
+    }
+
+    protected override void updateHealth(Attributes updated, float health)
+    {
+        if (health <= 0)
+        {
+            Realtime.Destroy(transform.parent.gameObject);
         }
     }
 
@@ -64,12 +72,12 @@ public class PlayerScript : Character
                         case CharactersLayer:
                             Target = hit.collider.gameObject.GetComponent<Entity>();
                             Vector3 pos = Target.transform.position;
-                            if (Target.side == side)
+                            /*if (Target.side == side)
                             {
                                 Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100, ~(1 << CharactersLayer));
                                 pos = hit.point;
                                 Target = null;
-                            }
+                            }*/
                             nav.SetDestination(pos);
                             break;
                     }
@@ -77,7 +85,7 @@ public class PlayerScript : Character
             }
             if (Target)
             {
-                if (Vector3.Distance(transform.position, Target.transform.position) <= AttackRange)
+                if (Vector3.Distance(transform.position, Target.transform.position) <= model.attackRange)
                 {
                     // logique d'attaque
                     nav.ResetPath();

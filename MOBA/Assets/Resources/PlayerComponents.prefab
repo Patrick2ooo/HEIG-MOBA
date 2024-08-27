@@ -165,6 +165,10 @@ MonoBehaviour:
   _components:
   - componentID: 1
     component: {fileID: 3822780306671334400}
+  - componentID: 2
+    component: {fileID: 0}
+  - componentID: 3
+    component: {fileID: 4985629926127907490}
   _childViews: []
 --- !u!114 &3822780306671334400
 MonoBehaviour:
@@ -189,3 +193,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 509067127613039823, guid: eb1f10042e879774e9361decdec21944, type: 3}
   m_PrefabInstance: {fileID: 1647716304576772369}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4985629926127907490 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6047588003768159155, guid: eb1f10042e879774e9361decdec21944, type: 3}
+  m_PrefabInstance: {fileID: 1647716304576772369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815289690268038004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff148448f1829ad45952120336ef05bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -398,9 +398,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932198576}
-  - component: {fileID: 932198575}
   - component: {fileID: 932198577}
   - component: {fileID: 932198578}
+  - component: {fileID: 932198579}
+  - component: {fileID: 932198580}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -408,21 +409,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &932198575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932198574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5def0a692285abd4e9394fde6692aa49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minionPrefab: {fileID: 6345224438961536523, guid: 1476b468db205ec44a41019031901538, type: 3}
-  leftSideSpawner: {x: 0, y: 0, z: 0}
-  rightSideSpawner: {x: 0, y: 0, z: 0}
 --- !u!4 &932198576
 Transform:
   m_ObjectHideFlags: 0
@@ -469,7 +455,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1283322892}
-  status: 0
+--- !u!114 &932198579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932198574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -363599832, guid: ebae63e7edba59945a994528ada1f7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _realtime: {fileID: 932198577}
+  _sceneViewUUID: 
+  _viewUUID: 177adaba-ac08-4f12-8f05-068ccd59ea82
+  _sceneViewPreventOwnershipTakeover: 0
+  _sceneViewDestroyWhenOwnerOrLastClientLeaves: 1
+  _sceneViewDestroyWhenOwnerOrLastClientLeavesMigrated: 1
+  _sceneViewDestroyWhenLastClientLeaves: 1
+  _components:
+  - componentID: 1
+    component: {fileID: 0}
+  - componentID: 2
+    component: {fileID: 932198580}
+  _childViews: []
+--- !u!114 &932198580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932198574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5def0a692285abd4e9394fde6692aa49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minionPrefab: {fileID: 6345224438961536523, guid: 1476b468db205ec44a41019031901538, type: 3}
+  leftSideSpawner: {x: 0, y: 0, z: 0}
+  rightSideSpawner: {x: 5, y: 0, z: 0}
 --- !u!1 &1283322889
 GameObject:
   m_ObjectHideFlags: 0
