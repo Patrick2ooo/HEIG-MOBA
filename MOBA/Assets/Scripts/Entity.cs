@@ -26,6 +26,10 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         return model.health / model.maxHealth;
     }
 
+    public float GetSide() {
+        return model.side;
+    }
+
     protected override void OnRealtimeModelReplaced(Attributes previousModel, Attributes currentModel)
     {
         base.OnRealtimeModelReplaced(previousModel, currentModel);

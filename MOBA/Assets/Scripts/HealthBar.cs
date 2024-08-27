@@ -10,6 +10,8 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         Parent = transform.parent.transform;
+        transform.GetChild(1).GetComponent<Image>().color = Parent.GetComponent<Entity>().GetSide() == 0 ? Color.green : Color.red;
+
         transform.GetChild(1).GetComponent<Image>().fillAmount = Parent.GetComponent<Entity>().GetHealthPercent();
         transform.position = Parent.position;
         transform.rotation = Quaternion.Inverse(Parent.rotation);
