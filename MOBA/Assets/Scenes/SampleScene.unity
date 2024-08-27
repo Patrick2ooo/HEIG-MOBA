@@ -410,7 +410,7 @@ MonoBehaviour:
   - componentID: 1
     component: {fileID: 0}
   - componentID: 2
-    component: {fileID: 932198580}
+    component: {fileID: 0}
   _childViews: []
 --- !u!114 &932198580
 MonoBehaviour:
@@ -421,12 +421,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 932198574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5def0a692285abd4e9394fde6692aa49, type: 3}
+  m_Script: {fileID: 11500000, guid: d9dee65db197eba4b957d0e6ea6f6564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minionPrefab: {fileID: 6345224438961536523, guid: 1476b468db205ec44a41019031901538, type: 3}
-  leftSideSpawner: {x: 0, y: 0, z: 0}
-  rightSideSpawner: {x: 5, y: 0, z: 0}
 --- !u!1 &1283322889
 GameObject:
   m_ObjectHideFlags: 0

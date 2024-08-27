@@ -49,20 +49,9 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
             model.time = realtime.roomTime;
         }
         
-        // Debug.Log(model.minionWaves);
-        
         if ((model.minionWaves + 1) * 10 < time)
         {
-            Debug.Log(model.isOwnedLocallyInHierarchy);
-            Debug.Log(model.isOwnedLocallySelf);
-            Debug.Log(model.isOwnedRemotelySelf);
-            Debug.Log(model.isOwnedRemotelyInHierarchy);
-            Debug.Log(model.preventOwnershipTakeover);
             model.RequestOwnership(true);
-            Debug.Log(model.isOwnedLocallyInHierarchy);
-            Debug.Log(model.isOwnedLocallySelf);
-            Debug.Log(model.isOwnedRemotelySelf);
-            Debug.Log(model.isOwnedRemotelyInHierarchy);
             if (model.isOwnedLocallyInHierarchy && (model.minionWaves + 1) * 10 < time)
             {
                 model.minionWaves += 1;
