@@ -11,7 +11,7 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
     
     public Vector3 leftSideSpawner, rightSideSpawner;
 
-    private bool timeSet = false, ownershipSet = false;
+    private bool timeSet = false;
 
     public double time
     {
@@ -48,14 +48,8 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
             timeSet = true;
             model.time = realtime.roomTime;
         }
-
-        if (!ownershipSet)
-        {
-            model.preventOwnershipTakeover = true;
-            ownershipSet = true;
-        }
         
-        Debug.Log(model.minionWaves);
+        // Debug.Log(model.minionWaves);
         
         if ((model.minionWaves + 1) * 10 < time)
         {
@@ -63,6 +57,7 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
             Debug.Log(model.isOwnedLocallySelf);
             Debug.Log(model.isOwnedRemotelySelf);
             Debug.Log(model.isOwnedRemotelyInHierarchy);
+            Debug.Log(model.preventOwnershipTakeover);
             model.RequestOwnership(true);
             Debug.Log(model.isOwnedLocallyInHierarchy);
             Debug.Log(model.isOwnedLocallySelf);
