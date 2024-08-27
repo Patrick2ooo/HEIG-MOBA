@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Logic;
 using Normal.Realtime;
 using UnityEngine;
 
-public class GameLogic : MonoBehaviour
+public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 {
     public GameObject minionPrefab;
 
@@ -14,9 +15,31 @@ public class GameLogic : MonoBehaviour
     
     public Vector3 leftSideSpawner, rightSideSpawner;
 
+    public float time
+    {
+        get
+        {
+            if (model == null)
+            {
+                return 0.0f;
+            }
+            if (model.time == 0.0f)
+            {
+                return 0.0f;
+            }
+            return (float) realtime.roomTime - model.time;
+        }
+    }
+
+    protected override void OnRealtimeModelReplaced(NormcoreTimer previousModel, NormcoreTimer currentModel)
+    {
+        base.OnRealtimeModelReplaced(previousModel, currentModel);
+    }
+
     private void Awake()
     {
         _realtime = GetComponent<Realtime>();
+        Debug.Log(time);
     }
 
     // Start is called before the first frame update
@@ -28,6 +51,12 @@ public class GameLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (time == 0 && realtime.roomTime != 0)
+        {
+            Debug.Log("changed");
+            model.time = (float) realtime.roomTime;
+        }
+        // Debug.Log(realtime.roomTime);
         _spawnerTimer += Time.deltaTime;
         if (_spawnerTimer > 10)
         {
