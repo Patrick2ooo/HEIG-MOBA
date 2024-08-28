@@ -5,11 +5,8 @@ using Scripts;
 
 public class CravacheSevere : Item
 {
-    public int GetAttack() {
-        return 50;
-    }
-
-    public string GetName() {
-        return "Item";
+    public void init() {
+        attack = 50;
+        name = "Cravache Sévère";
     }
 }

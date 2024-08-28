@@ -7,17 +7,21 @@ namespace Scripts
 {
 
     public class Item : MonoBehaviour {
+
+        protected string name;
+        protected int attack;
+        protected int health;
         
         void start() {
             
         }
 
         public int GetAttack() {
-            return 0;
+            return attack;
         }
 
         public int GetHealth() {
-            return 0;
+            return health;
         }
         
         public bool IsActivable() {
@@ -25,7 +29,7 @@ namespace Scripts
         }
 
         public string GetName() {
-            return "Item";
+            return name;
         }
         
         void Update() {

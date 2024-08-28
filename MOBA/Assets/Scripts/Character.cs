@@ -41,10 +41,8 @@ public abstract class Character : Entity
         }
         if (nextEmptyEmplacement == -1) return false;
 
-        GameObject itemGO = Realtime.Instantiate(prefabName: "Cravache Sévère", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
+        GameObject itemGO = Realtime.Instantiate(prefabName: item.GetName(), ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
         itemGO.transform.SetParent(transform.Find("Inventory"));
-        Item item = itemGO.transform.Find(itemName).GetComponent<Item>();
-        Debug.Log("Item game object done. Item:" + item.GetName());
         Inventory[nextEmptyEmplacement] = item;
         
         model.attack += item.GetAttack();
@@ -80,15 +78,13 @@ public abstract class Character : Entity
         base.Update();
         model.ExpTimer += Time.deltaTime;
 
-        //For test only
-            AcquireAnItem("Cravache Sévère");
-
         while (model.ExpTimer > 1)
         {
             ++(model.exp);
             --(model.ExpTimer);
             //For test only
-            Item item = gameObject.AddComponent<CravacheSevere>();
+            CravacheSevere item = gameObject.AddComponent<CravacheSevere>();
+            item.init();
             if(!AcquireAnItem(item)) Destroy(item);
         }
         if (model.level < 12 && model.exp > Levels[model.level])
