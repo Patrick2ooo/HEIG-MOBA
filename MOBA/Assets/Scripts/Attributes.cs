@@ -8,15 +8,14 @@ using UnityEngine;
 public partial class Attributes
 {
     // constants
-    public const int MaxLevel = 12, PassiveGold = 1, PassiveExp = 1;
+    public const int MaxLevel = 12, PassiveGold = 1, PassiveExp = 1, NbInventorySlots = 6;
     
     // local variables
     public float ExpTimer;
     public float RegenTimer;
     
     public List<Character> LastHitters;
-    protected Item[] Items;
-    protected Entity Target;
+    public Entity Target;
     
     // synched variables
     [RealtimeProperty(1, true, true)] private float _health = 1;

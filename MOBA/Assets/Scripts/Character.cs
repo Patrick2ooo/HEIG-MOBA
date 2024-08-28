@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Scripts;
 using UnityEngine;
+using Scripts;
 
 public abstract class Character : Entity
 {
     protected static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
     
-    protected Item[] Items;
-
-    protected Entity Target;
+    protected Item[] Inventory;
 
     protected void DealAutoDamage(Entity target)
     {
@@ -18,7 +16,7 @@ public abstract class Character : Entity
 
     public void SetTarget(Entity target)
     {
-        Target = target;
+        model.Target = target;
     }
 
     protected void LevelUp()
@@ -30,14 +28,48 @@ public abstract class Character : Entity
         model.health += model.healthPerLevel * GetHealthPercent();
         model.maxHealth += model.healthPerLevel;
     }
+
+    protected bool AcquireAnItem(Item item) {
+        int nextEmptyEmplacement = -1;
+        for(int i = 0; i < Attributes.NbInventorySlots; ++i) {
+            if(Inventory[i] == null) {
+                nextEmptyEmplacement = i;
+                break;
+            }
+        }
+        if (nextEmptyEmplacement == -1) return false;
+
+        model.attack += item.GetAttack();
+        model.health += item.GetHealth();
+        model.maxHealth += item.GetHealth();
+
+        Inventory[nextEmptyEmplacement] = item;
+
+        /*
+        if (item.IsActivable()) ADD AN ACTIVE BUTTON and all of that
+        */
+
+        return true;
+    }
+
+    protected void DropAnItem(int itemEmplacement) {
+        model.attack -= Inventory[itemEmplacement].GetAttack();
+        model.health -= Inventory[itemEmplacement].GetHealth();
+        model.maxHealth -= Inventory[itemEmplacement].GetHealth();
+
+        /*
+        if (Inventory[itemEmplacement].IsActivable()) REMOVE THE RIGHT ACTIVE BUTTON and all of that
+        */
+
+        Inventory[itemEmplacement] = null;
+    }
     
-    // Start is called before the first frame update
     void Start()
     {
         model.ExpTimer = 0;
+        Inventory = new Item[Attributes.NbInventorySlots];
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         base.Update();
@@ -46,10 +78,14 @@ public abstract class Character : Entity
         {
             ++(model.exp);
             --(model.ExpTimer);
+            //For test only
+            AcquireAnItem(new CravacheSevere());
         }
         if (model.level < 12 && model.exp > Levels[model.level])
         {
             LevelUp();
         }
+
+        Debug.Log("Attack:"+ model.attack);
     }
 }

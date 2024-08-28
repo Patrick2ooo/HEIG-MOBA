@@ -67,33 +67,33 @@ public class PlayerScript : Character
                         case MapLayer:
                             if(icon) Instantiate(icon, hit.point + Offset, Quaternion.identity);
                             nav.SetDestination(hit.point);
-                            Target = null;
+                            model.Target = null;
                             break;
                         case CharactersLayer:
-                            Target = hit.collider.gameObject.GetComponent<Entity>();
-                            Vector3 pos = Target.transform.position;
-                            /*if (Target.side == side)
+                            model.Target = hit.collider.gameObject.GetComponent<Entity>();
+                            Vector3 pos = model.Target.transform.position;
+                            /*if (model.Target.side == side)
                             {
                                 Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100, ~(1 << CharactersLayer));
                                 pos = hit.point;
-                                Target = null;
+                                model.Target = null;
                             }*/
                             nav.SetDestination(pos);
                             break;
                     }
                 }
             }
-            if (Target)
+            if (model.Target)
             {
-                if (Vector3.Distance(transform.position, Target.transform.position) <= model.attackRange)
+                if (Vector3.Distance(transform.position, model.Target.transform.position) <= model.attackRange)
                 {
                     // logique d'attaque
                     nav.ResetPath();
-                    DealAutoDamage(Target);
+                    DealAutoDamage(model.Target);
                 }
                 else
                 {
-                    nav.SetDestination(Target.transform.position);
+                    nav.SetDestination(model.Target.transform.position);
                 }
             }
         }
