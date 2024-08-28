@@ -77,7 +77,7 @@ public abstract class Character : Entity
     {
         model.ExpTimer = 0;
         Inventory = new Item[Attributes.NbInventorySlots];
-        for (int i = 0; i; i < Attributes.NbInventorySlots; ++int) Inventory[i] = null;
+        for (int i = 0; i < Attributes.NbInventorySlots; ++i) Inventory[i] = null;
     }
 
     protected virtual void Update()
