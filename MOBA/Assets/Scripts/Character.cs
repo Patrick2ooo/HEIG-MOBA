@@ -7,7 +7,7 @@ public abstract class Character : Entity
 {
     protected static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
     
-    protected Item[] Inventory;
+    protected Item[] Inventory = new Item[Attributes.NbInventorySlots];
 
     protected void DealAutoDamage(Entity target)
     {
@@ -30,10 +30,12 @@ public abstract class Character : Entity
     }
 
     protected bool AcquireAnItem(Item item) {
+        Debug.Log("new item given");
         int nextEmptyEmplacement = -1;
         for(int i = 0; i < Attributes.NbInventorySlots; ++i) {
             if(Inventory[i] == null) {
                 nextEmptyEmplacement = i;
+                Debug.Log(i);
                 break;
             }
         }
@@ -67,7 +69,6 @@ public abstract class Character : Entity
     void Start()
     {
         model.ExpTimer = 0;
-        Inventory = new Item[Attributes.NbInventorySlots];
     }
 
     protected virtual void Update()
@@ -79,13 +80,12 @@ public abstract class Character : Entity
             ++(model.exp);
             --(model.ExpTimer);
             //For test only
-            AcquireAnItem(new CravacheSevere());
+            Item item = gameObject.AddComponent<CravacheSevere>();
+            if(!AcquireAnItem(item)) Destroy(item);
         }
         if (model.level < 12 && model.exp > Levels[model.level])
         {
             LevelUp();
         }
-
-        Debug.Log("Attack:"+ model.attack);
     }
 }
