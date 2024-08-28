@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Normal.Realtime;
 using Scripts;
 
 public abstract class Character : Entity
@@ -28,24 +30,26 @@ public abstract class Character : Entity
         model.health += model.healthPerLevel * GetHealthPercent();
         model.maxHealth += model.healthPerLevel;
     }
-
+    
     protected bool AcquireAnItem(Item item) {
-        Debug.Log("new item given");
         int nextEmptyEmplacement = -1;
         for(int i = 0; i < Attributes.NbInventorySlots; ++i) {
             if(Inventory[i] == null) {
                 nextEmptyEmplacement = i;
-                Debug.Log(i);
                 break;
             }
         }
         if (nextEmptyEmplacement == -1) return false;
 
+        GameObject itemGO = Realtime.Instantiate(prefabName: "Cravache Sévère", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
+        itemGO.transform.SetParent(transform.Find("Inventory"));
+        Item item = itemGO.transform.Find(itemName).GetComponent<Item>();
+        Debug.Log("Item game object done. Item:" + item.GetName());
+        Inventory[nextEmptyEmplacement] = item;
+        
         model.attack += item.GetAttack();
         model.health += item.GetHealth();
         model.maxHealth += item.GetHealth();
-
-        Inventory[nextEmptyEmplacement] = item;
 
         /*
         if (item.IsActivable()) ADD AN ACTIVE BUTTON and all of that
@@ -55,15 +59,15 @@ public abstract class Character : Entity
     }
 
     protected void DropAnItem(int itemEmplacement) {
-        model.attack -= Inventory[itemEmplacement].GetAttack();
+        /*model.attack -= Inventory[itemEmplacement].GetAttack();
         model.health -= Inventory[itemEmplacement].GetHealth();
-        model.maxHealth -= Inventory[itemEmplacement].GetHealth();
+        model.maxHealth -= Inventory[itemEmplacement].GetHealth();*/
 
         /*
         if (Inventory[itemEmplacement].IsActivable()) REMOVE THE RIGHT ACTIVE BUTTON and all of that
         */
 
-        Inventory[itemEmplacement] = null;
+        //Inventory[itemEmplacement] = null;
     }
     
     void Start()
@@ -75,6 +79,10 @@ public abstract class Character : Entity
     {
         base.Update();
         model.ExpTimer += Time.deltaTime;
+
+        //For test only
+            AcquireAnItem("Cravache Sévère");
+
         while (model.ExpTimer > 1)
         {
             ++(model.exp);

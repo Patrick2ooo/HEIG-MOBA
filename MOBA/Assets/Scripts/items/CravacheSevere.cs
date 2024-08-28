@@ -8,4 +8,8 @@ public class CravacheSevere : Item
     public int GetAttack() {
         return 50;
     }
+
+    public string GetName() {
+        return "Item";
+    }
 }
