@@ -27,6 +27,7 @@ public class MinionScript : Entity
         _agent = this.GetComponent<NavMeshAgent>();
         _agent.SetDestination(destination);
         model.health = 10;
+        radius = 0.4f;
     }
 
     // Update is called once per frame

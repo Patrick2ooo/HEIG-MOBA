@@ -11,6 +11,8 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     public abstract int GetGoldBounty();
     public abstract int GetExpBounty();
 
+    public float radius;
+
     public float GetMaxHealth()
     {
         return model.maxHealth;
@@ -26,7 +28,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         return model.health / model.maxHealth;
     }
 
-    public float GetSide() {
+    public ushort GetSide() {
         return model.side;
     }
 
