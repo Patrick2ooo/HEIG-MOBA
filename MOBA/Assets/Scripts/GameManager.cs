@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     
     private void DidConnect(Realtime realtime)
     {
-        Realtime.Instantiate(prefabName: "MinionSpawner", preventOwnershipTakeover: true, useInstance: realtime);
+        if (GameObject.FindWithTag("minionSpawner") == null)
+        {
+            Realtime.Instantiate(prefabName: "MinionSpawner", preventOwnershipTakeover: true, useInstance: realtime);
+        } 
     }
 }
