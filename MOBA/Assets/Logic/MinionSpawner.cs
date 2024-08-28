@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 {
+    private const double cycleLength = 60;
+    
     private Realtime _realtime;
     
     public Vector3 leftSideSpawner, rightSideSpawner;
@@ -55,7 +57,9 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
             if (model.isOwnedLocallyInHierarchy && (model.minionWaves + 1) * 10 < time)
             {
                 model.minionWaves += 1;
-                for (int i = 0; i < 5; ++i)
+                int minionsToSpawn = 1;
+                if (time % (2 * cycleLength) >= cycleLength) minionsToSpawn *= 2;
+                for (int i = 0; i < minionsToSpawn; ++i)
                 {
                     MinionScript minionLeft = Realtime.Instantiate("Minion", leftSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                     minionLeft.destination = rightSideSpawner;
