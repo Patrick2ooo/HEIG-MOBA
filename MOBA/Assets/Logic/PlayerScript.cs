@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using Normal.Realtime;
 
 public class PlayerScript : Character
 {
@@ -15,6 +16,9 @@ public class PlayerScript : Character
     public NavMeshAgent nav;
     private static readonly Vector3 Offset = new(0, 0.1f, 0);
     private RealtimeView _view;
+    private Realtime _realtime;
+
+    public GameObject projectile; 
 
     private void Awake()
     {
@@ -38,6 +42,7 @@ public class PlayerScript : Character
         AttackRange = 1.5f;
         Attack = 2;
         AttackPerLevel = 1;
+        _realtime = GetComponent<Realtime>();
         if (_view.isOwnedLocallyInHierarchy)
         {
             GetComponent<RealtimeTransform>().RequestOwnership();
@@ -52,7 +57,10 @@ public class PlayerScript : Character
             base.Update();
             if (Input.GetMouseButton(0))
             {
-                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+                // Create a layer mask that ignores the "Tower" layer
+                int layerMask = ~(1 << LayerMask.NameToLayer("Tower"));
+
+                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, layerMask))
                 {
                     switch (hit.collider.gameObject.layer)
                     {
@@ -88,6 +96,27 @@ public class PlayerScript : Character
                     nav.SetDestination(Target.transform.position);
                 }
             }
+            // if to change later (it should shoot when it's a tower, a player or a minion)
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    Vector3 targetPosition = hit.point;
+                    targetPosition.y = transform.position.y;
+                
+                    Vector3 direction = (targetPosition - transform.position).normalized;
+                    Vector3 spawnPosition = transform.position + direction * 1.0f;
+
+                    // Instantiate the projectile   
+                    GameObject proj = Realtime.Instantiate("Projectile", spawnPosition, Quaternion.LookRotation(targetPosition - transform.position), preventOwnershipTakeover: true, useInstance: _realtime);
+
+                    // Set the direction of the projectile
+                    ProjectileScript projScript = proj.GetComponent<ProjectileScript>();
+                    projScript.SetDirection((targetPosition - transform.position).normalized);
+                }
+            }
         }
+
     }
 }
