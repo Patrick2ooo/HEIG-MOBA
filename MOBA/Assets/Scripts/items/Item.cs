@@ -23,6 +23,10 @@ namespace Scripts
         public bool IsActivable() {
             return false;
         }
+
+        public string GetName() {
+            return "Item";
+        }
         
         void Update() {
             
