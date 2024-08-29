@@ -25,6 +25,7 @@ public class PlayerSpawner : MonoBehaviour
         PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
         player.mainCamera = _camera;
         _camera.GetComponent<CameraScript>().target = player.transform;
+        player.InitInventory();
         Instantiate(UI);
         if(GameObject.FindWithTag("spellA") != null) Debug.Log("fine");
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);

@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Scripts;
 using Normal.Realtime;
+using Normal.Realtime.Serialization;
 using UnityEngine;
 
 [RealtimeModel]
 public partial class Attributes
 {
     // constants
-    public const int MaxLevel = 12, PassiveGold = 1, PassiveExp = 1;
+    public const int MaxLevel = 12, PassiveGold = 1, PassiveExp = 1, NbInventorySlots = 6;
     
     // local variables
     public float ExpTimer;
     public float RegenTimer;
     
     public List<Character> LastHitters;
-    protected Item[] Items;
-    protected Entity Target;
+    public Entity Target;
     
     // synched variables
     [RealtimeProperty(1, true, true)] private float _health = 1;
@@ -54,4 +54,5 @@ public partial class Attributes
     [RealtimeProperty(33, false, true)] private float _manaRegenPerLevel;
     [RealtimeProperty(34, true, true)] private float _moveSpeed;
     [RealtimeProperty(35, false, true)] private string _name;
+    [RealtimeProperty(36, true, true)] private RealtimeDictionary<Item> _inventory;
 }

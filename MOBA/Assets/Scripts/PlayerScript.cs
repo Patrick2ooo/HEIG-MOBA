@@ -114,7 +114,7 @@ public class PlayerScript : Character
                     }
                 }
             }
-            if (Target)
+            if (model.Target)
             {
                 if (Vector3.Distance(transform.position, Target.transform.position) - radius - Target.radius <= model.attackRange)
                 {
@@ -125,7 +125,7 @@ public class PlayerScript : Character
                 }
                 else
                 {
-                    nav.SetDestination(Target.transform.position);
+                    nav.SetDestination(model.Target.transform.position);
                 }
             }
         }
