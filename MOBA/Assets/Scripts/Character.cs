@@ -34,7 +34,7 @@ public abstract class Character : Entity
     protected bool AcquireAnItem(Item item) {
         int nextEmptyEmplacement = -1;
         for(int i = 0; i < Attributes.NbInventorySlots; ++i) {
-            if(Inventory[i] == null) {
+            if(!(Inventory == null) && Inventory[i] == null) {
                 nextEmptyEmplacement = i;
                 break;
             }
@@ -57,20 +57,25 @@ public abstract class Character : Entity
     }
 
     protected void DropAnItem(int itemEmplacement) {
-        /*model.attack -= Inventory[itemEmplacement].GetAttack();
-        model.health -= Inventory[itemEmplacement].GetHealth();
-        model.maxHealth -= Inventory[itemEmplacement].GetHealth();*/
+        if (Inventory == null || Inventory[itemEmplacement] == null) return;
 
         /*
         if (Inventory[itemEmplacement].IsActivable()) REMOVE THE RIGHT ACTIVE BUTTON and all of that
         */
 
-        //Inventory[itemEmplacement] = null;
+        model.attack -= Inventory[itemEmplacement].GetAttack();
+        model.health -= Inventory[itemEmplacement].GetHealth();
+        model.maxHealth -= Inventory[itemEmplacement].GetHealth();
+
+        Transform parent = transform.Find("Inventory");
+        GameObject itemGO = parent.Find(Inventory[itemEmplacement].GetName()+"(Clone)").gameObject;
+        Destroy(itemGO);
+        Inventory[itemEmplacement] = null;
     }
     
     void Start()
     {
-        model.ExpTimer = 0;
+        model.ExpTimer = 0;   
     }
 
     protected virtual void Update()
@@ -85,7 +90,9 @@ public abstract class Character : Entity
             //For test only
             CravacheSevere item = gameObject.AddComponent<CravacheSevere>();
             item.init();
-            if(!AcquireAnItem(item)) Destroy(item);
+            AcquireAnItem(item);
+           
+           
         }
         if (model.level < 12 && model.exp > Levels[model.level])
         {
