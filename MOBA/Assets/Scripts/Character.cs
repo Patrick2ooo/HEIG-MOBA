@@ -34,7 +34,6 @@ public abstract class Character : Entity
             model.inventory.Add(i, new Item());
         }
 
-        //For test only
         AcquireAnItem("Cravache Sévère");
     }
     
@@ -94,9 +93,6 @@ public abstract class Character : Entity
         {
             ++(model.exp);
             --(model.ExpTimer);
-            
-            //For test only
-            DropAnItem(0);
         }
 
         if (model.level < 12 && model.exp > Levels[model.level])

@@ -30,7 +30,7 @@ namespace Scripts
                 case "Cravache Sévère":
                     return new CravacheSevere();
                 default:
-                    return null;
+                    return new Item();
             }
         }
     }
