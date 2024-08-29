@@ -5,8 +5,11 @@ using Scripts;
 
 public class CravacheSevere : Item
 {
-    public CravacheSevere() {
-        attack = 50;
-        name = "Cravache Sévère";
+    public override int GetAttack() {
+        return 50;
+    }
+
+    public override string GetName() {
+        return "Cravache Sévère";
     }
 }

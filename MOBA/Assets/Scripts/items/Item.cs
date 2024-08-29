@@ -6,26 +6,23 @@ using UnityEngine;
 namespace Scripts
 {
 
-    public class Item {
+    [RealtimeModel]
+    public partial class Item {
 
-        protected string name;
-        protected int attack;
-        protected int health;
-
-        public int GetAttack() {
-            return attack;
+        public virtual int GetAttack(){
+            return 0;
         }
 
-        public int GetHealth() {
-            return health;
+        public virtual int GetHealth() {
+            return 0;
         }
         
-        public bool IsActivable() {
+        public virtual bool IsActivable() {
             return false;
         }
 
-        public string GetName() {
-            return name;
+        public virtual string GetName() {
+            return "Item";
         }
 
         public static Item GetItemByName(string itemName) {

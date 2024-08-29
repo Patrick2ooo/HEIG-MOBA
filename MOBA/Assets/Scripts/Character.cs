@@ -8,8 +8,6 @@ using Scripts;
 public abstract class Character : Entity
 {
     protected static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
-    
-    protected Item[] Inventory = new Item[Attributes.NbInventorySlots];
 
     protected void DealAutoDamage(Entity target)
     {
@@ -30,23 +28,33 @@ public abstract class Character : Entity
         model.health += model.healthPerLevel * GetHealthPercent();
         model.maxHealth += model.healthPerLevel;
     }
+
+    public void InitInventory() {
+        for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
+            model.inventory.Add(i, new Item());
+        }
+
+        //For test only
+        AcquireAnItem("Cravache Sévère");
+    }
     
     protected bool AcquireAnItem(string itemName) {
-        if (model.inventory == null) model.inventory = new string[Attributes.NbInventorySlots];
-        int nextEmptyEmplacement = -1;
-        for(int i = 0; i < Attributes.NbInventorySlots; ++i) {
-            if(model.inventory[i] == null || model.inventory[i] == "") {
+        uint nextEmptyEmplacement = 6;
+        for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
+            if(model.inventory[i].GetName() == "Item") {
                 nextEmptyEmplacement = i;
                 break;
             }
         }
-        if (nextEmptyEmplacement == -1) return false;
 
-        model.inventory[nextEmptyEmplacement] = Item.GetItemByName(itemName).GetName();
+        if(nextEmptyEmplacement == 6) return false;
+
+        Item item = Item.GetItemByName(itemName);
+        model.inventory[nextEmptyEmplacement] = item;
         
-        model.attack += Item.GetItemByName(itemName).GetAttack();
-        model.health += Item.GetItemByName(itemName).GetHealth();
-        model.maxHealth += Item.GetItemByName(itemName).GetHealth();
+        model.attack += item.GetAttack();
+        model.health += item.GetHealth();
+        model.maxHealth += item.GetHealth();
 
         /*
         if (item.IsActivable()) ADD AN ACTIVE BUTTON and all of that
@@ -55,20 +63,20 @@ public abstract class Character : Entity
         return true;
     }
 
-    protected void DropAnItem(int itemEmplacement) {
-        if (model.inventory == null || model.inventory[itemEmplacement] == null || model.inventory[itemEmplacement] == "") return;
+    protected void DropAnItem(uint itemEmplacement) {
+        if (model.inventory[itemEmplacement].GetName() == "Item") return;
 
         /*
         if (Inventory[itemEmplacement].IsActivable()) REMOVE THE RIGHT ACTIVE BUTTON and all of that
         */
 
-        string itemName = model.inventory[itemEmplacement];
-        
-        model.attack -= Item.GetItemByName(itemName).GetAttack();
-        model.health -= Item.GetItemByName(itemName).GetHealth();
-        model.maxHealth -= Item.GetItemByName(itemName).GetHealth();
+        Item item = model.inventory[itemEmplacement];
 
-        model.inventory[itemEmplacement] = null;
+        model.attack -= item.GetAttack();
+        model.health -= item.GetHealth();
+        model.maxHealth -= item.GetHealth();
+
+        model.inventory[itemEmplacement] = new Item();
     }
     
     void Start()
@@ -79,6 +87,7 @@ public abstract class Character : Entity
     protected virtual void Update()
     {
         base.Update();
+
         model.ExpTimer += Time.deltaTime;
 
         while (model.ExpTimer > 1)
@@ -87,7 +96,7 @@ public abstract class Character : Entity
             --(model.ExpTimer);
             
             //For test only
-            AcquireAnItem("Cravache Sévère");
+            DropAnItem(0);
         }
 
         if (model.level < 12 && model.exp > Levels[model.level])

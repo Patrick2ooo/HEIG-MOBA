@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Scripts;
 using Normal.Realtime;
+using Normal.Realtime.Serialization;
 using UnityEngine;
 
 [RealtimeModel]
@@ -53,5 +54,5 @@ public partial class Attributes
     [RealtimeProperty(33, false, true)] private float _manaRegenPerLevel;
     [RealtimeProperty(34, true, true)] private float _moveSpeed;
     [RealtimeProperty(35, false, true)] private string _name;
-    [RealtimeProperty(36, true, true)] private string[] _inventory;
+    [RealtimeProperty(36, true, true)] private RealtimeDictionary<Item> _inventory;
 }

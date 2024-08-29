@@ -23,6 +23,7 @@ public class PlayerSpawner : MonoBehaviour
         PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
         player.mainCamera = _camera;
         _camera.GetComponent<CameraScript>().target = player.transform;
+        player.InitInventory();
     }
 
     // Start is called before the first frame update
