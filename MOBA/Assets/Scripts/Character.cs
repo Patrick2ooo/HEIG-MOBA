@@ -35,7 +35,7 @@ public abstract class Character : Entity
         if (model.inventory == null) model.inventory = new string[Attributes.NbInventorySlots];
         int nextEmptyEmplacement = -1;
         for(int i = 0; i < Attributes.NbInventorySlots; ++i) {
-            if(mode.inventory[i] == null || model.inventory[i] == "") {
+            if(model.inventory[i] == null || model.inventory[i] == "") {
                 nextEmptyEmplacement = i;
                 break;
             }

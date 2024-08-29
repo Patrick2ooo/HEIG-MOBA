@@ -11,10 +11,6 @@ namespace Scripts
         protected string name;
         protected int attack;
         protected int health;
-        
-        void start() {
-            
-        }
 
         public int GetAttack() {
             return attack;
@@ -30,10 +26,6 @@ namespace Scripts
 
         public string GetName() {
             return name;
-        }
-        
-        void Update() {
-            
         }
 
         public static Item GetItemByName(string itemName) {
