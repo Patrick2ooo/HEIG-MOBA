@@ -9,9 +9,9 @@ public abstract class Character : Entity
 {
     protected static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
 
-    protected virtual void DealAutoDamage(Entity target)
+    protected virtual bool DealAutoDamage(Entity target)
     {
-        target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        return target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
     }
 
     public void SetTarget(Entity target)
