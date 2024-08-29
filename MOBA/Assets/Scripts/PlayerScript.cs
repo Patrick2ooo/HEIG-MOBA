@@ -12,7 +12,7 @@ using UnityEngine.Serialization;
 public class PlayerScript : Character
 {
     public Camera mainCamera;
-    private const int MapLayer = 3, UILayer = 5, CharactersLayer = 6;
+    private const int MapLayer = 3, UILayer = 5, CharactersLayer = 6, ColliderLayer = 8;
     public GameObject icon;
     public NavMeshAgent nav;
     private static readonly Vector3 Offset = new(0, 0.1f, 0);
@@ -84,7 +84,7 @@ public class PlayerScript : Character
             base.Update();
             if (Input.GetMouseButton(0))
             {
-                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, layerMask:~(1 << ColliderLayer)))
                 {
                     var eventData = new PointerEventData(EventSystem.current);
                     eventData.position = Input.mousePosition;
@@ -148,8 +148,8 @@ public class PlayerScript : Character
         
     }
 
-    protected override void DealAutoDamage(Entity target)
+    protected override bool DealAutoDamage(Entity target)
     {
-        target.ReceiveDamage(this, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        return target.ReceiveDamage(this, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
     }
 }

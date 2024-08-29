@@ -9,13 +9,6 @@ public abstract class Character : Entity
     
     protected Item[] Items;
 
-    protected Entity Target;
-
-    protected virtual void DealAutoDamage(Entity target)
-    {
-        target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
-    }
-
     public void SetTarget(Entity target)
     {
         Target = target;

@@ -14,6 +14,12 @@ public abstract class Entity : RealtimeComponent<Attributes>{
 
     public float radius;
     public NavMeshAgent agent;
+    protected Entity Target;
+
+    protected virtual bool DealAutoDamage(Entity target)
+    {
+        return target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+    }
 
     public float GetMaxHealth()
     {
@@ -67,7 +73,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         agent.speed = speed;
     }
 
-    public bool ReceiveDamage(Character hitter, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
+    public bool ReceiveDamage(Entity hitter, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
     {
         if (model.health == 0) return false; // in case it happens that the entity receive damage after its death for whatever reason
         // dégâts reçus = dégâts de base * (pen + (1-pen) * 100 / (def + 100))

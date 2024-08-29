@@ -17,6 +17,7 @@ public class PlayerSpawner : MonoBehaviour
     {
         _realtime = GetComponent<Realtime>();
         _realtime.didConnectToRoom += DidConnect;
+        _realtime.didDisconnectFromRoom += Disconnect;
     }
     
     private void DidConnect(Realtime realtime)
@@ -26,10 +27,14 @@ public class PlayerSpawner : MonoBehaviour
         player.mainCamera = _camera;
         _camera.GetComponent<CameraScript>().target = player.transform;
         Instantiate(UI);
-        if(GameObject.FindWithTag("spellA") != null) Debug.Log("fine");
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
         GameObject.FindWithTag("spellC").GetComponent<Button>().onClick.AddListener(player.SpellC);
+    }
+
+    private void Disconnect(Realtime realtime)
+    {
+        if(GameObject.FindGameObjectsWithTag("Player").Length == 1) Realtime.Destroy(GameObject.FindWithTag("minionSpawner"));
     }
 
     // Start is called before the first frame update
