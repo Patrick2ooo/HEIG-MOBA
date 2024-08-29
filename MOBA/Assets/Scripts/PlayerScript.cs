@@ -97,16 +97,16 @@ public class PlayerScript : Character
                             case MapLayer:
                                 if(icon) Instantiate(icon, hit.point + Offset, Quaternion.identity);
                                 nav.SetDestination(hit.point);
-                                Target = null;
+                                model.Target = null;
                                 break;
                             case CharactersLayer:
-                                Target = hit.collider.gameObject.GetComponent<Entity>();
-                                Vector3 pos = Target.transform.position;
-                                if (Target.GetSide() == model.side)
+                                model.Target = hit.collider.gameObject.GetComponent<Entity>();
+                                Vector3 pos = model.Target.transform.position;
+                                if (model.Target.GetSide() == model.side)
                                 {
                                     Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100, ~(1 << CharactersLayer));
                                     pos = hit.point;
-                                    Target = null;
+                                    model.Target = null;
                                 }
                                 nav.SetDestination(pos);
                                 break;
@@ -116,11 +116,11 @@ public class PlayerScript : Character
             }
             if (model.Target)
             {
-                if (Vector3.Distance(transform.position, Target.transform.position) - radius - Target.radius <= model.attackRange)
+                if (Vector3.Distance(transform.position, model.Target.transform.position) - radius - model.Target.radius <= model.attackRange)
                 {
                     // logique d'attaque
                     nav.ResetPath();
-                    DealAutoDamage(Target);
+                    DealAutoDamage(model.Target);
                     if (_nextAttackBuffed) _nextAttackBuffed = false;
                 }
                 else
@@ -148,8 +148,8 @@ public class PlayerScript : Character
         
     }
 
-    protected override void DealAutoDamage(Entity target)
+    protected override void DealAutoDamage(Entity Target)
     {
-        target.ReceiveDamage(this, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        Target.ReceiveDamage(this, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
     }
 }
