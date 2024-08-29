@@ -36,11 +36,9 @@ public abstract class Character : Entity
         for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
             model.inventory.Add(i, new Item());
         }
-
-        AcquireAnItem("Cravache Sévère");
     }
     
-    protected bool AcquireAnItem(string itemName) {
+    protected bool BuyItem(string itemName) {
         uint nextEmptyEmplacement = 6;
         for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
             if(model.inventory[i].GetName() == "Item") {
@@ -52,12 +50,15 @@ public abstract class Character : Entity
         if(nextEmptyEmplacement == 6) return false;
 
         Item item = Item.GetItemByName(itemName);
-        model.inventory[nextEmptyEmplacement] = item;
+        if (model.golds - item.GetCost() < 0) return false;
+
+        model.golds -= item.GetCost();
         
         model.attack += item.GetAttack();
         model.health += item.GetHealth();
         model.maxHealth += item.GetHealth();
 
+        model.inventory[nextEmptyEmplacement] = item;
         /*
         if (item.IsActivable()) ADD AN ACTIVE BUTTON and all of that
         */
@@ -65,7 +66,7 @@ public abstract class Character : Entity
         return true;
     }
 
-    protected void DropAnItem(uint itemEmplacement) {
+    protected void SellItem(uint itemEmplacement) {
         if (model.inventory[itemEmplacement].GetName() == "Item") return;
 
         /*
@@ -77,6 +78,8 @@ public abstract class Character : Entity
         model.attack -= item.GetAttack();
         model.health -= item.GetHealth();
         model.maxHealth -= item.GetHealth();
+
+        model.golds += item.GetSellingCost();
 
         model.inventory[itemEmplacement] = new Item();
     }

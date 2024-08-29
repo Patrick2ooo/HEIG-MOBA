@@ -9,6 +9,10 @@ public class CravacheSevere : Item
         return 50;
     }
 
+    public override uint GetCost() {
+        return 420;
+    }
+
     public override string GetName() {
         return "Cravache Sévère";
     }

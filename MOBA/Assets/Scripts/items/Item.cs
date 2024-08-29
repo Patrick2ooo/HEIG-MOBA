@@ -21,6 +21,14 @@ namespace Scripts
             return false;
         }
 
+        public virtual uint GetCost() {
+            return 0;
+        }
+
+        public virtual uint GetSellingCost() {
+            return GetCost()*0.4;
+        }
+
         public virtual string GetName() {
             return "Item";
         }
