@@ -5,7 +5,7 @@ using Scripts;
 
 public class CravacheSevere : Item
 {
-    public void init() {
+    public CravacheSevere() {
         attack = 50;
         name = "Cravache Sévère";
     }

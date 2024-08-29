@@ -53,4 +53,5 @@ public partial class Attributes
     [RealtimeProperty(33, false, true)] private float _manaRegenPerLevel;
     [RealtimeProperty(34, true, true)] private float _moveSpeed;
     [RealtimeProperty(35, false, true)] private string _name;
+    [RealtimeProperty(36, true, true)] private string[] _inventory;
 }

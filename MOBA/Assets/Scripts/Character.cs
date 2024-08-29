@@ -31,23 +31,22 @@ public abstract class Character : Entity
         model.maxHealth += model.healthPerLevel;
     }
     
-    protected bool AcquireAnItem(Item item) {
+    protected bool AcquireAnItem(string itemName) {
+        if (model.inventory == null) model.inventory = new string[Attributes.NbInventorySlots];
         int nextEmptyEmplacement = -1;
         for(int i = 0; i < Attributes.NbInventorySlots; ++i) {
-            if(!(Inventory == null) && Inventory[i] == null) {
+            if(mode.inventory[i] == null || model.inventory[i] == "") {
                 nextEmptyEmplacement = i;
                 break;
             }
         }
         if (nextEmptyEmplacement == -1) return false;
 
-        GameObject itemGO = Realtime.Instantiate(prefabName: item.GetName(), ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
-        itemGO.transform.SetParent(transform.Find("Inventory"));
-        Inventory[nextEmptyEmplacement] = item;
+        model.inventory[nextEmptyEmplacement] = Item.GetItemByName(itemName).GetName();
         
-        model.attack += item.GetAttack();
-        model.health += item.GetHealth();
-        model.maxHealth += item.GetHealth();
+        model.attack += Item.GetItemByName(itemName).GetAttack();
+        model.health += Item.GetItemByName(itemName).GetHealth();
+        model.maxHealth += Item.GetItemByName(itemName).GetHealth();
 
         /*
         if (item.IsActivable()) ADD AN ACTIVE BUTTON and all of that
@@ -57,25 +56,24 @@ public abstract class Character : Entity
     }
 
     protected void DropAnItem(int itemEmplacement) {
-        if (Inventory == null || Inventory[itemEmplacement] == null) return;
+        if (model.inventory == null || model.inventory[itemEmplacement] == null || model.inventory[itemEmplacement] == "") return;
 
         /*
         if (Inventory[itemEmplacement].IsActivable()) REMOVE THE RIGHT ACTIVE BUTTON and all of that
         */
 
-        model.attack -= Inventory[itemEmplacement].GetAttack();
-        model.health -= Inventory[itemEmplacement].GetHealth();
-        model.maxHealth -= Inventory[itemEmplacement].GetHealth();
+        string itemName = model.inventory[itemEmplacement];
+        
+        model.attack -= Item.GetItemByName(itemName).GetAttack();
+        model.health -= Item.GetItemByName(itemName).GetHealth();
+        model.maxHealth -= Item.GetItemByName(itemName).GetHealth();
 
-        Transform parent = transform.Find("Inventory");
-        GameObject itemGO = parent.Find(Inventory[itemEmplacement].GetName()+"(Clone)").gameObject;
-        Destroy(itemGO);
-        Inventory[itemEmplacement] = null;
+        model.inventory[itemEmplacement] = null;
     }
     
     void Start()
     {
-        model.ExpTimer = 0;   
+        model.ExpTimer = 0;
     }
 
     protected virtual void Update()
@@ -87,13 +85,11 @@ public abstract class Character : Entity
         {
             ++(model.exp);
             --(model.ExpTimer);
+            
             //For test only
-            CravacheSevere item = gameObject.AddComponent<CravacheSevere>();
-            item.init();
-            AcquireAnItem(item);
-           
-           
+            AcquireAnItem("Cravache Sévère");
         }
+
         if (model.level < 12 && model.exp > Levels[model.level])
         {
             LevelUp();

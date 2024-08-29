@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Scripts
 {
 
-    public class Item : MonoBehaviour {
+    public class Item {
 
         protected string name;
         protected int attack;
@@ -34,6 +34,15 @@ namespace Scripts
         
         void Update() {
             
+        }
+
+        public static Item GetItemByName(string itemName) {
+            switch(itemName) {
+                case "Cravache Sévère":
+                    return new CravacheSevere();
+                default:
+                    return null;
+            }
         }
     }
 }
