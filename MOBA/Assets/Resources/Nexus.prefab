@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0
+  agent: {fileID: 0}
 --- !u!1001 &6614963073109390446
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public abstract class Character : Entity
 
     protected Entity Target;
 
-    protected void DealAutoDamage(Entity target)
+    protected virtual void DealAutoDamage(Entity target)
     {
         target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
     }
@@ -30,6 +30,10 @@ public abstract class Character : Entity
         model.health += model.healthPerLevel * GetHealthPercent();
         model.maxHealth += model.healthPerLevel;
     }
+
+    public abstract void SpellA();
+    public abstract void SpellB();
+    public abstract void SpellC();
     
     // Start is called before the first frame update
     void Start()

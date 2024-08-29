@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - minionSpawner
+  - spellA
+  - spellB
+  - spellC
   layers:
   - Default
   - TransparentFX

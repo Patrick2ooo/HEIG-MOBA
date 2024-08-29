@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Normal.Realtime;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public abstract class Entity : RealtimeComponent<Attributes>{
@@ -12,6 +13,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     public abstract int GetExpBounty();
 
     public float radius;
+    public NavMeshAgent agent;
 
     public float GetMaxHealth()
     {
@@ -37,25 +39,32 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         base.OnRealtimeModelReplaced(previousModel, currentModel);
         if (previousModel != null)
         {
-            previousModel.healthDidChange -= updateHealth;
+            previousModel.healthDidChange -= UpdateHealth;
         }
         if (currentModel != null)
         {
             if (currentModel.isFreshModel)
             {
                 currentModel.health = 1;
+                currentModel.moveSpeed = 3.5f;
             }
 
-            currentModel.healthDidChange += updateHealth;
+            currentModel.healthDidChange += UpdateHealth;
+            currentModel.moveSpeedDidChange += UpdateMoveSpeed;
         }
     }
 
-    protected virtual void updateHealth(Attributes updated, float health)
+    protected virtual void UpdateHealth(Attributes updated, float health)
     {
         if (health <= 0)
         {
             Realtime.Destroy(gameObject);
         }
+    }
+
+    protected virtual void UpdateMoveSpeed(Attributes updated, float speed)
+    {
+        agent.speed = speed;
     }
 
     public bool ReceiveDamage(Character hitter, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)

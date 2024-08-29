@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0
+  agent: {fileID: 2624006881883783901}
   mainCamera: {fileID: 0}
   icon: {fileID: 0}
   nav: {fileID: 0}
