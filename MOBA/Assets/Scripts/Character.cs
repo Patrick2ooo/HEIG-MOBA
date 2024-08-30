@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,25 +7,25 @@ using UnityEngine.EventSystems;
 
 public abstract class Character : Entity
 {
-    protected static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
+    private static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
     
     public Camera mainCamera;
     public GameObject movementIcon;
     
-    protected const int MapLayer = 3, UILayer = 5, CharactersLayer = 6, ColliderLayer = 8;
-    protected static readonly Vector3 IconOffset = new(0, 0.1f, 0);
-    protected RealtimeView _view;
+    private const int MapLayer = 3, UILayer = 5, CharactersLayer = 6, ColliderLayer = 8;
+    private static readonly Vector3 IconOffset = new(0, 0.1f, 0);
+    private RealtimeView _view;
 
     public abstract void SpellA();
     public abstract void SpellB();
     public abstract void SpellC();
 
-    public override int GetGoldBounty()
+    protected override int GetGoldBounty()
     {
         return 150;
     }
 
-    public override int GetExpBounty()
+    protected override int GetExpBounty()
     {
         return 60;
     }
@@ -160,8 +158,10 @@ public abstract class Character : Entity
         {
             if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, layerMask:~(1 << ColliderLayer)))
             {
-                var eventData = new PointerEventData(EventSystem.current);
-                eventData.position = Input.mousePosition;
+                var eventData = new PointerEventData(EventSystem.current)
+                {
+                    position = Input.mousePosition
+                };
                 var results = new List<RaycastResult>();
                 EventSystem.current.RaycastAll(eventData, results);
                 if (results.Count(r => r.gameObject.layer == UILayer) == 0)

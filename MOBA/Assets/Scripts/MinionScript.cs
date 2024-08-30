@@ -1,34 +1,31 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 using Normal.Realtime;
 
 public class MinionScript : Entity
 {
     public Vector3 destination;
     private readonly Queue<Entity> _targets = new();
-    
-    public override int GetGoldBounty()
+
+    protected override int GetGoldBounty()
     {
         return 30;
     }
 
-    public override int GetExpBounty()
+    protected override int GetExpBounty()
     {
         return 5;
     }
 
-    protected override void SetValues(Attributes model)
+    protected override void SetValues(Attributes attributes)
     {
         agent.SetDestination(destination);
-        model.maxHealth = 10;
-        model.health = 10;
-        model.attackRange = 1;
-        model.attack = 1;
-        model.radius = 0.4f;
+        attributes.maxHealth = 10;
+        attributes.health = 10;
+        attributes.attackRange = 1;
+        attributes.attack = 1;
+        attributes.radius = 0.4f;
     }
 
     // Update is called once per frame

@@ -1,28 +1,20 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Normal.Realtime;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class PlayerScript : Character
 {
     private bool _nextAttackBuffed, _boostedStats;
     private float _cTimer;
 
-    protected override void SetValues(Attributes model)
+    protected override void SetValues(Attributes attributes)
     {
-        model.moveSpeed = 3.5f;
-        model.maxHealth = 100;
-        model.health = 100;
-        model.attackRange = 1.0f;
-        model.attack = 2;
-        model.attackPerLevel = 1;
-        model.radius = 0.5f;
+        attributes.moveSpeed = 3.5f;
+        attributes.maxHealth = 100;
+        attributes.health = 100;
+        attributes.attackRange = 1.0f;
+        attributes.attack = 2;
+        attributes.attackPerLevel = 1;
+        attributes.radius = 0.5f;
     }
     
     // Update is called once per frame

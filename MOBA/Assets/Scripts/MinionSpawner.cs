@@ -1,21 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Scripts;
 using Normal.Realtime;
 using UnityEngine;
 
 public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 {
-    private const double cycleLength = 60;
-    
-    private Realtime _realtime;
-    
+    private const double CycleLength = 60;
+
     public Vector3 leftSideSpawner, rightSideSpawner;
 
-    private bool timeSet = false;
+    private bool _timeSet;
 
-    public double time
+    private double Time
     {
         get
         {
@@ -33,39 +27,33 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 
     private void Awake()
     {
-        _realtime = GetComponent<Realtime>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        GetComponent<Realtime>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!timeSet && time == 0 && realtime.roomTime != 0)
+        if (!_timeSet && Time == 0 && realtime.roomTime != 0)
         {
-            timeSet = true;
+            _timeSet = true;
             model.time = realtime.roomTime;
         }
         
-        if ((model.minionWaves + 1) * 10 < time)
+        if ((model.minionWaves + 1) * 10 < Time)
         {
             model.RequestOwnership(true);
-            if (model.isOwnedLocallyInHierarchy && (model.minionWaves + 1) * 10 < time)
+            if (model.isOwnedLocallyInHierarchy && (model.minionWaves + 1) * 10 < Time)
             {
                 model.minionWaves += 1;
                 int minionsToSpawn = 1;
-                if (time % (2 * cycleLength) >= cycleLength) minionsToSpawn *= 2;
+                if (Time % (2 * CycleLength) >= CycleLength) minionsToSpawn *= 2;
                 for (int i = 0; i < minionsToSpawn; ++i)
                 {
-                    MinionScript minionLeft = Realtime.Instantiate("Minion", leftSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
+                    MinionScript minionLeft = Realtime.Instantiate("Minion", leftSideSpawner, Quaternion.identity, destroyWhenOwnerOrLastClientLeaves: false).GetComponent<MinionScript>();
                     minionLeft.destination = rightSideSpawner;
                     minionLeft.SetSide(0);
                     minionLeft.name = "minionLeft " + i;
-                    MinionScript minionRight = Realtime.Instantiate("Minion", rightSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
+                    MinionScript minionRight = Realtime.Instantiate("Minion", rightSideSpawner, Quaternion.identity, destroyWhenOwnerOrLastClientLeaves: false).GetComponent<MinionScript>();
                     minionRight.destination = leftSideSpawner;
                     minionRight.SetSide(1);
                     minionRight.name = "minionRight" + i;

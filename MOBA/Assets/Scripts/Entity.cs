@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Normal.Realtime;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,8 +9,8 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     public NavMeshAgent agent;
     protected Entity Target;
 
-    public abstract int GetGoldBounty();
-    public abstract int GetExpBounty();
+    protected abstract int GetGoldBounty();
+    protected abstract int GetExpBounty();
     protected abstract void SetValues(Attributes model);
     
     public float GetMaxHealth()
@@ -82,7 +79,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         }
     }
 
-    protected void UpdateMoveSpeed(Attributes updated, float speed)
+    private void UpdateMoveSpeed(Attributes updated, float speed)
     {
         agent.speed = speed;
     }

@@ -1,23 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Nexus : Entity
 {
-    public override int GetGoldBounty()
+    protected override int GetGoldBounty()
     {
         return 0;
     }
 
-    public override int GetExpBounty()
+    protected override int GetExpBounty()
     {
         return 0;
     }
 
-    protected override void SetValues(Attributes model)
+    protected override void SetValues(Attributes attributes)
     {
-        model.maxHealth = 5500;   
-        model.health = 5500;
-        model.healthRegen = 20;
+        attributes.maxHealth = 5500;   
+        attributes.health = 5500;
+        attributes.healthRegen = 20;
     }
 }

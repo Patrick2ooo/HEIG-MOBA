@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using Scripts;
-using Normal.Realtime;
 using Normal.Realtime.Serialization;
-using UnityEngine;
 
 [RealtimeModel]
 public partial class Attributes
@@ -14,7 +11,7 @@ public partial class Attributes
     // local variables
     public float PassiveIncomeTimer = 0, RegenTimer = 0;
     
-    public Stack<Character> LastHitters = new();
+    public readonly Stack<Character> LastHitters = new();
     public Entity Target;
     
     // synched variables
