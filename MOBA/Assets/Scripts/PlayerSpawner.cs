@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] private Camera playerCamera;
+    [SerializeField] public Camera playerCamera;
     private Realtime _realtime;
     public GameObject ui;
 
