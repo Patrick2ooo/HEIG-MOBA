@@ -14,20 +14,10 @@ public class Nexus : Entity
         return 0;
     }
 
-    void Start()
+    protected override void SetValues(Attributes model)
     {
         model.maxHealth = 5500;   
         model.health = 5500;
         model.healthRegen = 20;
-        setSide(1);
-    }
-
-    void Update() {
-        base.Update();
-        model.RegenTimer += Time.deltaTime;
-        while (model.RegenTimer > 1) {
-            model.health = model.health >= model.maxHealth ? model.health : model.health + model.healthRegen;
-            --model.RegenTimer;
-        }
     }
 }

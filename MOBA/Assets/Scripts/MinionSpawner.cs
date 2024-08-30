@@ -63,11 +63,11 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
                 {
                     MinionScript minionLeft = Realtime.Instantiate("Minion", leftSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                     minionLeft.destination = rightSideSpawner;
-                    minionLeft.setSide(0);
+                    minionLeft.SetSide(0);
                     minionLeft.name = "minionLeft " + i;
                     MinionScript minionRight = Realtime.Instantiate("Minion", rightSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                     minionRight.destination = leftSideSpawner;
-                    minionRight.setSide(1);
+                    minionRight.SetSide(1);
                     minionRight.name = "minionRight" + i;
                 } 
             }

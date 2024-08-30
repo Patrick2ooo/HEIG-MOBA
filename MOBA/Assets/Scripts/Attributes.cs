@@ -12,10 +12,9 @@ public partial class Attributes
     public const int MaxLevel = 12, PassiveGold = 1, PassiveExp = 1, NbInventorySlots = 6;
     
     // local variables
-    public float ExpTimer;
-    public float RegenTimer;
+    public float PassiveIncomeTimer = 0, RegenTimer = 0;
     
-    public List<Character> LastHitters;
+    public Stack<Character> LastHitters = new();
     public Entity Target;
     
     // synched variables
@@ -55,4 +54,5 @@ public partial class Attributes
     [RealtimeProperty(34, true, true)] private float _moveSpeed;
     [RealtimeProperty(35, false, true)] private string _name;
     [RealtimeProperty(36, true, true)] private RealtimeDictionary<Item> _inventory;
+    [RealtimeProperty(37, false, true)] private float _radius;
 }
