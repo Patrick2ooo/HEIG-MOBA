@@ -65,6 +65,7 @@ public class PlayerScript : Character
         {
             GetComponent<RealtimeTransform>().RequestOwnership();
         }
+
         radius = 0.5f;
     }
 
@@ -84,7 +85,8 @@ public class PlayerScript : Character
             base.Update();
             if (Input.GetMouseButton(0))
             {
-                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, layerMask:~(1 << ColliderLayer)))
+                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100,
+                        layerMask: ~(1 << ColliderLayer)))
                 {
                     var eventData = new PointerEventData(EventSystem.current);
                     eventData.position = Input.mousePosition;
@@ -95,28 +97,44 @@ public class PlayerScript : Character
                         switch (hit.collider.gameObject.layer)
                         {
                             case MapLayer:
-                                if(icon) Instantiate(icon, hit.point + Offset, Quaternion.identity);
+                                if (icon) Instantiate(icon, hit.point + Offset, Quaternion.identity);
                                 nav.SetDestination(hit.point);
                                 model.Target = null;
                                 break;
                             case CharactersLayer:
-                                model.Target = hit.collider.gameObject.GetComponent<Entity>();
-                                Vector3 pos = model.Target.transform.position;
-                                if (model.Target.GetSide() == model.side)
+                                
+                                ShowShop shop = hit.collider.gameObject.GetComponent<ShowShop>();
+                                if (shop != null)
                                 {
-                                    Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100, ~(1 << CharactersLayer));
-                                    pos = hit.point;
-                                    model.Target = null;
+                                    shop.Show();
                                 }
-                                nav.SetDestination(pos);
-                                break;
+                                else
+                                {
+                                    model.Target = hit.collider.gameObject.GetComponent<Entity>();
+
+
+                                    Vector3 pos = model.Target.transform.position;
+                                    if (model.Target.GetSide() == model.side)
+                                    {
+                                        Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100,
+                                            ~(1 << CharactersLayer));
+                                        pos = hit.point;
+                                        model.Target = null;
+                                    }
+
+                                    nav.SetDestination(pos);
+                                }
+                                
+                                break;   
                         }
                     }
                 }
             }
+
             if (model.Target)
             {
-                if (Vector3.Distance(transform.position, model.Target.transform.position) - radius - model.Target.radius <= model.attackRange)
+                if (Vector3.Distance(transform.position, model.Target.transform.position) - radius -
+                    model.Target.radius <= model.attackRange)
                 {
                     // logique d'attaque
                     nav.ResetPath();
@@ -145,10 +163,11 @@ public class PlayerScript : Character
                 model.moveSpeed /= 1.1f;
             }
         }
-        
     }
+
     protected override bool DealAutoDamage(Entity target)
     {
-        return target.ReceiveDamage(this, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        return target.ReceiveDamage(this, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen,
+            model.critChance, model.critMult);
     }
 }
