@@ -9,9 +9,9 @@ public abstract class Character : Entity
 {
     protected static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
 
-    protected void DealAutoDamage(Entity target)
+    protected virtual bool DealAutoDamage(Entity target)
     {
-        target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        return target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
     }
 
     public void SetTarget(Entity target)
@@ -29,32 +29,64 @@ public abstract class Character : Entity
         model.maxHealth += model.healthPerLevel;
     }
 
+    public abstract void SpellA();
+    public abstract void SpellB();
+    public abstract void SpellC();
     public void InitInventory() {
         for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
             model.inventory.Add(i, new Item());
         }
-
-        AcquireAnItem("Cravache Sévère");
     }
     
-    protected bool AcquireAnItem(string itemName) {
-        uint nextEmptyEmplacement = 6;
+    protected uint GetItemEmplacmentByName(string name) {
+        uint emplacement = 6;
         for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
-            if(model.inventory[i].GetName() == "Item") {
-                nextEmptyEmplacement = i;
+            if(model.inventory[i].GetName() == name) {
+                emplacement = i;
                 break;
             }
         }
 
-        if(nextEmptyEmplacement == 6) return false;
+        return emplacement;
+    }
 
-        Item item = Item.GetItemByName(itemName);
-        model.inventory[nextEmptyEmplacement] = item;
+    public bool BuyItem(string itemName) {
+        uint nextEmptyEmplacement = 6;
         
+        //Check player balance
+        Item item = Item.GetItemByName(itemName);
+        if (model.golds - item.GetCost() < 0) return false;
+
+        //manage crafted items
+        if (item.IsCrafted()) {
+            //do he have all needed to?
+            foreach(string name in item.GetRecipe()) {
+                uint emplacement = GetItemEmplacmentByName(name);
+                if (emplacement == 6) return false;
+                else if (nextEmptyEmplacement == 6) nextEmptyEmplacement = emplacement;
+            }
+
+            //let's convert them on the new item
+            foreach(string name in item.GetRecipe()) {
+                DropItem(GetItemEmplacmentByName(name), false);
+            }
+        } else {
+            //Find an empty emplacement
+            nextEmptyEmplacement = GetItemEmplacmentByName("Item");
+
+            if(nextEmptyEmplacement == 6) return false; 
+        }
+
+        //update player balance
+        model.golds -= (int) item.GetCost();
+        
+        //update player stats
         model.attack += item.GetAttack();
+        model.critChance += item.GetCritChance();
         model.health += item.GetHealth();
         model.maxHealth += item.GetHealth();
 
+        model.inventory[nextEmptyEmplacement] = item;
         /*
         if (item.IsActivable()) ADD AN ACTIVE BUTTON and all of that
         */
@@ -62,7 +94,7 @@ public abstract class Character : Entity
         return true;
     }
 
-    protected void DropAnItem(uint itemEmplacement) {
+    public void DropItem(uint itemEmplacement, bool isSelling) {
         if (model.inventory[itemEmplacement].GetName() == "Item") return;
 
         /*
@@ -72,8 +104,11 @@ public abstract class Character : Entity
         Item item = model.inventory[itemEmplacement];
 
         model.attack -= item.GetAttack();
+        model.critChance -= item.GetCritChance();
         model.health -= item.GetHealth();
         model.maxHealth -= item.GetHealth();
+
+        if (isSelling) model.golds += (int) item.GetSellingCost();
 
         model.inventory[itemEmplacement] = new Item();
     }

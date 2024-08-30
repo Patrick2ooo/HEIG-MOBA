@@ -4,12 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Normal.Realtime;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public abstract class Entity : RealtimeComponent<Attributes>{
 
     public abstract int GetGoldBounty();
     public abstract int GetExpBounty();
+
+    public float radius;
+    public NavMeshAgent agent;
+    protected Entity Target;
+
+    protected virtual bool DealAutoDamage(Entity target)
+    {
+        return target.ReceiveDamage(this, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+    }
 
     public float GetMaxHealth()
     {
@@ -26,7 +36,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         return model.health / model.maxHealth;
     }
 
-    public float GetSide() {
+    public ushort GetSide() {
         return model.side;
     }
 
@@ -35,20 +45,22 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         base.OnRealtimeModelReplaced(previousModel, currentModel);
         if (previousModel != null)
         {
-            previousModel.healthDidChange -= updateHealth;
+            previousModel.healthDidChange -= UpdateHealth;
         }
         if (currentModel != null)
         {
             if (currentModel.isFreshModel)
             {
                 currentModel.health = 1;
+                currentModel.moveSpeed = 3.5f;
             }
 
-            currentModel.healthDidChange += updateHealth;
+            currentModel.healthDidChange += UpdateHealth;
+            currentModel.moveSpeedDidChange += UpdateMoveSpeed;
         }
     }
 
-    protected virtual void updateHealth(Attributes updated, float health)
+    protected virtual void UpdateHealth(Attributes updated, float health)
     {
         if (health <= 0)
         {
@@ -56,7 +68,12 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         }
     }
 
-    public bool ReceiveDamage(Character hitter, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
+    protected virtual void UpdateMoveSpeed(Attributes updated, float speed)
+    {
+        agent.speed = speed;
+    }
+
+    public bool ReceiveDamage(Entity hitter, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
     {
         if (model.health == 0) return false; // in case it happens that the entity receive damage after its death for whatever reason
         // dégâts reçus = dégâts de base * (pen + (1-pen) * 100 / (def + 100))

@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1283322892}
+  UI: {fileID: 4949948667442340238, guid: 3396ea9dceec7ba458938db5f2c64a07, type: 3}
 --- !u!114 &932198579
 MonoBehaviour:
   m_ObjectHideFlags: 0
