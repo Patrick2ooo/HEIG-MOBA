@@ -50,7 +50,7 @@ public abstract class Character : Entity
         return emplacement;
     }
 
-    protected bool BuyItem(string itemName) {
+    public bool BuyItem(string itemName) {
         uint nextEmptyEmplacement = 6;
         
         //Check player balance
@@ -94,7 +94,7 @@ public abstract class Character : Entity
         return true;
     }
 
-    protected void DropItem(uint itemEmplacement, bool isSelling) {
+    public void DropItem(uint itemEmplacement, bool isSelling) {
         if (model.inventory[itemEmplacement].GetName() == "Item") return;
 
         /*

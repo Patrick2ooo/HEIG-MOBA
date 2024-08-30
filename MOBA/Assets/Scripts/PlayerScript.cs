@@ -103,7 +103,7 @@ public class PlayerScript : Character
                                 break;
                             case CharactersLayer:
                                 
-                                ShowShop shop = hit.collider.gameObject.GetComponent<ShowShop>();
+                                ShopAction shop = hit.collider.gameObject.GetComponent<ShopAction>();
                                 if (shop != null)
                                 {
                                     shop.Show();
