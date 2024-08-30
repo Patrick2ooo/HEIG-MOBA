@@ -25,6 +25,11 @@ namespace Scripts
             return "Item";
         }
 
+        public virtual string GetImagePath() {
+            return null;
+        }
+
+
         public static Item GetItemByName(string itemName) {
             switch(itemName) {
                 case "Cravache Sévère":
