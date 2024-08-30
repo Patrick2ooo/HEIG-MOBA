@@ -1,17 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
-using Unity.VisualScripting;
-using UnityEngine.Animations;
 using UnityEngine.UI;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] private Camera _camera = default;
+    [SerializeField] public Camera playerCamera;
     private Realtime _realtime;
-    public GameObject UI;
+    public GameObject ui;
 
     private void Awake()
     {
@@ -24,28 +19,18 @@ public class PlayerSpawner : MonoBehaviour
     {
         GameObject playerObject = Realtime.Instantiate(prefabName: "PlayerComponents", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
         PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
-        player.mainCamera = _camera;
-        _camera.GetComponent<CameraScript>().target = player.transform;
+        player.mainCamera = playerCamera;
+        playerCamera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
-        Instantiate(UI);
+        Instantiate(ui);
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
         GameObject.FindWithTag("spellC").GetComponent<Button>().onClick.AddListener(player.SpellC);
+        HealthBar.PlayerSide = player.GetSide();
     }
 
     private void Disconnect(Realtime realtime)
     {
         if(GameObject.FindGameObjectsWithTag("Player").Length == 1) Realtime.Destroy(GameObject.FindWithTag("minionSpawner"));
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
