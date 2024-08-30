@@ -28,6 +28,7 @@ public class PlayerScript : Character
     // Update is called once per frame
     protected override void Update()
     {
+        base.Update();
         if (_boostedStats)
         {
             if (_cTimer > 0)

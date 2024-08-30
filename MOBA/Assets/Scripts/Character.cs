@@ -52,7 +52,7 @@ public abstract class Character : Entity
         _view = GetComponent<RealtimeView>();
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
         base.Update();
 
