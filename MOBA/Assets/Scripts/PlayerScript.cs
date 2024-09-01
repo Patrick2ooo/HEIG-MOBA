@@ -12,7 +12,7 @@ public class PlayerScript : Character
         attributes.maxHealth = 100;
         attributes.health = 100;
         attributes.attackRange = 1.0f;
-        attributes.attack = 2;
+        attributes.attack = 1;
         attributes.attackPerLevel = 1;
         attributes.radius = 0.5f;
     }
@@ -39,12 +39,10 @@ public class PlayerScript : Character
 
     }
 
-    protected override bool DealAutoDamage(Entity target)
+    protected override void DealAutoDamage(Entity target)
     {
-        bool didKill = target.ReceiveDamage(this, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen,
-            model.magPen, model.critChance, model.critMult);
+        manager.AddDamage(target, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
         if (_nextAttackBuffed) _nextAttackBuffed = false;
-        return didKill;
     }
 
     public override void SpellA()
@@ -54,7 +52,7 @@ public class PlayerScript : Character
 
     public override void SpellB()
     {
-        model.health = Math.Max(model.health + 50, model.maxHealth);
+        model.health = Math.Min(model.health + 50, model.maxHealth);
     }
 
     public override void SpellC()

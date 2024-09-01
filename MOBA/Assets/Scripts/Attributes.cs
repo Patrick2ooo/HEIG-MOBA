@@ -11,7 +11,7 @@ public partial class Attributes
     // local variables
     public float PassiveIncomeTimer = 0, RegenTimer = 0;
     
-    public readonly Stack<Character> LastHitters = new();
+    public readonly Stack<int> LastHittersID = new();
     public Entity Target;
     
     // synched variables

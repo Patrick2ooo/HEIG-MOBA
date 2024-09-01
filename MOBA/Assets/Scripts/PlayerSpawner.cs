@@ -20,6 +20,9 @@ public class PlayerSpawner : MonoBehaviour
         GameObject playerObject = Realtime.Instantiate(prefabName: "PlayerComponents", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
         PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
         player.mainCamera = playerCamera;
+        player.SetSide((ushort) FindObjectsOfType<Character>().Length);
+        FindObjectOfType<DamageManager>().player = player;
+        player.SetPlayerID(realtime.clientID);
         playerCamera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
         Instantiate(ui);
