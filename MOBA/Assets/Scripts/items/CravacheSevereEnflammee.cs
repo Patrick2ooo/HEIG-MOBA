@@ -5,8 +5,18 @@ using Scripts;
 
 public class CravacheSevereEnflammee : Item
 {
-    public Sprite sprite = Resources.Load<Sprite>("Images/Cravache Severe");
-    
+    public CravacheSevereEnflammee()
+    {
+        
+        // Load the sprite in the constructor
+        sprite = Resources.Load<Sprite>("Images/CravacheSevereEnflammee");     
+        
+        if (sprite == null)
+        {
+            Debug.LogError("Failed to load sprite for Cravache Severe Enflammee. Check the path and ensure the image is in the Resources folder.");
+        }
+    }
+
     public override int GetAttack() {
         return 75;
     }
@@ -36,6 +46,6 @@ public class CravacheSevereEnflammee : Item
     }
 
     public override string GetName() {
-        return "Cravache Sévère";
+        return "Cravache Sévère Enflammée";
     }
 }

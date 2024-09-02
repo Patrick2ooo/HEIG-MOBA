@@ -41,7 +41,7 @@ public abstract class Character : Entity
     
     public void InitInventory() {
         for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
-            model.inventory.Add(i, new Item());
+            model.inventory.Add(i, new Item(true));
         }
     }
 
@@ -169,7 +169,7 @@ public abstract class Character : Entity
 
         if (isSelling) model.golds += (int) item.GetSellingCost();
 
-        model.inventory[itemEmplacement] = new Item();
+        model.inventory[itemEmplacement] = new Item(true);
     }
 
     protected virtual void AttackLogic()
