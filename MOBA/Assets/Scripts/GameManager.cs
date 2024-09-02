@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private MinionSpawner _spawner;
     private Realtime _realtime;
     public Light globalLight;
+    public DamageManager manager;
     private void Awake()
     {
         _realtime = GetComponent<Realtime>();
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
         if (GameObject.FindWithTag("minionSpawner") == null)
         {
             _spawner = Realtime.Instantiate(prefabName: "MinionSpawner", preventOwnershipTakeover: true, useInstance: realtime).GetComponent<MinionSpawner>();
+            _spawner.manager = manager;
         } 
     }
 

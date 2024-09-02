@@ -18,7 +18,7 @@ public class DamageManager : RealtimeComponent<DamageManagerModel>
             magPen = magPen,
             critChance = critChance,
             critMult = critMult,
-            target = target is Character character ? character.GetPlayerID() : -1
+            target = target.GetID()
         };
         
         model.damages.Add(instance);
@@ -30,10 +30,13 @@ public class DamageManager : RealtimeComponent<DamageManagerModel>
         {
             if (instance.target == player.GetPlayerID())
             {
-                Debug.Log("Health before = " + player.GetHealth());
                 player.ReceiveDamage(instance.attacker, instance.physDamage, instance.magDamage, instance.physPen, instance.magPen, instance.critChance, instance.critMult);
                 model.damages.Remove(instance);
-                Debug.Log("Health after = " + player.GetHealth());
+            }else if (!instance.target.StartsWith("0"))
+            {
+                Entity e = Entity.GetEntityByID(instance.target);
+                if (e) e.ReceiveDamage(instance.attacker, instance.physDamage, instance.magDamage, instance.physPen, instance.magPen, instance.critChance, instance.critMult);
+                model.damages.Remove(instance);
             }
         }
     }

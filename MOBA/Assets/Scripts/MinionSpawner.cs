@@ -7,6 +7,8 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 
     public Vector3 leftSideSpawner, rightSideSpawner;
 
+    public DamageManager manager;
+
     private bool _timeSet;
 
     public double Time
@@ -52,11 +54,13 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
                     MinionScript minionLeft = Realtime.Instantiate("Minion", leftSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                     minionLeft.destination = rightSideSpawner;
                     minionLeft.SetSide(0);
-                    minionLeft.name = "minionLeft " + i;
+                    minionLeft.SetID("1" + model.minionWaves + i + "0");
+                    minionLeft.manager = manager;
                     MinionScript minionRight = Realtime.Instantiate("Minion", rightSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                     minionRight.destination = leftSideSpawner;
                     minionRight.SetSide(1);
-                    minionRight.name = "minionRight" + i;
+                    minionRight.SetID("1" + model.minionWaves + i + "1");
+                    minionRight.manager = manager;
                 } 
             }
             model.ClearOwnership(true);

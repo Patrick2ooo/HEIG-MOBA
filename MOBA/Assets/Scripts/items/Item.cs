@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Text;
@@ -11,6 +11,8 @@ namespace Scripts
     [RealtimeModel]
     public partial class Item {
 
+        public Sprite sprite;
+        
         public virtual int GetAttack(){
             return 0;
         }
