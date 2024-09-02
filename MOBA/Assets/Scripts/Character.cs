@@ -19,11 +19,6 @@ public abstract class Character : Entity
     private RealtimeView _view;
     private float _deathTimer;
 
-    public static Character GetCharacterByID(int id)
-    {
-        return FindObjectsByType<Character>(FindObjectsSortMode.None).FirstOrDefault(character => character.GetPlayerID() == id);
-    }
-
     public abstract void SpellA();
     public abstract void SpellB();
     public abstract void SpellC();
@@ -38,14 +33,9 @@ public abstract class Character : Entity
         return 60;
     }
 
-    public void SetPlayerID(int id)
+    public string GetPlayerID()
     {
-        model.playerID = id;
-    }
-
-    public int GetPlayerID()
-    {
-        return model.playerID;
+        return model.entityID;
     }
     
     public void InitInventory() {
@@ -62,7 +52,7 @@ public abstract class Character : Entity
 
     protected override void Update()
     {
-        if (model.playerID == realtime.clientID)
+        if (model.entityID == "0" + realtime.clientID)
         {
             if (_deathTimer <= 0)
             {

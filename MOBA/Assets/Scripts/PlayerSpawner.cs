@@ -1,5 +1,6 @@
 using UnityEngine;
 using Normal.Realtime;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerSpawner : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject ui;
     public GameObject deathScreen;
     public Vector3 leftBase, rightBase;
+    public DamageManager manager;
 
     private void Awake()
     {
@@ -24,8 +26,8 @@ public class PlayerSpawner : MonoBehaviour
         PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
         player.mainCamera = playerCamera;
         player.SetSide(side);
-        FindObjectOfType<DamageManager>().player = player;
-        player.SetPlayerID(realtime.clientID);
+        manager.player = player;
+        player.SetID("0" + realtime.clientID);
         player.deathScreen = deathScreen;
         player.playerBase = side == 0 ? leftBase : rightBase;
         playerCamera.GetComponent<CameraScript>().target = player.transform;

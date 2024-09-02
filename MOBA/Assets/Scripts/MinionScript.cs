@@ -47,15 +47,12 @@ public class MinionScript : Entity
             if (Vector3.Distance(transform.position, Target.transform.position) - model.radius - Target.GetRadius()
                 <= model.attackRange)
             {
-                if (_targets.Count > 0)
-                {
-                    Target = _targets.First();
-                }
-                else
-                {
-                    agent.destination = destination;
-                }
+                DealAutoDamage(Target);
             }
+        } 
+        else if (_targets.Count > 0)
+        {
+            Target = _targets.First();
         }
         else
         {

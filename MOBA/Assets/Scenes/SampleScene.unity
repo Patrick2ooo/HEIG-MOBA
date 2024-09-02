@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8175877299898085574, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 932198581}
     - target: {fileID: 8865416744682466950, guid: c44c497788b6c3f49bd3dc46859c24da, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -537,6 +541,7 @@ MonoBehaviour:
   deathScreen: {fileID: 1576870621}
   leftBase: {x: 0, y: 0, z: 0}
   rightBase: {x: 20, y: 0, z: 0}
+  manager: {fileID: 932198581}
 --- !u!114 &932198579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   globalLight: {fileID: 705507994}
+  manager: {fileID: 932198581}
 --- !u!114 &932198581
 MonoBehaviour:
   m_ObjectHideFlags: 0

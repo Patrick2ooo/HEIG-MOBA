@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Normal.Realtime;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +14,21 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     protected abstract int GetGoldBounty();
     protected abstract int GetExpBounty();
     protected abstract void SetValues(Attributes model);
+
+    public static Entity GetEntityByID(string id)
+    {
+        return FindObjectsByType<Entity>(FindObjectsSortMode.None).FirstOrDefault(character => character.GetID() == id);
+    }
+
+    public void SetID(string id)
+    {
+        model.entityID = id;
+    }
     
+    public string GetID()
+    {
+        return model.entityID;
+    }
     public float GetMaxHealth()
     {
         return model.maxHealth;
@@ -71,7 +86,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         agent.speed = speed;
     }
 
-    public void ReceiveDamage(int attackerID, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
+    public void ReceiveDamage(string attackerID, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
     {
         if (model.health <= 0) return; // in case the entity receive damage after its death for whatever reason
         // dégâts reçus = dégâts de base * (pen + (1-pen) * 100 / (def + 100))
@@ -80,7 +95,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
             model.health - (critChance >= Random.Range(0, 1) ? phys * critMult : phys)
                    - magDmg * (magPen + (1 - magPen) * 100 / (model.magDef + 100))
         );
-        if (attackerID != -1)
+        if (GetEntityByID(attackerID) is Character)
         {
             model.LastHittersID.Push(attackerID);
         }
@@ -95,9 +110,12 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     {
         if (model.health == 0 && model.LastHittersID.Count > 0)
         {
-            Character killer = Character.GetCharacterByID(model.LastHittersID.Peek());
-            killer.model.golds += GetGoldBounty();
-            killer.model.exp += GetExpBounty();
+            Entity killer = GetEntityByID(model.LastHittersID.Peek());
+            if (killer is Character)
+            {
+                killer.model.golds += GetGoldBounty();
+                killer.model.exp += GetExpBounty();
+            }
             model.LastHittersID.Clear();
             Realtime.Destroy(gameObject);
         }
