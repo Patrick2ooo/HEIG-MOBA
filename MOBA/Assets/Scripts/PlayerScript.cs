@@ -36,6 +36,7 @@ public class PlayerScript : Character
                 model.moveSpeed /= 1.1f;
             }
         }
+
         //logic du joueur qui tire à modifier et discuter pour le mettre dans un spell
         /*if (Input.GetKeyDown(KeyCode.Space))
         {

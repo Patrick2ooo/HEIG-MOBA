@@ -33,6 +33,10 @@ public class PlayerSpawner : MonoBehaviour
         playerCamera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
         Instantiate(ui);
+        Debug.Log(FindObjectsOfType<ShopAction>().Length);
+        ShopAction shopAction = GameObject.FindWithTag("shopMenu").GetComponent<ShopAction>();
+        GameObject.FindWithTag("shopButton").GetComponent<Button>().onClick.AddListener(shopAction.Show);
+        ShopAction.player = player;
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
         GameObject.FindWithTag("spellC").GetComponent<Button>().onClick.AddListener(player.SpellC);

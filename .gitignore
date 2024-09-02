@@ -77,3 +77,5 @@ MOBA/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 # Temporary auto-generated Android Assets
 MOBA/[Aa]ssets/[Ss]treamingAssets/aa.meta
 MOBA/[Aa]ssets/[Ss]treamingAssets/aa/*
+MOBA/Library
+MOBA/Library/SceneVisibilityState.asset
