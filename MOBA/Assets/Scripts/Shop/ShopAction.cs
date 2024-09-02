@@ -11,12 +11,12 @@ public class ShopAction : MonoBehaviour
 {
 
     public static Character player;
-    protected GameObject shopMenu;
-    protected Item itemSelected;
-    protected TMP_Text lblName;
-    protected Image image;
-    protected TMP_Text description;
-    protected TMP_Text cost;
+    public GameObject shopMenu;
+    public Item itemSelected;
+    public TMP_Text lblName;
+    public Image image;
+    public TMP_Text description;
+    public TMP_Text cost;
     
     public void Show() {   
         // Enable the GameObject
@@ -55,8 +55,14 @@ public class ShopAction : MonoBehaviour
         cost.text = "Cost: " + itemSelected.GetCost();
     }
 
+
+    public InventoryManagement inventoryManager;
     public void Buy() {
         player.BuyItem(itemSelected.GetName());
+        inventoryManager = GetComponent<InventoryManagement>();
+        Debug.Log("attack : " + player.GetAttack());
+        inventoryManager.ItemChange();
+        Debug.Log("2attack : " + player.GetAttack());
     }
     
     public void Close() {

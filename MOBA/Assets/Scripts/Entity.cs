@@ -52,6 +52,11 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     {
         return model.radius;
     }
+    
+    public float GetAttack()
+    {
+        return model.attack;
+    }
 
     public void SetTarget(Entity target)
     {

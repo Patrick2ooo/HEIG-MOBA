@@ -11,10 +11,10 @@ public class InventoryManagement : MonoBehaviour
     public Image oldImage;
     public Sprite newImage;
     
-    private Character myCharacter;
+    public Character myCharacter;
     
     // This returns the GameObject named Hand.
-    private GameObject[] Icons = new GameObject[6];
+    public GameObject[] Icons = new GameObject[6];
     
     // Start is called before the first frame update
     void Start()
@@ -37,14 +37,16 @@ public class InventoryManagement : MonoBehaviour
         {
             Icons[i] = GameObject.Find("ItemIcon" + i);
         }
-
-
-        Sprite[] sprites = new Sprite[6];
         
+        Sprite[] sprites = new Sprite[6];
         
         for (int i = 0; i < 6; ++i)
         {
-            Icons[i].GetComponent<Image>().sprite = items[i].sprite;
+            if (items[i].GetName() != "item")
+            {
+                Icons[i].SetActive(true);
+                Icons[i].GetComponent<Image>().sprite = items[i].GetSprite();   
+            }
             
         }
         //newImage = maCravache.sprite;
