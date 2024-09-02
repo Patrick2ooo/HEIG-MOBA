@@ -1,8 +1,3 @@
-using System.Collections;
-using Scripts;
-using Normal.Realtime;
-using UnityEngine;
-
 [RealtimeModel(createMetaModel: true)]
 public partial class NormcoreTimer
 {
