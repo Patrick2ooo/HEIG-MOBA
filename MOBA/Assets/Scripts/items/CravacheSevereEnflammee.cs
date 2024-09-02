@@ -5,6 +5,8 @@ using Scripts;
 
 public class CravacheSevereEnflammee : Item
 {
+    public Sprite sprite = Resources.Load<Sprite>("Images/Cravache Severe");
+    
     public override int GetAttack() {
         return 75;
     }
