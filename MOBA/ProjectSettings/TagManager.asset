@@ -8,6 +8,14 @@ TagManager:
   - spellA
   - spellB
   - spellC
+  - deathScreen
+  - shopButton
+  - shopMenu
+  - goldLabel
+  - selectedItemName
+  - selectedItemLogo
+  - selectedItemDescription
+  - cost
   layers:
   - Default
   - TransparentFX
