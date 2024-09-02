@@ -12,6 +12,16 @@ namespace Scripts
     public partial class Item {
 
         protected Sprite sprite;
+
+        public Item(bool forCompilErroWorkAround) {
+            // Load an empty sprite in the constructor for exception managment
+            sprite = Resources.Load<Sprite>("Images/white_pixel");     
+            
+            if (sprite == null)
+            {
+                Debug.LogError("Failed to load sprite for Item. Check the path and ensure the image is in the Resources folder.");
+            }
+        }
         
         public virtual int GetAttack(){
             return 0;
@@ -65,12 +75,14 @@ namespace Scripts
 
         public static Item GetItemByName(string itemName) {
             switch(itemName) {
+                case "Cravache Sévère Enflammée":
+                    return new CravacheSevereEnflammee();
                 case "Cravache Sévère":
                     return new CravacheSevere();
                 case "Gemme de Feu":
                     return new GemmeDeFeu();
                 default:
-                    return new Item();
+                    return new Item(true);
             }
         }
     }

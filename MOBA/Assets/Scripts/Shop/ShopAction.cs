@@ -27,7 +27,7 @@ public class ShopAction : MonoBehaviour
         lblName = GameObject.FindWithTag("selectedItemName").GetComponent<TMP_Text>();
         image = GameObject.FindWithTag("selectedItemLogo").GetComponent<Image>();
         description = GameObject.FindWithTag("selectedItemDescription").GetComponent<TMP_Text>();
-        cost = GameObject.FindWithTag("Cost").GetComponent<TMP_Text>();
+        cost = GameObject.FindWithTag("cost").GetComponent<TMP_Text>();
 
         //Reset to default values
         lblName.text = "";
@@ -43,6 +43,11 @@ public class ShopAction : MonoBehaviour
 
     public void SelectCravacheSevere() {
         itemSelected = Item.GetItemByName("Cravache Sévère");
+        DisplayInfo();
+    }
+
+    public void SelectCravacheSevereEnflammee() {
+        itemSelected = Item.GetItemByName("Cravache Sévère Enflammée");
         DisplayInfo();
     }
 
