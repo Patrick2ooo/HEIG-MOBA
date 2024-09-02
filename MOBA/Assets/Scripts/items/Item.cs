@@ -49,8 +49,8 @@ namespace Scripts
             return "Item";
         }
 
-        public virtual string GetImagePath() {
-            return null;
+        public Sprite GetSprite() {
+            return sprite;
         }
 
         public virtual string GetDescription() {

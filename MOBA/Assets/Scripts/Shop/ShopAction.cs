@@ -24,10 +24,10 @@ public class ShopAction : MonoBehaviour
         shopMenu.transform.Find("Canvas").gameObject.SetActive(true);
 
         //get refs
-        lblName = shopMenu.transform.FindWithTag("selectedItemName").GetComponent<TMP_Text>();
-        image = shopMenu.transform.FindWithTag("selectedItemLogo").GetComponent<Image>();
-        description = shopMenu.transform.FindWithTag("selectedItemDescription").GetComponent<TMP_Text>();
-        cost = shopMenu.transform.FindWithTag("Cost").GetComponent<TMP_Text>();
+        lblName = GameObject.FindWithTag("selectedItemName").GetComponent<TMP_Text>();
+        image = GameObject.FindWithTag("selectedItemLogo").GetComponent<Image>();
+        description = GameObject.FindWithTag("selectedItemDescription").GetComponent<TMP_Text>();
+        cost = GameObject.FindWithTag("Cost").GetComponent<TMP_Text>();
 
         //Reset to default values
         lblName.text = "";
@@ -50,7 +50,7 @@ public class ShopAction : MonoBehaviour
         //display info
         lblName.text = itemSelected.GetName();
         image.enabled = true;
-        //image.sprite = itemSelected.GetImagePath();
+        image.sprite = itemSelected.GetSprite();
         description.text = itemSelected.GetDescription();
         cost.text = "Cost: " + itemSelected.GetCost();
     }
