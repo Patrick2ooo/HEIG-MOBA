@@ -4120,7 +4120,7 @@ GameObject:
   - component: {fileID: 883056709}
   - component: {fileID: 883056708}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4793,8 +4793,8 @@ GameObject:
   - component: {fileID: 999552467}
   - component: {fileID: 999552466}
   m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_Name: SelectedItemDescription
+  m_TagString: selectedItemDescription
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
