@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 {
-    private const double CycleLength = 60;
+    public const double CycleLength = 60;
 
     public Vector3 leftSideSpawner, rightSideSpawner;
 
     private bool _timeSet;
 
-    private double Time
+    public double Time
     {
         get
         {

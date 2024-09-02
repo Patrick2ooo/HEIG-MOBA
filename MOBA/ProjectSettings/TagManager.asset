@@ -8,6 +8,7 @@ TagManager:
   - spellA
   - spellB
   - spellC
+  - deathScreen
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,8 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] public Camera playerCamera;
     private Realtime _realtime;
     public GameObject ui;
+    public GameObject deathScreen;
+    public Vector3 leftBase, rightBase;
 
     private void Awake()
     {
@@ -17,12 +19,15 @@ public class PlayerSpawner : MonoBehaviour
     
     private void DidConnect(Realtime realtime)
     {
+        ushort side = (ushort)(FindObjectsOfType<Character>().Length % 2);
         GameObject playerObject = Realtime.Instantiate(prefabName: "PlayerComponents", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
         PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
         player.mainCamera = playerCamera;
-        player.SetSide((ushort) FindObjectsOfType<Character>().Length);
+        player.SetSide(side);
         FindObjectOfType<DamageManager>().player = player;
         player.SetPlayerID(realtime.clientID);
+        player.deathScreen = deathScreen;
+        player.playerBase = side == 0 ? leftBase : rightBase;
         playerCamera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
         Instantiate(ui);

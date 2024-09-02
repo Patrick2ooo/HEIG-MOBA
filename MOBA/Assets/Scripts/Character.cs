@@ -11,10 +11,13 @@ public abstract class Character : Entity
     
     public Camera mainCamera;
     public GameObject movementIcon;
+    public GameObject deathScreen;
+    public Vector3 playerBase;
     
     private const int MapLayer = 3, UILayer = 5, CharactersLayer = 6, ColliderLayer = 8;
     private static readonly Vector3 IconOffset = new(0, 0.1f, 0);
     private RealtimeView _view;
+    private float _deathTimer;
 
     public static Character GetCharacterByID(int id)
     {
@@ -61,28 +64,44 @@ public abstract class Character : Entity
     {
         if (model.playerID == realtime.clientID)
         {
-            base.Update();
-            
-            model.PassiveIncomeTimer += Time.deltaTime;
-            while (model.PassiveIncomeTimer >= 1)
+            if (_deathTimer <= 0)
             {
-                model.exp += Attributes.PassiveExp;
-                model.golds += Attributes.PassiveGold;
-                --(model.PassiveIncomeTimer);
+                base.Update();
+                            
+                model.PassiveIncomeTimer += Time.deltaTime;
+                while (model.PassiveIncomeTimer >= 1)
+                {
+                    model.exp += Attributes.PassiveExp;
+                    model.golds += Attributes.PassiveGold;
+                    --(model.PassiveIncomeTimer);
+                }
+    
+                if (model.level < Attributes.MaxLevel && model.exp > Levels[model.level])
+                {
+                    LevelUp();
+                }
+    
+                if (model.health <= 0)
+                {
+                    _deathTimer = 5;
+                    deathScreen.SetActive(true);
+                    Target = null;
+                    agent.ResetPath();
+                }
+                
+                CheckForScreenInteraction();
+                AttackLogic();
             }
-
-            if (model.level < Attributes.MaxLevel && model.exp > Levels[model.level])
+            else
             {
-                LevelUp();
+                _deathTimer -= Time.deltaTime;
+                if (_deathTimer <= 0)
+                {
+                    deathScreen.SetActive(false);
+                    model.health = model.maxHealth;
+                    transform.position = playerBase;
+                }
             }
-
-            if (model.health <= 0)
-            {
-                Realtime.Destroy(transform.parent.gameObject);
-            }
-            
-            CheckForScreenInteraction();
-            AttackLogic();
         }
     }
     

@@ -188,6 +188,8 @@ MonoBehaviour:
   manager: {fileID: 0}
   mainCamera: {fileID: 0}
   movementIcon: {fileID: 0}
+  deathScreen: {fileID: 0}
+  playerBase: {x: 0, y: 0, z: 0}
 --- !u!1001 &253096733129562692
 PrefabInstance:
   m_ObjectHideFlags: 0
