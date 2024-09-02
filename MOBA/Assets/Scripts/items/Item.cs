@@ -9,6 +9,8 @@ namespace Scripts
     [RealtimeModel]
     public partial class Item {
 
+        public Sprite sprite;
+        
         public virtual int GetAttack(){
             return 0;
         }
