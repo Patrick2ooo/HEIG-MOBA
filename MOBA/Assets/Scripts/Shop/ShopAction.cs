@@ -26,7 +26,7 @@ public class ShopAction : MonoBehaviour
         // Enable the GameObject
         Debug.Log("Getting me...");
         //Transform me = player.transform;
-        Debug.Log("Getting shop...   player:" + player);
+        Debug.Log("Getting shop...   player:" + player.GetPlayerID());
         //Debug.Log("Getting shop...   me:" + me);
         //Transform shop = me.Find("ShopMenu");
         //Debug.Log("Getting shop GO...  shop:" + shop);

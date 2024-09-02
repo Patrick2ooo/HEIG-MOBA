@@ -11,10 +11,18 @@ public abstract class Character : Entity
     
     public Camera mainCamera;
     public GameObject movementIcon;
+    public GameObject deathScreen;
+    public Vector3 playerBase;
     
     private const int MapLayer = 3, UILayer = 5, CharactersLayer = 6, ColliderLayer = 8;
     private static readonly Vector3 IconOffset = new(0, 0.1f, 0);
     private RealtimeView _view;
+    private float _deathTimer;
+
+    public static Character GetCharacterByID(int id)
+    {
+        return FindObjectsByType<Character>(FindObjectsSortMode.None).FirstOrDefault(character => character.GetPlayerID() == id);
+    }
 
     public abstract void SpellA();
     public abstract void SpellB();
@@ -29,50 +37,71 @@ public abstract class Character : Entity
     {
         return 60;
     }
+
+    public void SetPlayerID(int id)
+    {
+        model.playerID = id;
+    }
+
+    public int GetPlayerID()
+    {
+        return model.playerID;
+    }
     
     public void InitInventory() {
         for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
             model.inventory.Add(i, new Item());
         }
     }
-    
-    protected override void UpdateHealth(Attributes updated, float health)
-    {
-        if (health <= 0)
-        {
-            // à changer pour la gestion de la mort
-            Realtime.Destroy(transform.parent.gameObject);
-        }
-    }
 
-    protected void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _view = GetComponent<RealtimeView>();
     }
 
     protected override void Update()
     {
-        base.Update();
-
-        model.PassiveIncomeTimer += Time.deltaTime;
-
-        while (model.PassiveIncomeTimer >= 1)
+        if (model.playerID == realtime.clientID)
         {
-            model.exp += Attributes.PassiveExp;
-            model.golds += Attributes.PassiveGold;
-            --(model.PassiveIncomeTimer);
-        }
-
-        if (model.level < Attributes.MaxLevel && model.exp > Levels[model.level])
-        {
-            LevelUp();
-        }
-        
-        if (_view.isOwnedLocallyInHierarchy)
-        {
-            base.Update();
-            CheckForScreenInteraction();
-            AttackLogic();
+            if (_deathTimer <= 0)
+            {
+                base.Update();
+                            
+                model.PassiveIncomeTimer += Time.deltaTime;
+                while (model.PassiveIncomeTimer >= 1)
+                {
+                    model.exp += Attributes.PassiveExp;
+                    model.golds += Attributes.PassiveGold;
+                    --(model.PassiveIncomeTimer);
+                }
+    
+                if (model.level < Attributes.MaxLevel && model.exp > Levels[model.level])
+                {
+                    LevelUp();
+                }
+    
+                if (model.health <= 0)
+                {
+                    _deathTimer = 5;
+                    deathScreen.SetActive(true);
+                    Target = null;
+                    agent.ResetPath();
+                }
+                
+                CheckForScreenInteraction();
+                AttackLogic();
+            }
+            else
+            {
+                _deathTimer -= Time.deltaTime;
+                if (_deathTimer <= 0)
+                {
+                    deathScreen.SetActive(false);
+                    model.health = model.maxHealth;
+                    transform.position = playerBase;
+                }
+            }
         }
     }
     

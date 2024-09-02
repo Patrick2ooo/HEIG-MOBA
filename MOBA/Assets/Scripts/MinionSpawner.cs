@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 {
-    private const double CycleLength = 60;
+    public const double CycleLength = 60;
 
     public Vector3 leftSideSpawner, rightSideSpawner;
 
     private bool _timeSet;
 
-    private double Time
+    public double Time
     {
         get
         {
@@ -49,11 +49,11 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
                 if (Time % (2 * CycleLength) >= CycleLength) minionsToSpawn *= 2;
                 for (int i = 0; i < minionsToSpawn; ++i)
                 {
-                    MinionScript minionLeft = Realtime.Instantiate("Minion", leftSideSpawner, Quaternion.identity, destroyWhenOwnerOrLastClientLeaves: false).GetComponent<MinionScript>();
+                    MinionScript minionLeft = Realtime.Instantiate("Minion", leftSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                     minionLeft.destination = rightSideSpawner;
                     minionLeft.SetSide(0);
                     minionLeft.name = "minionLeft " + i;
-                    MinionScript minionRight = Realtime.Instantiate("Minion", rightSideSpawner, Quaternion.identity, destroyWhenOwnerOrLastClientLeaves: false).GetComponent<MinionScript>();
+                    MinionScript minionRight = Realtime.Instantiate("Minion", rightSideSpawner, Quaternion.identity).GetComponent<MinionScript>();
                     minionRight.destination = leftSideSpawner;
                     minionRight.SetSide(1);
                     minionRight.name = "minionRight" + i;
