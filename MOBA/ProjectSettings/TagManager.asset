@@ -9,6 +9,8 @@ TagManager:
   - spellB
   - spellC
   - deathScreen
+  - shopButton
+  - shopMenu
   layers:
   - Default
   - TransparentFX

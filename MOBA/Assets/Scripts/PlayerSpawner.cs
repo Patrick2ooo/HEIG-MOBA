@@ -10,8 +10,6 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject deathScreen;
     public Vector3 leftBase, rightBase;
 
-    public ShopAction shopAction;
-
     private void Awake()
     {
         _realtime = GetComponent<Realtime>();
@@ -32,8 +30,11 @@ public class PlayerSpawner : MonoBehaviour
         player.playerBase = side == 0 ? leftBase : rightBase;
         playerCamera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
-        shopAction.player = player;
         Instantiate(ui);
+        Debug.Log(FindObjectsOfType<ShopAction>().Length);
+        ShopAction shopAction = GameObject.FindWithTag("shopMenu").GetComponent<ShopAction>();
+        GameObject.FindWithTag("shopButton").GetComponent<Button>().onClick.AddListener(shopAction.Show);
+        ShopAction.player = player;
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
         GameObject.FindWithTag("spellC").GetComponent<Button>().onClick.AddListener(player.SpellC);

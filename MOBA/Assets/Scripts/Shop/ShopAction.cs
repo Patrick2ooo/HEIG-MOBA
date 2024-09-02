@@ -10,7 +10,7 @@ using Scripts;
 public class ShopAction : MonoBehaviour
 {
 
-    public Character player;
+    public static Character player;
     protected GameObject shopMenu;
     protected Item itemSelected;
     protected TMP_Text lblName;
@@ -30,9 +30,9 @@ public class ShopAction : MonoBehaviour
         //Debug.Log("Getting shop...   me:" + me);
         //Transform shop = me.Find("ShopMenu");
         //Debug.Log("Getting shop GO...  shop:" + shop);
-        shopMenu = gameObject;
-        Debug.Log("Activate shop...");
-        shopMenu.SetActive(true);
+        shopMenu = GameObject.FindWithTag("shopMenu");
+        Debug.Log("Activate shop... :" + shopMenu);
+        shopMenu.transform.GetChild(0).gameObject.SetActive(true);
 
         /*//get refs
         Debug.Log("Getting refs...");
@@ -81,7 +81,7 @@ public class ShopAction : MonoBehaviour
             if (shopMenu != null)
             {
                 // Deactivate the GameObject
-                shopMenu.SetActive(false);
+                shopMenu.transform.GetChild(0).gameObject.SetActive(false);
                 Debug.Log("GameObject deactivated!");
             }
         }
