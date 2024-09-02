@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Normal.Realtime;
+using TMPro;
 using Scripts;
 using UnityEngine.EventSystems;
 
@@ -64,6 +65,7 @@ public abstract class Character : Entity
                     model.exp += Attributes.PassiveExp;
                     model.golds += Attributes.PassiveGold;
                     --(model.PassiveIncomeTimer);
+                    GameObject.FindWithTag("goldLabel").GetComponent<TMP_Text>().text = "Gold: " + model.golds;
                 }
     
                 if (model.level < Attributes.MaxLevel && model.exp > Levels[model.level])
@@ -131,7 +133,7 @@ public abstract class Character : Entity
             //Find an empty emplacement
             nextEmptyEmplacement = GetItemEmplacmentByName("Item");
 
-            if(nextEmptyEmplacement == 6) return false; 
+            if(nextEmptyEmplacement == 6) return false;
         }
 
         //update player balance
