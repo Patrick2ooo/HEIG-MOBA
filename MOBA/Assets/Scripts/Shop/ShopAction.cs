@@ -18,36 +18,22 @@ public class ShopAction : MonoBehaviour
     protected TMP_Text description;
     protected TMP_Text cost;
     
-    public void Show()
-    {
-        //SceneManager.LoadScene("Shop");
-        
-        
+    public void Show() {   
         // Enable the GameObject
-        Debug.Log("Getting me...");
-        //Transform me = player.transform;
-        Debug.Log("Getting shop...   player:" + player.GetPlayerID());
-        //Debug.Log("Getting shop...   me:" + me);
-        //Transform shop = me.Find("ShopMenu");
-        //Debug.Log("Getting shop GO...  shop:" + shop);
         shopMenu = GameObject.FindWithTag("shopMenu");
-        Debug.Log("Activate shop... :" + shopMenu);
-        shopMenu.transform.GetChild(0).gameObject.SetActive(true);
+        shopMenu.transform.Find("Canvas").gameObject.SetActive(true);
 
-        /*//get refs
-        Debug.Log("Getting refs...");
-        lblName = shopMenu.transform.Find("Canvas").Find("Panel").Find("ItemDescriptionSection").Find("ItemDescriptionPanel").Find("Name").GetComponent<TMP_Text>();
-        image = shopMenu.transform.Find("Canvas").Find("Panel").Find("ItemDescriptionSection").Find("Item").Find("Item1Logo").GetComponent<Image>();
-        description = shopMenu.transform.Find("Canvas").Find("Panel").Find("ItemDescriptionSection").Find("ItemDescriptionPanel").Find("Panel").Find("Text (TMP)").GetComponent<TMP_Text>();
-        cost = shopMenu.transform.Find("Canvas").Find("Panel").Find("PurchasePanelSection").Find("PurchasePanel").Find("PurchaseSections").Find("CostSection").Find("GameObject").GetComponent<TMP_Text>();
+        //get refs
+        lblName = shopMenu.transform.FindWithTag("selectedItemName").GetComponent<TMP_Text>();
+        image = shopMenu.transform.FindWithTag("selectedItemLogo").GetComponent<Image>();
+        description = shopMenu.transform.FindWithTag("selectedItemDescription").GetComponent<TMP_Text>();
+        cost = shopMenu.transform.FindWithTag("Cost").GetComponent<TMP_Text>();
 
         //Reset to default values
-        Debug.Log("Setting defaults values...");
         lblName.text = "";
         image.enabled = false;
         description.text = "";
         cost.text = "Cost: -";
-        Debug.Log("Done");*/
     }
 
     public void SelectGemmeDeFeu() {
@@ -73,17 +59,12 @@ public class ShopAction : MonoBehaviour
         player.BuyItem(itemSelected.GetName());
     }
     
-    void Update()
-    {
-        // Check if the Escape key is pressed
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (shopMenu != null)
-            {
-                // Deactivate the GameObject
-                shopMenu.transform.GetChild(0).gameObject.SetActive(false);
-                Debug.Log("GameObject deactivated!");
-            }
-        }
+    public void Close() {
+        //if (shopMenu != null) {
+            // Deactivate the GameObject
+            Debug.Log("Closing");
+            shopMenu.transform.Find("Canvas").gameObject.SetActive(false);
+            Debug.Log("Closed");
+        //}
     }
 }

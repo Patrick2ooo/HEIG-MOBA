@@ -11,6 +11,9 @@ TagManager:
   - deathScreen
   - shopButton
   - shopMenu
+  - goldLabel
+  - selectedItemName
+  - selectedItemLogo
   layers:
   - Default
   - TransparentFX
