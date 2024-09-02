@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbfdecda63a0334b86e5e0976ca28bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  manager: {fileID: 0}
   moveSpeed: 10
 --- !u!54 &895439042772695475
 Rigidbody:
@@ -171,6 +173,10 @@ MonoBehaviour:
   _components:
   - componentID: 1
     component: {fileID: 9194951636489395306}
+  - componentID: 2
+    component: {fileID: 0}
+  - componentID: 3
+    component: {fileID: 5579311239357679436}
   _childViews: []
 --- !u!114 &9194951636489395306
 MonoBehaviour:
@@ -189,4 +195,4 @@ MonoBehaviour:
   _syncRotation: 1
   _syncScale: 1
   _syncVelocity: 1
-  _maintainOwnershipWhileSleeping: 0
+  _maintainOwnershipWhileSleeping: 1
