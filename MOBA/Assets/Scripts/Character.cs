@@ -74,7 +74,7 @@ public abstract class Character : Entity
             //Find an empty emplacement
             nextEmptyEmplacement = GetItemEmplacmentByName("Item");
 
-            if(nextEmptyEmplacement == 6) return false; 
+            if(nextEmptyEmplacement == 6) return false;
         }
 
         //update player balance

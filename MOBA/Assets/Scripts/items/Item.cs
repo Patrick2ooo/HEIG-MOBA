@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Text;
 using UnityEngine;
 
 
@@ -43,6 +45,20 @@ namespace Scripts
 
         public virtual string GetName() {
             return "Item";
+        }
+
+        public virtual string GetImagePath() {
+            return null;
+        }
+
+        public virtual string GetDescription() {
+            StringBuilder sb = new StringBuilder();
+
+            if(GetAttack() != 0) sb.AppendLine("Attack : " + GetAttack() + "\n");
+            if(GetHealth() != 0) sb.AppendLine("Health : " + GetHealth() + "\n");
+            if(GetCritChance() != 0) sb.AppendLine("Critical Chance : " + GetCritChance() + "\n");
+
+            return sb.ToString();
         }
 
         public static Item GetItemByName(string itemName) {

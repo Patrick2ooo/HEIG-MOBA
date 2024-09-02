@@ -13,6 +13,8 @@ public class PlayerSpawner : MonoBehaviour
     private Realtime _realtime;
     public GameObject UI;
 
+    public ShopAction shopAction;
+
     private void Awake()
     {
         _realtime = GetComponent<Realtime>();
@@ -27,6 +29,7 @@ public class PlayerSpawner : MonoBehaviour
         player.mainCamera = _camera;
         _camera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
+        shopAction.player = player;
         Instantiate(UI);
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
