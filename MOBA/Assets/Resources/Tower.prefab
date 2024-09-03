@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6842866275414664828}
   - component: {fileID: 2289868300504572202}
   - component: {fileID: 6833221509051622923}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Tower
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -98,7 +98,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1770471262653791979, guid: 1d384e79571cdac478c6c1fe1dcabe49, type: 3}
   towerTop: {fileID: 1380423150265067266}
   shootingInterval: 5
-  side: 0
 --- !u!135 &5529612027023750526
 SphereCollider:
   m_ObjectHideFlags: 0
