@@ -62,7 +62,7 @@ public class PlayerScript : Character
 
     protected override void DealAutoDamage(Entity target)
     {
-        manager.AddDamage(target, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        damageManager.AddDamage(target, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
         if (_nextAttackBuffed) _nextAttackBuffed = false;
     }
 

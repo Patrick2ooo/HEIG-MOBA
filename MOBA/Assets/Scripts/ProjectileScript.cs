@@ -78,8 +78,12 @@ public class ProjectileScript : Entity
     }
     
     void OnCollisionEnter(Collision collision)
-    {       
+
+    {   
+        //when hitting the target, get his model and reduce his health by the attack value of the projectile
         if (collision.gameObject.layer == LayerMask.NameToLayer("character")) {
+            Entity entity = collision.gameObject.GetComponent<Entity>();
+            DealAutoDamage(entity);
             model.isDestroyed = true;
         }             
                     

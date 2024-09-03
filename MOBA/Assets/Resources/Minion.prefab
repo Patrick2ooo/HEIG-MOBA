@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -1209475430178243581}
   m_Layer: 6
   m_Name: Minion
-  m_TagString: Minion
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78ea557c645a83641ad78810af1729b3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   radius: 0
   agent: {fileID: 1095240776852612457}
   destination: {x: 0, y: 0, z: 0}

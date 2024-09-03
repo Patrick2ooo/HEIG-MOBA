@@ -24,6 +24,12 @@ public abstract class Character : Entity
     public abstract void SpellB();
     public abstract void SpellC();
 
+    public void AddExpGolds(int exp, int golds)
+    {
+        model.exp += exp;
+        model.golds += golds;
+    }
+
     protected override int GetGoldBounty()
     {
         return 150;
@@ -45,9 +51,8 @@ public abstract class Character : Entity
         }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         _view = GetComponent<RealtimeView>();
     }
 
@@ -168,7 +173,6 @@ public abstract class Character : Entity
         model.maxHealth -= item.GetHealth();
 
         if (isSelling) model.golds += (int) item.GetSellingCost();
-
 
         model.inventory[itemEmplacement] = new Item(true);
     }

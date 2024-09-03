@@ -16,6 +16,8 @@ TagManager:
   - selectedItemLogo
   - selectedItemDescription
   - cost
+  - Tower
+  - Minion
   layers:
   - Default
   - TransparentFX

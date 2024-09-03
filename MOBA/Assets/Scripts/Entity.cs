@@ -8,7 +8,8 @@ using Random = UnityEngine.Random;
 public abstract class Entity : RealtimeComponent<Attributes>{
     
     public NavMeshAgent agent;
-    public DamageManager manager;
+    public DamageManager damageManager;
+    public ExpGoldsManager expGoldsManager;
     protected Entity Target;
 
     protected abstract int GetGoldBounty();
@@ -78,7 +79,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     
     protected virtual void DealAutoDamage(Entity target)
     {
-        manager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        damageManager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
     }
 
     private void UpdateMoveSpeed(Attributes updated, float speed)
@@ -101,11 +102,6 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         }
     }
 
-    protected virtual void Awake()
-    {
-        manager = FindObjectOfType<DamageManager>();
-    }
-
     protected virtual void Update()
     {
         if (model.health == 0 && model.LastHittersID.Count > 0)
@@ -113,8 +109,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
             Entity killer = GetEntityByID(model.LastHittersID.Peek());
             if (killer is Character)
             {
-                killer.model.golds += GetGoldBounty();
-                killer.model.exp += GetExpBounty();
+                expGoldsManager.AddGain(killer, GetExpBounty(), GetGoldBounty());
             }
             model.LastHittersID.Clear();
             Realtime.Destroy(gameObject);

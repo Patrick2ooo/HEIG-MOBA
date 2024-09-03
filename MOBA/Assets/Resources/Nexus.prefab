@@ -145,7 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  manager: {fileID: 0}
+  damageManager: {fileID: 0}
+  expGoldsManager: {fileID: 0}
 --- !u!1001 &6614963073109390446
 PrefabInstance:
   m_ObjectHideFlags: 0

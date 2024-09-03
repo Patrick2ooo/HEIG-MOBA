@@ -183,7 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2624006881883783901}
-  manager: {fileID: 0}
+  damageManager: {fileID: 0}
+  expGoldsManager: {fileID: 0}
   mainCamera: {fileID: 0}
   movementIcon: {fileID: 0}
   deathScreen: {fileID: 0}

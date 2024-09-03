@@ -10,7 +10,8 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject ui;
     public GameObject deathScreen;
     public Vector3 leftBase, rightBase;
-    public DamageManager manager;
+    public DamageManager damageManager;
+    public ExpGoldsManager expGoldsManager;
 
     private void Awake()
     {
@@ -26,7 +27,10 @@ public class PlayerSpawner : MonoBehaviour
         PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
         player.mainCamera = playerCamera;
         player.SetSide(side);
-        manager.player = player;
+        damageManager.player = player;
+        expGoldsManager.player = player;
+        player.damageManager = damageManager;
+        player.expGoldsManager = expGoldsManager;
         player.SetID("0" + realtime.clientID);
         player.deathScreen = deathScreen;
         player.playerBase = side == 0 ? leftBase : rightBase;

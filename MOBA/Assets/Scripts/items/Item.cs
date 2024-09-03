@@ -59,7 +59,6 @@ namespace Scripts
             return "Item";
         }
 
-
         public Sprite GetSprite() {
             return sprite;
         }
@@ -78,13 +77,11 @@ namespace Scripts
             switch(itemName) {
                 case "Cravache Sévère Enflammée":
                     return new CravacheSevereEnflammee();
-
                 case "Cravache Sévère":
                     return new CravacheSevere();
                 case "Gemme de Feu":
                     return new GemmeDeFeu();
                 default:
-
                     return new Item(true);
             }
         }
