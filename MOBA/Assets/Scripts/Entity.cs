@@ -79,6 +79,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     
     protected virtual void DealAutoDamage(Entity target)
     {
+        
         damageManager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
     }
 

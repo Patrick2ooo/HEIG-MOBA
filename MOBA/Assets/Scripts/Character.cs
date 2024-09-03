@@ -19,6 +19,7 @@ public abstract class Character : Entity
     private static readonly Vector3 IconOffset = new(0, 0.1f, 0);
     private RealtimeView _view;
     private float _deathTimer;
+    public Animator playerAnim;
 
     public abstract void SpellA();
     public abstract void SpellB();
@@ -54,10 +55,15 @@ public abstract class Character : Entity
     protected void Awake()
     {
         _view = GetComponent<RealtimeView>();
+        playerAnim = GetComponentInChildren<Animator>();
     }
 
     protected override void Update()
     {
+        if (agent.isStopped)
+        {
+            playerAnim.SetBool("isWalking", false);
+        }
         if (model.entityID == "0" + realtime.clientID)
         {
             if (_deathTimer <= 0)
@@ -229,6 +235,7 @@ public abstract class Character : Entity
                     switch (hit.collider.gameObject.layer)
                     {
                         case MapLayer:
+                            playerAnim.SetBool("isWalking", true);
                             if(movementIcon) Instantiate(movementIcon, hit.point + IconOffset, Quaternion.identity);
                             agent.SetDestination(hit.point);
                             model.Target = null;
@@ -248,5 +255,12 @@ public abstract class Character : Entity
                 }
             }
         }
+    }
+    
+    protected override void DealAutoDamage(Entity target)
+    {
+        playerAnim.SetBool("isAttacking", true);
+        damageManager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        playerAnim.SetBool("isAttacking", false);
     }
 }
