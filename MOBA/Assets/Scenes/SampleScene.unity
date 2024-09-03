@@ -8282,7 +8282,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 623786549}
         m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
-        m_MethodName: Buy
+        m_MethodName: BuyOrSell
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

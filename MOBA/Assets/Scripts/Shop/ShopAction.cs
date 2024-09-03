@@ -14,6 +14,7 @@ public class ShopAction : MonoBehaviour
 
     public static Character player;
     public Item itemSelected;
+    private uint slotSelected;
     public InventoryManagement inventoryManager;
     private bool isSelling;
 
@@ -80,11 +81,17 @@ public class ShopAction : MonoBehaviour
     private void SelectSlot(uint slotId) {
         isSelling = true;
         itemSelected = player.GetItem(slotId);
+        slotSelected = slotId;
         DisplayInfo();
     }
 
-    public void Buy() {
-        player.BuyItem(itemSelected.GetName());
+    public void BuyOrSell() {
+        if(isSelling) {
+            player.DropItem(slotSelected, true);
+            itemSelected = new Item(true);
+            SelectItem();
+        } else player.BuyItem(itemSelected.GetName());
+        
         inventoryManager = GetComponent<InventoryManagement>();
         Debug.Log("attack : " + player.GetAttack());
         inventoryManager.ItemChange();
