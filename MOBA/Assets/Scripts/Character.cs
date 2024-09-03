@@ -169,7 +169,6 @@ public abstract class Character : Entity
 
         if (isSelling) model.golds += (int) item.GetSellingCost();
 
-
         model.inventory[itemEmplacement] = new Item(true);
     }
 
