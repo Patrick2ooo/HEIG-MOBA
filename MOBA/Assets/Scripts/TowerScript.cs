@@ -5,14 +5,16 @@ using Normal.Realtime;
 
 public class TowerScript : Entity
 {
+    private static int id = 0;
+    
     public GameObject projectilePrefab; // Assign the projectile prefab in the Inspector
     public Transform towerTop; // Assign the tower top transform in the Inspector
     public float shootingInterval = 5f; // Time between each shot
-    public int side = 0;
     private List<Transform> playersInRange = new List<Transform>(); // List to track players in the detection zone
     private List<Transform> minionsInRange = new List<Transform>(); // List to track minions in the detection zone
     private Transform currentTarget = null; // The current target (player or minion)
 
+    
     private float shootTimer = 0f;
     private bool oneShot = true;
     private Realtime _realtime;
@@ -20,7 +22,6 @@ public class TowerScript : Entity
     void Start()
     {
         _realtime = GetComponent<Realtime>();
-        model.side = (ushort)side;
         // Check for player disconnections every few seconds
         InvokeRepeating("CheckForDisconnectedPlayers", 2.0f, 2.0f);
     }
@@ -40,11 +41,9 @@ public class TowerScript : Entity
         attributes.maxHealth = 5500;   
         attributes.health = 5500;
         attributes.healthRegen = 20;
-    }
-
-    void Update()
-    {
-
+        attributes.side = 3;
+        attributes.entityID = "t" + (++id);
+        attributes.radius = 0.825f;
     }
 
     public Transform SelectTarget()

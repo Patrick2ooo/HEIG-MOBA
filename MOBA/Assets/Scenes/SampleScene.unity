@@ -5882,6 +5882,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerModel
       objectReference: {fileID: 0}
+    - target: {fileID: 4721991063261960412, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
+      propertyPath: damageManager
+      value: 
+      objectReference: {fileID: 932198581}
+    - target: {fileID: 4721991063261960412, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
+      propertyPath: expGoldsManager
+      value: 
+      objectReference: {fileID: 932198582}
     - target: {fileID: 5609512982094436263, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: _realtime
       value: 
@@ -5893,6 +5901,10 @@ PrefabInstance:
     - target: {fileID: 7521201730441623220, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: m_Radius
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521201730441623220, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7521201730441623220, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: m_Center.y
