@@ -1751,7 +1751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1852,7 +1852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 454315965}
   m_Layer: 5
-  m_Name: ItemSlot1
+  m_Name: ItemSlot0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1961,7 +1961,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2113587945}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 623786549}
+        m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
+        m_MethodName: SelectSlot2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &458023621
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2958,12 +2970,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71a2cfcf603ff040b9572c8a69f18cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 0}
   shopMenu: {fileID: 0}
   lblName: {fileID: 0}
   image: {fileID: 0}
   description: {fileID: 0}
   cost: {fileID: 0}
-  inventoryManager: {fileID: 0}
+  buy: {fileID: 0}
 --- !u!1 &636092468
 GameObject:
   m_ObjectHideFlags: 0
@@ -3841,7 +3854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 793016128}
   m_Layer: 5
-  m_Name: ItemSlot3
+  m_Name: ItemSlot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4767,7 +4780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 989421353}
   m_Layer: 5
-  m_Name: ItemSlot6
+  m_Name: ItemSlot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5506,7 +5519,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 399454739}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 623786549}
+        m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
+        m_MethodName: SelectSlot5
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1109330579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6659,7 +6684,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 299223749}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 623786549}
+        m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
+        m_MethodName: SelectSlot0
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1291005749
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6751,7 +6788,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1026049532}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 623786549}
+        m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
+        m_MethodName: SelectSlot1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1308590321
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6964,7 +7013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1378184052}
   m_Layer: 5
-  m_Name: ItemSlot4
+  m_Name: ItemSlot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7306,7 +7355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1481021631}
   m_Layer: 5
-  m_Name: ItemSlot2
+  m_Name: ItemSlot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7458,7 +7507,7 @@ GameObject:
   - component: {fileID: 1513445966}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: buy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8231,7 +8280,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1403631318740801613, guid: eb1f10042e879774e9361decdec21944, type: 3}
+      - m_Target: {fileID: 623786549}
         m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
         m_MethodName: Buy
         m_Mode: 1
@@ -8704,7 +8753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1735064427}
   m_Layer: 5
-  m_Name: ItemSlot5
+  m_Name: ItemSlot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9236,7 +9285,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1012680533}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 623786549}
+        m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
+        m_MethodName: SelectSlot4
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1985842723
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9434,7 +9495,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1402694500}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 623786549}
+        m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
+        m_MethodName: SelectSlot3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &2041364574
 CanvasRenderer:
   m_ObjectHideFlags: 0

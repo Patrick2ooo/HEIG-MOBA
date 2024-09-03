@@ -145,12 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71a2cfcf603ff040b9572c8a69f18cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 0}
   shopMenu: {fileID: 0}
   lblName: {fileID: 0}
   image: {fileID: 0}
   description: {fileID: 0}
   cost: {fileID: 0}
-  inventoryManager: {fileID: 0}
+  buy: {fileID: 0}
 --- !u!114 &1622539166310790208
 MonoBehaviour:
   m_ObjectHideFlags: 0

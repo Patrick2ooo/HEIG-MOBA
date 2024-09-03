@@ -244,6 +244,10 @@ public abstract class Character : Entity
             }
         }
     }
+
+    public Item GetItem(uint slotId) {
+        return model.inventory[slotId];
+    }
     
     public Item[] GetInventory() {
         
