@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:MOBA/Assets/Resources/Projectile.prefab.meta
-guid: 1d384e79571cdac478c6c1fe1dcabe49
-PrefabImporter:
+<<<<<<<< HEAD:MOBA/Assets/Resources/Tower.prefab.meta
+guid: 91d781b6465a0dd428178fc07fa68787
 ========
-guid: 3e5fedb75bd2b2b419fe2bb7b8c43063
-DefaultImporter:
->>>>>>>> fix-golds-exp:MOBA/Assets/Normal/Examples-URP.unitypackage.meta
+guid: 1d384e79571cdac478c6c1fe1dcabe49
+>>>>>>>> Projectile:MOBA/Assets/Resources/Projectile.prefab.meta
+PrefabImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
