@@ -15,6 +15,7 @@ public class PlayerScript : Character
         attributes.attack = 1;
         attributes.attackPerLevel = 1;
         attributes.radius = 0.5f;
+        attributes.golds = 1000;
     }
 
     // Update is called once per frame

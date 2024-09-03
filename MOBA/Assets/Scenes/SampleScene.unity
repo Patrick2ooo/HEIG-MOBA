@@ -2958,6 +2958,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71a2cfcf603ff040b9572c8a69f18cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopMenu: {fileID: 0}
+  lblName: {fileID: 0}
+  image: {fileID: 0}
+  description: {fileID: 0}
+  cost: {fileID: 0}
+  inventoryManager: {fileID: 0}
 --- !u!1 &636092468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5860,7 +5866,7 @@ GameObject:
   - component: {fileID: 1176668603}
   - component: {fileID: 1176668602}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8155,7 +8161,7 @@ GameObject:
   - component: {fileID: 1621343618}
   - component: {fileID: 1621343617}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8225,13 +8231,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2129534776088726117, guid: eb1f10042e879774e9361decdec21944, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1403631318740801613, guid: eb1f10042e879774e9361decdec21944, type: 3}
+        m_TargetAssemblyTypeName: ShopAction, ScriptsAssembly
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
