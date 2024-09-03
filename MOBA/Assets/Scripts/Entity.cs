@@ -77,6 +77,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
             {
                 SetValues(currentModel);
             }
+            
             currentModel.moveSpeedDidChange += UpdateMoveSpeed;
         }
     }

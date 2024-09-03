@@ -245,8 +245,9 @@ public abstract class Character : Entity
         }
     }
     
-    public Item[] GetInventory() {
-        
+    
+    public Item[] GetInventory()
+    {
         Item[] myItems = new Item[6];
         
         for(uint i = 0; i < 6; ++i) {
@@ -255,4 +256,5 @@ public abstract class Character : Entity
         
         return myItems;
     }
+    
 }

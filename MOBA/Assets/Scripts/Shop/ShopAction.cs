@@ -66,7 +66,7 @@ public class ShopAction : MonoBehaviour
         player.BuyItem(itemSelected.GetName());
         inventoryManager = GetComponent<InventoryManagement>();
         Debug.Log("attack : " + player.GetAttack());
-        inventoryManager.ItemChange();
+        inventoryManager.Delay();
         Debug.Log("2attack : " + player.GetAttack());
     }
     

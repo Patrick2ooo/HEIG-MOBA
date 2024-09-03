@@ -11,10 +11,13 @@ public class InventoryManagement : MonoBehaviour
     public Image oldImage;
     public Sprite newImage;
     
-    public Character myCharacter;
+    public static Character myCharacter;
     
-    // This returns the GameObject named Hand.
-    public GameObject[] Icons = new GameObject[6];
+    
+    public GameObject[] InventoryIcons = new GameObject[6];
+    
+    
+    public GameObject[] StoreIcons = new GameObject[6];
     
     // Start is called before the first frame update
     void Start()
@@ -28,29 +31,54 @@ public class InventoryManagement : MonoBehaviour
     {
         
     }
+
+    public void Delay()
+    {
+        float delay = 0.1f;
+        Invoke(nameof(ItemChange), delay);
+    }
     
     public void ItemChange()
     {
+        Debug.Log("ItemChange");
         Item[] items = myCharacter.GetInventory();
+        Debug.Log("GetInventory Done");
 
+        /*
         for (int i = 0; i < 6; ++i)
         {
             Icons[i] = GameObject.Find("ItemIcon" + i);
-        }
+        }*/
         
         Sprite[] sprites = new Sprite[6];
         
+        Debug.Log("Entering for loop");
         for (int i = 0; i < 6; ++i)
         {
-            if (items[i].GetName() != "item")
+
+            if (items[i].GetName() != "Item")
             {
-                Icons[i].SetActive(true);
-                Icons[i].GetComponent<Image>().sprite = items[i].GetSprite();   
+                Debug.Log(items[i].GetName());
+                InventoryIcons[i].SetActive(true);
+                InventoryIcons[i].GetComponent<Image>().sprite = items[i].GetSprite();   
+                
+                StoreIcons[i].SetActive(true);
+                StoreIcons[i].GetComponent<Image>().sprite = items[i].GetSprite();   
+            }
+            else
+            {
+                InventoryIcons[i].SetActive(false);
+                StoreIcons[i].SetActive(false);
             }
             
         }
         //newImage = maCravache.sprite;
         //Debug.Log("attack : " + maCravache.GetAttack());
         //oldImage.sprite = newImage;
+    }
+
+    public void GetCharacter()
+    {
+        Debug.Log(myCharacter);
     }
 }
