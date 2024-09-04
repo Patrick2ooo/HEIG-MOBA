@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2624006881883783901}
   - component: {fileID: 1622539166310790208}
   - component: {fileID: 6047588003768159155}
+  - component: {fileID: 5425804996667188278}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -33,7 +34,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 84504404931080423}
   m_Father: {fileID: 0}
@@ -156,6 +157,8 @@ MonoBehaviour:
     component: {fileID: 0}
   - componentID: 2
     component: {fileID: 6047588003768159155}
+  - componentID: 3
+    component: {fileID: 5425804996667188278}
   _childViews: []
 --- !u!114 &6047588003768159155
 MonoBehaviour:
@@ -170,11 +173,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2624006881883783901}
-  manager: {fileID: 0}
+  damageManager: {fileID: 0}
+  expGoldsManager: {fileID: 0}
   mainCamera: {fileID: 0}
   movementIcon: {fileID: 0}
   deathScreen: {fileID: 0}
   playerBase: {x: 0, y: 0, z: 0}
+--- !u!114 &5425804996667188278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129534776088726117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1029778088, guid: ebae63e7edba59945a994528ada1f7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolate: 1
+  _syncPosition: 1
+  _syncRotation: 1
+  _syncScale: 1
+  _syncVelocity: 1
+  _maintainOwnershipWhileSleeping: 0
 --- !u!1001 &2368691992451330908
 PrefabInstance:
   m_ObjectHideFlags: 0

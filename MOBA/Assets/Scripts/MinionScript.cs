@@ -36,10 +36,6 @@ public class MinionScript : Entity
         {
             _targets.Dequeue();
         }
-        if (model.health <= 0)
-        {
-            Realtime.Destroy(gameObject);
-        }
 
         if (Target)
         {

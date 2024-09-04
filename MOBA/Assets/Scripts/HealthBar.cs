@@ -12,16 +12,28 @@ public class HealthBar : MonoBehaviour
         transform.GetChild(1).GetComponent<Image>().color = _parent.GetComponent<Entity>().GetSide() == PlayerSide ? Color.green : Color.red;
 
         transform.GetChild(1).GetComponent<Image>().fillAmount = _parent.GetComponent<Entity>().GetHealthPercent();
-        transform.position = _parent.position;
-        transform.rotation = Quaternion.Inverse(_parent.rotation);
-        transform.rotation = Quaternion.AngleAxis(60, Vector3.right);
+        UpdatePositionAndRotation();
     }
 
     void Update()
     {
         transform.GetChild(1).GetComponent<Image>().fillAmount = _parent.GetComponent<Entity>().GetHealthPercent();
-        transform.position = _parent.position;
-        transform.rotation = Quaternion.Inverse(_parent.rotation);
-        transform.rotation = Quaternion.AngleAxis(60, Vector3.right);
+        UpdatePositionAndRotation();
+    }
+
+    private void UpdatePositionAndRotation()
+    {
+        // Adjust the position above the tower or at the parent's position
+        if (_parent.tag == "Tower")
+        {
+            transform.position = _parent.position + new Vector3(0f, 2f, -1f);
+        }
+        else
+        {
+            transform.position = _parent.position;
+        }
+
+        // Simplify the rotation to face upwards correctly
+        transform.rotation = Quaternion.Euler(60, 0, 0);
     }
 }

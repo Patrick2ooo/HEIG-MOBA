@@ -8,6 +8,7 @@ public class PlayerScript : Character
 
     protected override void SetValues(Attributes attributes)
     {
+        base.SetValues(attributes);
         attributes.moveSpeed = 3.5f;
         attributes.maxHealth = 100;
         attributes.health = 100;
@@ -38,11 +39,32 @@ public class PlayerScript : Character
             }
         }
 
+        //logic du joueur qui tire à modifier et discuter pour le mettre dans un spell
+        /*if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 targetPosition = hit.point;
+                targetPosition.y = transform.position.y;
+                
+                Vector3 direction = (targetPosition - transform.position).normalized;
+                Vector3 spawnPosition = transform.position + direction * 1.0f;
+
+                // Instantiate the projectile   
+                GameObject proj = Realtime.Instantiate("Projectile", spawnPosition, Quaternion.LookRotation(targetPosition - transform.position), preventOwnershipTakeover: true, useInstance: _realtime);
+
+                // Set the direction of the projectile
+                ProjectileScript projScript = proj.GetComponent<ProjectileScript>();
+                projScript.SetDirection((targetPosition - transform.position).normalized);
+            }
+        }*/
+
     }
 
     protected override void DealAutoDamage(Entity target)
     {
-        manager.AddDamage(target, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        damageManager.AddDamage(target, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
         if (_nextAttackBuffed) _nextAttackBuffed = false;
     }
 

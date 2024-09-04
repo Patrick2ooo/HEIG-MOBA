@@ -1,7 +1,4 @@
-using System;
 using Normal.Realtime;
-using Normal.Realtime.Serialization;
-using UnityEngine;
 
 public class DamageManager : RealtimeComponent<DamageManagerModel>
 {
@@ -35,7 +32,14 @@ public class DamageManager : RealtimeComponent<DamageManagerModel>
             }else if (!instance.target.StartsWith("0"))
             {
                 Entity e = Entity.GetEntityByID(instance.target);
-                if (e) e.ReceiveDamage(instance.attacker, instance.physDamage, instance.magDamage, instance.physPen, instance.magPen, instance.critChance, instance.critMult);
+                if (e)
+                {
+                    if (!e.isOwnedRemotelySelf && !e.isOwnedLocallyInHierarchy)
+                    {
+                        e.RequestOwnership();
+                    }
+                    e.ReceiveDamage(instance.attacker, instance.physDamage, instance.magDamage, instance.physPen, instance.magPen, instance.critChance, instance.critMult);
+                }
                 model.damages.Remove(instance);
             }
         }

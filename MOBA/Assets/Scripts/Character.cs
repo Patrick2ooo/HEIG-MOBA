@@ -24,6 +24,17 @@ public abstract class Character : Entity
     public abstract void SpellB();
     public abstract void SpellC();
 
+    protected override void SetValues(Attributes model)
+    {
+        transform.position = playerBase;
+    }
+
+    public void AddExpGolds(int exp, int golds)
+    {
+        model.exp += exp;
+        model.golds += golds;
+    }
+
     protected override int GetGoldBounty()
     {
         return 150;
@@ -45,11 +56,12 @@ public abstract class Character : Entity
         }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         _view = GetComponent<RealtimeView>();
     }
+
+    protected override void KillSelf() { }
 
     protected override void Update()
     {

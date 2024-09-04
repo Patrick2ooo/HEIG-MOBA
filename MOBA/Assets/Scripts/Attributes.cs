@@ -52,4 +52,5 @@ public partial class Attributes
     [RealtimeProperty(35, false, true)] private string _name;
     [RealtimeProperty(36, true, true)] private RealtimeDictionary<Item> _inventory;
     [RealtimeProperty(37, false, true)] private float _radius;
+    [RealtimeProperty(38, true, true)] private bool _isDestroyed;
 }
