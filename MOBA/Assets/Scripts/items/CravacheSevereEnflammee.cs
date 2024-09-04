@@ -30,7 +30,7 @@ public class CravacheSevereEnflammee : Item
     }
 
     public override float GetCritDamage() {
-        return 0.05;
+        return 0.05f;
     }
 
     public override List<string> GetRecipe() {
