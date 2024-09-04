@@ -1,3 +1,5 @@
+using UnityEngine.SceneManagement;
+
 public class Nexus : Entity
 {
     protected override int GetGoldBounty()
@@ -15,5 +17,14 @@ public class Nexus : Entity
         attributes.maxHealth = 5500;   
         attributes.health = 5500;
         attributes.healthRegen = 20;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (model.health <= 0)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

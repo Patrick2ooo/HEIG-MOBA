@@ -24,6 +24,12 @@ public abstract class Character : Entity
     public abstract void SpellB();
     public abstract void SpellC();
 
+    protected override void SetValues(Attributes model)
+    {
+        transform.position = playerBase;
+        Debug.Log(playerBase.x);
+    }
+
     public void AddExpGolds(int exp, int golds)
     {
         model.exp += exp;

@@ -32,7 +32,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
   m_LocalScale: {x: 1.2, y: 1.35, z: 1.2}
+=======
+  m_LocalScale: {x: 1.65, y: 3, z: 1.65}
+>>>>>>> Stashed changes
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7868240419798062815}
@@ -95,9 +99,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   damageManager: {fileID: 0}
   expGoldsManager: {fileID: 0}
-  projectilePrefab: {fileID: 1770471262653791979, guid: 1d384e79571cdac478c6c1fe1dcabe49, type: 3}
   towerTop: {fileID: 1380423150265067266}
-  shootingInterval: 5
 --- !u!135 &5529612027023750526
 SphereCollider:
   m_ObjectHideFlags: 0

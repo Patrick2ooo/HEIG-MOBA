@@ -8,6 +8,7 @@ public class PlayerScript : Character
 
     protected override void SetValues(Attributes attributes)
     {
+        base.SetValues(attributes);
         attributes.moveSpeed = 3.5f;
         attributes.maxHealth = 100;
         attributes.health = 100;
