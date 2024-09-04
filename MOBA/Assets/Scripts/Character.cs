@@ -27,7 +27,6 @@ public abstract class Character : Entity
     protected override void SetValues(Attributes model)
     {
         transform.position = playerBase;
-        Debug.Log(playerBase.x);
     }
 
     public void AddExpGolds(int exp, int golds)
@@ -61,6 +60,8 @@ public abstract class Character : Entity
     {
         _view = GetComponent<RealtimeView>();
     }
+
+    protected override void KillSelf() { }
 
     protected override void Update()
     {

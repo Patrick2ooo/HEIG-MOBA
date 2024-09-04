@@ -24,7 +24,7 @@ public class Nexus : Entity
         base.Update();
         if (model.health <= 0)
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadSceneAsync("MainMenu");
         }
     }
 }

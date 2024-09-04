@@ -104,15 +104,18 @@ public abstract class Entity : RealtimeComponent<Attributes>{
 
     protected virtual void Update()
     {
-        if (model.health == 0 && model.LastHittersID.Count > 0)
+        if (model.health <= 0)
         {
-            Entity killer = GetEntityByID(model.LastHittersID.Peek());
-            if (killer is Character)
+            if (model.LastHittersID.Count > 0)
             {
-                expGoldsManager.AddGain(killer, GetExpBounty(), GetGoldBounty());
+                Entity killer = GetEntityByID(model.LastHittersID.Peek());
+                if (killer is Character)
+                {
+                    expGoldsManager.AddGain(killer, GetExpBounty(), GetGoldBounty());
+                }
             }
             model.LastHittersID.Clear();
-            Realtime.Destroy(gameObject);
+            KillSelf();
         }
         
         model.RegenTimer += Time.deltaTime;
@@ -121,5 +124,10 @@ public abstract class Entity : RealtimeComponent<Attributes>{
             model.health = Math.Min(model.health + model.healthRegen, model.maxHealth);
             --(model.RegenTimer);
         }
+    }
+
+    protected virtual void KillSelf()
+    {
+        Realtime.Destroy(gameObject);
     }
 }

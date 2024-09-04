@@ -152,4 +152,9 @@ public class TowerScript : Entity
             currentTarget = null;
         }
     }
+
+    protected override void KillSelf()
+    {
+        Realtime.Destroy(transform.parent.gameObject);
+    }
 }

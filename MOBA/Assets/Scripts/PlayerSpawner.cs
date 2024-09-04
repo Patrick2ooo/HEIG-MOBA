@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] public Camera playerCamera;
+    public Camera playerCamera;
     private Realtime _realtime;
     public GameObject ui;
     public GameObject deathScreen;
-    public static Vector3 LeftBase = new(-40, 0, 0), RightBase = new(40, 0, 0);
+    public static Vector3 LeftBase = new(-51, 0, 0), RightBase = new(51, 0, 0);
     public DamageManager damageManager;
     public ExpGoldsManager expGoldsManager;
 
@@ -45,6 +45,7 @@ public class PlayerSpawner : MonoBehaviour
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
         GameObject.FindWithTag("spellC").GetComponent<Button>().onClick.AddListener(player.SpellC);
         HealthBar.PlayerSide = player.GetSide();
+        playerCamera.gameObject.SetActive(true);
     }
 
     private void Disconnect(Realtime realtime)
