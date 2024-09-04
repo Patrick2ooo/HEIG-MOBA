@@ -229,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4824616465488680995, guid: 91d781b6465a0dd428178fc07fa68787, type: 3}
       propertyPath: m_Name
-      value: Tower (1)
+      value: Tower
       objectReference: {fileID: 0}
     - target: {fileID: 7784386428002373516, guid: 91d781b6465a0dd428178fc07fa68787, type: 3}
       propertyPath: m_PresetInfoIsWorld

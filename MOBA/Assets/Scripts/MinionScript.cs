@@ -59,7 +59,7 @@ public class MinionScript : Entity
     private void OnTriggerEnter(Collider other)
     {
         Entity e = other.transform.parent.GetComponent<Entity>();
-        if(e.GetSide() != model.side)
+        if(e.GetSide() != model.side && !other.CompareTag("Projectile"))
         {
             _targets.Enqueue(e);
             if (Target == null)

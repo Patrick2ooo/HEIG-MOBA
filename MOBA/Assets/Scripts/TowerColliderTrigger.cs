@@ -15,7 +15,6 @@ public class TowerColliderTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(towerScript is null);
         // Forward the trigger event to the parent TowerScript
         towerScript.OnTriggerEnterFromChild(other);
     }

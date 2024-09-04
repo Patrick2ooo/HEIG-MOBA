@@ -45,7 +45,6 @@ public class TowerScript : Entity
         attributes.maxHealth = 5500;   
         attributes.health = 5500;
         attributes.healthRegen = 20;
-        attributes.side = 3;
         attributes.entityID = "t" + (++id);
         attributes.radius = 0.825f;
     }
@@ -91,13 +90,13 @@ public class TowerScript : Entity
         if (other.CompareTag("Player"))
         {
             // Add the player to the list
-            if (!playersInRange.Contains(other.transform))
+            if (!playersInRange.Contains(other.transform) && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 playersInRange.Add(other.transform);
             }
 
             // Update target if there's no current target
-            if (currentTarget == null)
+            if (currentTarget == null && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 currentTarget = other.transform;
             }
@@ -105,13 +104,13 @@ public class TowerScript : Entity
         else if (other.CompareTag("Minion"))
         {
             // Add the minion to the list
-            if (!minionsInRange.Contains(other.transform))
+            if (!minionsInRange.Contains(other.transform) && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 minionsInRange.Add(other.transform);
             }
 
             // Update target if there's no current target
-            if (currentTarget == null)
+            if (currentTarget == null && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 currentTarget = other.transform;
             }

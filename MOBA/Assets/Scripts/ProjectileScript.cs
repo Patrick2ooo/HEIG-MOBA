@@ -88,10 +88,8 @@ public class ProjectileScript : Entity
         //if collision with an object that have the tag player, destroy the projectile
         if (collision.gameObject.CompareTag("Player"))
         {
-            /*PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
-            Entity entity = player.GetComponent<Entity>();
-            DealAutoDamage(entity);*/
-            model.isDestroyed = true;
+            DealAutoDamage(collision.transform.GetComponent<Entity>());
+            model.isDestroyed = true; 
         }           
                     
     }
