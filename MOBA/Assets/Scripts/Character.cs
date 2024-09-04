@@ -129,27 +129,33 @@ public abstract class Character : Entity
         if (model.golds - item.GetCost() < 0) return false;
 
         //manage crafted items
+        uint extraGoldNeeded = 0;
         if (item.IsCrafted()) {
             //do he have all needed to?
             foreach(string name in item.GetRecipe()) {
                 uint emplacement = GetItemEmplacmentByName(name);
-                if (emplacement == 6) return false;
+                if (emplacement == 6) extraGoldNeeded += Item.GetItemByName(name).GetCost();
                 else if (nextEmptyEmplacement == 6) nextEmptyEmplacement = emplacement;
             }
 
+            if(extraGoldNeeded + item.GetCost() > model.golds) return false;
+
             //let's convert them on the new item
             foreach(string name in item.GetRecipe()) {
-                DropItem(GetItemEmplacmentByName(name), false);
+                uint emplacement = GetItemEmplacmentByName(name);
+                if (emplacement != 6) DropItem(emplacement, false);
             }
-        } else {
-            //Find an empty emplacement
+        }
+
+        //Find an empty emplacement
+        if(nextEmptyEmplacement == 6) {
             nextEmptyEmplacement = GetItemEmplacmentByName("Item");
 
             if(nextEmptyEmplacement == 6) return false;
         }
 
         //update player balance
-        model.golds -= (int) item.GetCost();
+        model.golds -= (int) (item.GetCost() + extraGoldNeeded);
         
         //update player stats
         model.attack += item.GetAttack();
@@ -256,4 +262,21 @@ public abstract class Character : Entity
             }
         }
     }
+
+    public Item GetItem(uint slotId) {
+        return model.inventory[slotId];
+    }
+    
+    
+    public Item[] GetInventory()
+    {
+        Item[] myItems = new Item[6];
+        
+        for(uint i = 0; i < 6; ++i) {
+            myItems[i] = model.inventory[i];
+        }
+        
+        return myItems;
+    }
+    
 }

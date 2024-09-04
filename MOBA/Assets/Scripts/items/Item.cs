@@ -66,9 +66,9 @@ namespace Scripts
         public virtual string GetDescription() {
             StringBuilder sb = new StringBuilder();
 
-            if(GetAttack() != 0) sb.AppendLine("Attack : " + GetAttack() + "\n");
-            if(GetHealth() != 0) sb.AppendLine("Health : " + GetHealth() + "\n");
-            if(GetCritChance() != 0) sb.AppendLine("Critical Chance : " + GetCritChance() + "\n");
+            if(GetAttack() != 0) sb.AppendLine("Attack : " + GetAttack());
+            if(GetHealth() != 0) sb.AppendLine("Health : " + GetHealth());
+            if(GetCritChance() != 0) sb.AppendLine("Critical Chance : " + GetCritChance());
 
             return sb.ToString();
         }

@@ -37,10 +37,11 @@ public class PlayerSpawner : MonoBehaviour
         player.playerBase = side == 0 ? LeftBase : RightBase;
         playerCamera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
-        Instantiate(ui);
+        ui.SetActive(true);
         ShopAction shopAction = GameObject.FindWithTag("shopMenu").GetComponent<ShopAction>();
         GameObject.FindWithTag("shopButton").GetComponent<Button>().onClick.AddListener(shopAction.Show);
         ShopAction.player = player;
+        InventoryManagement.myCharacter = player;
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
         GameObject.FindWithTag("spellC").GetComponent<Button>().onClick.AddListener(player.SpellC);
