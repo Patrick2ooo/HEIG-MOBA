@@ -28,8 +28,12 @@ public class GameManager : MonoBehaviour
             _spawner.expGoldsManager = expGoldsManager;
             for (int i = 1; i < 4; ++i)
             {
-                Realtime.Instantiate("TowerModel", _leftBase + i * Offset, Quaternion.identity, preventOwnershipTakeover: false, useInstance: realtime).GetComponentInChildren<TowerScript>().SetSide(0);
-                Realtime.Instantiate("TowerModel", _rightBase - i * Offset, Quaternion.identity, preventOwnershipTakeover: false, useInstance: realtime).GetComponentInChildren<TowerScript>().SetSide(1);
+                TowerScript t1 = Realtime.Instantiate("TowerModel", preventOwnershipTakeover: false, useInstance: realtime).GetComponentInChildren<TowerScript>();
+                t1.SetSide(0);
+                t1.transform.parent.position = _leftBase + i * Offset;
+                TowerScript t2 = Realtime.Instantiate("TowerModel", preventOwnershipTakeover: false, useInstance: realtime).GetComponentInChildren<TowerScript>();
+                t2.SetSide(1);
+                t2.transform.parent.position = _rightBase - i * Offset;
             }
         } 
     }
