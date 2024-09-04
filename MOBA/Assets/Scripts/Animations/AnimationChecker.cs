@@ -6,75 +6,68 @@ public class AnimationChecker : MonoBehaviour
 {
     
     private int nbChars;
-    public GameObject[] characters = GameObject.FindGameObjectsWithTag("player");
-    
-    public Transform[] oldCharactersTransform;
-    
+    public GameObject[] characters;
+    public Vector3[] oldPositions;
+    public Quaternion[] oldRotations;
+    public Vector3[] oldScales;
     
     public Animator[] animators;
 
     // Update is called once per frame
     void Update()
     {
+        // Get characters tagged as "Player"
         characters = GameObject.FindGameObjectsWithTag("Player");
-        
-        if (oldCharactersTransform == null || nbChars != characters.Length)
+
+        // If it's the first time we're running Update or if the number of characters has changed
+        if (oldPositions == null || characters.Length != nbChars)
         {
-            // copy transforms
             nbChars = characters.Length;
-        
-            animators = new Animator[characters.Length];
-            
-            oldCharactersTransform = new Transform[characters.Length];
-        
-            for (int i = 0; i < characters.Length; i++)
+
+            // Initialize arrays to store the transforms and animators
+            oldPositions = new Vector3[nbChars];
+            oldRotations = new Quaternion[nbChars];
+            oldScales = new Vector3[nbChars];
+            animators = new Animator[nbChars];
+
+            // Populate the arrays with the current characters' data
+            for (int i = 0; i < nbChars; i++)
             {
                 animators[i] = characters[i].GetComponentInChildren<Animator>();
+
+                // Store the initial positions, rotations, and scales
+                oldPositions[i] = characters[i].transform.position;
+                oldRotations[i] = characters[i].transform.rotation;
+                oldScales[i] = characters[i].transform.localScale;
             }
-            
         }
 
-
+        // Iterate over characters and check if they have moved
         for (int i = 0; i < nbChars; i++)
         {
-            if (CheckTransformsIdentical(characters[i].transform, oldCharactersTransform[i]))
+            Transform currentTransform = characters[i].transform;
+
+            if (CheckTransformsIdentical(currentTransform.position, currentTransform.rotation, currentTransform.localScale,
+                                          oldPositions[i], oldRotations[i], oldScales[i]))
             {
-                animators[i].SetBool("isWalking", true);
+                animators[i].SetBool("isWalking", false);
             }
             else
             {
-                characters[i].GetComponentInChildren<Animator>();
-                animators[i].SetBool("isWalking", false);
-                
+                animators[i].SetBool("isWalking", true);
             }
-            
-            // store new transform to check next update
-            oldCharactersTransform[i] = characters[i].transform;
+
+            // Update the old transforms to the current values for the next frame
+            oldPositions[i] = currentTransform.position;
+            oldRotations[i] = currentTransform.rotation;
+            oldScales[i] = currentTransform.localScale;
         }
-        
     }
 
-    private bool CheckTransformsIdentical(Transform t1, Transform t2)
+    private bool CheckTransformsIdentical(Vector3 pos1, Quaternion rot1, Vector3 scale1,
+                                          Vector3 pos2, Quaternion rot2, Vector3 scale2)
     {
-        // Compare positions
-        if (t1.position != t2.position)
-        {
-            return false;
-        }
-
-        // Compare rotations
-        if (t1.rotation != t2.rotation)
-        {
-            return false;
-        }
-
-        // Compare scales
-        if (t1.localScale != t2.localScale)
-        {
-            return false;
-        }
-
-        return true; // All properties are identical
+        return pos1 == pos2 && rot1 == rot2 && scale1 == scale2;
     }
     
 }
