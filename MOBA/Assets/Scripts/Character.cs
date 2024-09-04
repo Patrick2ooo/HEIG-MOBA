@@ -62,7 +62,7 @@ public abstract class Character : Entity
     {
         if (agent.isStopped)
         {
-            playerAnim.SetBool("isWalking", false);
+            //playerAnim.SetBool("isWalking", false);
         }
         if (model.entityID == "0" + realtime.clientID)
         {
@@ -235,7 +235,7 @@ public abstract class Character : Entity
                     switch (hit.collider.gameObject.layer)
                     {
                         case MapLayer:
-                            playerAnim.SetBool("isWalking", true);
+                            //playerAnim.SetBool("isWalking", true);
                             if(movementIcon) Instantiate(movementIcon, hit.point + IconOffset, Quaternion.identity);
                             agent.SetDestination(hit.point);
                             model.Target = null;
