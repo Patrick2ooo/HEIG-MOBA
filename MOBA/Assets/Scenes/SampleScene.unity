@@ -2372,6 +2372,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerModel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3832538009193370609, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
+      propertyPath: m_Center.y
+      value: -2.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4032325038122902728, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -2415,6 +2419,10 @@ PrefabInstance:
     - target: {fileID: 5609512982094436263, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: _viewUUID
       value: e2f84273-6145-4e4b-b5fc-aeebd74339d5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281572424638836972, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5902,6 +5910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerModel
       objectReference: {fileID: 0}
+    - target: {fileID: 3832538009193370609, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
+      propertyPath: m_Center.y
+      value: -2.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4721991063261960412, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: damageManager
       value: 
@@ -5917,6 +5929,10 @@ PrefabInstance:
     - target: {fileID: 5609512982094436263, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: _viewUUID
       value: 500a9e49-5e39-4562-9016-3d0e132156e5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281572424638836972, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7521201730441623220, guid: 63c1bbd9a4f52ea458655ae8ac03dc9c, type: 3}
       propertyPath: m_Radius

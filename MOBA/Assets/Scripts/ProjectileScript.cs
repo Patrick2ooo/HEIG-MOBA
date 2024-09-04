@@ -81,11 +81,18 @@ public class ProjectileScript : Entity
 
     {   
         //when hitting the target, get his model and reduce his health by the attack value of the projectile
-        if (collision.gameObject.layer == LayerMask.NameToLayer("character")) {
-            Entity entity = collision.gameObject.GetComponent<Entity>();
-            DealAutoDamage(entity);
+        if (collision.gameObject.CompareTag("Minion")) {
+            DealAutoDamage(collision.transform.GetComponent<Entity>());
             model.isDestroyed = true;
         }             
+        //if collision with an object that have the tag player, destroy the projectile
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            /*PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
+            Entity entity = player.GetComponent<Entity>();
+            DealAutoDamage(entity);*/
+            model.isDestroyed = true;
+        }           
                     
     }
 }

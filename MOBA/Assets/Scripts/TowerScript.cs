@@ -24,6 +24,12 @@ public class TowerScript : Entity
         _realtime = GetComponent<Realtime>();
         // Check for player disconnections every few seconds
         InvokeRepeating("CheckForDisconnectedPlayers", 2.0f, 2.0f);
+        // Initialize the child collider script to reference this TowerScript
+        TowerColliderTrigger trigger = GetComponentInChildren<TowerColliderTrigger>();
+        if (trigger != null)
+        {
+            trigger.Initialize(this); // Pass this TowerScript to the child
+        }
     }
     
     protected override int GetGoldBounty()
@@ -81,7 +87,7 @@ public class TowerScript : Entity
         return projectile;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnterFromChild(Collider other)
     {
         //should we check the side of the player and minion there?
         if (other.CompareTag("Player"))
@@ -114,7 +120,7 @@ public class TowerScript : Entity
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExitFromChild(Collider other)
     {
         if (other.CompareTag("Player"))
         {
