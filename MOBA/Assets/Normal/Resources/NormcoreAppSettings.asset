@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normcoreAppKey: 237c5783-d680-4f49-95b0-8467a03ff284
   _matcherURL: wss://normcore-matcher.normcore.io:3000
+  _guid: 
