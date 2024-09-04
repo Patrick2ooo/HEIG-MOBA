@@ -13,10 +13,13 @@ public class PlayerScript : Character
         attributes.maxHealth = 100;
         attributes.health = 100;
         attributes.attackRange = 1.0f;
-        attributes.attack = 1;
-        attributes.attackPerLevel = 1;
+        attributes.attack = 50;
+        attributes.attackPerLevel = 5;
         attributes.radius = 0.5f;
         attributes.golds = 2000;
+        WindUpDuration = 0.4f;
+        AttackDuration = 0.2f;
+        RecoveryDuration = 0.4f;
     }
 
     // Update is called once per frame

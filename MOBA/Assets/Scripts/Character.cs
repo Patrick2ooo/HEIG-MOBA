@@ -70,7 +70,12 @@ public abstract class Character : Entity
             if (_deathTimer <= 0)
             {
                 base.Update();
-                            
+
+                if (model.recoveryTime > 0)
+                {
+                    model.recoveryTime -= Time.deltaTime;
+                }
+                
                 model.PassiveIncomeTimer += Time.deltaTime;
                 while (model.PassiveIncomeTimer >= 1)
                 {
@@ -104,6 +109,9 @@ public abstract class Character : Entity
                     deathScreen.SetActive(false);
                     model.health = model.maxHealth;
                     transform.position = playerBase;
+                    model.windUpTime = 0;
+                    model.attackTime = 0;
+                    model.recoveryTime = 0;
                 }
             }
         }
@@ -194,11 +202,24 @@ public abstract class Character : Entity
     {
         if (model.Target)
         {
+            if(model.recoveryTime > 0) return;
             if (Vector3.Distance(transform.position, model.Target.transform.position) - model.radius - model.Target.GetRadius() <= model.attackRange)
             {
                 // logique d'attaque
                 agent.ResetPath();
-                DealAutoDamage(model.Target);
+                if (model.windUpTime <= 0)
+                {
+                    model.windUpTime = WindUpDuration;
+                }
+                else
+                {
+                    model.windUpTime -= Time.deltaTime;
+                    if (model.windUpTime <= 0)
+                    {
+                        DealAutoDamage(model.Target);
+                        model.attackTime += model.windUpTime;
+                    }
+                }
             }
             else
             {
@@ -229,6 +250,7 @@ public abstract class Character : Entity
     {
         if (Input.GetMouseButton(0))
         {
+            if(model.attackTime > 0) return;
             if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, layerMask:~(1 << ColliderLayer)))
             {
                 var eventData = new PointerEventData(EventSystem.current)
@@ -245,6 +267,7 @@ public abstract class Character : Entity
                             if(movementIcon) Instantiate(movementIcon, hit.point + IconOffset, Quaternion.identity);
                             agent.SetDestination(hit.point);
                             model.Target = null;
+                            model.recoveryTime = 0;
                             break;
                         case CharactersLayer:
                             model.Target = hit.collider.gameObject.GetComponent<Entity>();
