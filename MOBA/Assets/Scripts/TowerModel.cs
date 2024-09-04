@@ -7,6 +7,7 @@ public class TowerModel : RealtimeComponent<NormcoreTimer>
 {
     private Realtime _realtime;
     
+    public Vector3 towerPosition;
     private bool timeSet = false;
     private float shootingInterval = 5f; // Time between each shot
 	private TowerScript tower;
@@ -19,9 +20,9 @@ public class TowerModel : RealtimeComponent<NormcoreTimer>
         _realtimeView = GetComponent<RealtimeView>();
 
         // Set the destroy conditions
-        /*model.destroyWhenOwnerLeaves = false; // The tower should persist even if the owner leaves
+        model.destroyWhenOwnerLeaves = false; // The tower should persist even if the owner leaves
         model.destroyWhenLastClientLeaves = false; // The tower should persist until the last client leaves
-        */
+        
         tower = GetComponentInChildren<TowerScript>();
     }
 

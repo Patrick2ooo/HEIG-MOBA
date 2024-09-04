@@ -7,7 +7,9 @@ public class TowerScript : Entity
 {
     private static int id = 0;
     
+    public GameObject projectilePrefab; // Assign the projectile prefab in the Inspector
     public Transform towerTop; // Assign the tower top transform in the Inspector
+    public float shootingInterval = 5f; // Time between each shot
     private List<Transform> playersInRange = new List<Transform>(); // List to track players in the detection zone
     private List<Transform> minionsInRange = new List<Transform>(); // List to track minions in the detection zone
     private Transform currentTarget = null; // The current target (player or minion)
