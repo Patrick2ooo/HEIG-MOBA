@@ -73,6 +73,7 @@ namespace Scripts
             if(GetAttack() != 0) sb.AppendLine("Attack : " + GetAttack());
             if(GetHealth() != 0) sb.AppendLine("Health : " + GetHealth());
             if(GetCritChance() != 0) sb.AppendLine("Critical Chance : " + GetCritChance());
+            if(GetCritDamage() != 0) sb.AppendLine("Critical Damage : " + GetCritDamage());
 
             return sb.ToString();
         }
