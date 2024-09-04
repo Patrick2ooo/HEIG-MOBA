@@ -18,6 +18,7 @@ TagManager:
   - cost
   - Tower
   - Minion
+  - buy
   layers:
   - Default
   - TransparentFX
