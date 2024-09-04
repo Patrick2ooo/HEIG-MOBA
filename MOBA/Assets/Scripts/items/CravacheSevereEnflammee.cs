@@ -29,6 +29,10 @@ public class CravacheSevereEnflammee : Item
         return 15;
     }
 
+    public override float GetCritDamage() {
+        return 0.05;
+    }
+
     public override List<string> GetRecipe() {
         return new(){"Cravache Sévère", "Gemme de Feu"};
     }

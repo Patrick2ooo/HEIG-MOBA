@@ -34,6 +34,10 @@ namespace Scripts
         public virtual float GetCritChance() {
             return 0;
         }
+
+        public virtual float GetCritDamage() {
+            return 0;
+        }
         
         public virtual List<string> GetRecipe() {
             return new List<string>();

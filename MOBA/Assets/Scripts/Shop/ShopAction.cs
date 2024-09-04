@@ -93,10 +93,7 @@ public class ShopAction : MonoBehaviour
         } else player.BuyItem(itemSelected.GetName());
         
         inventoryManager = GetComponent<InventoryManagement>();
-        Debug.Log("attack : " + player.GetAttack());
         inventoryManager.Delay();
-        Debug.Log("2attack : " + player.GetAttack());
-
     }
     
     public void Close() {

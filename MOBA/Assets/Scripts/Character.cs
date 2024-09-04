@@ -160,6 +160,7 @@ public abstract class Character : Entity
         //update player stats
         model.attack += item.GetAttack();
         model.critChance += item.GetCritChance();
+        model.critMult += item.GetCritDamage();
         model.health += item.GetHealth();
         model.maxHealth += item.GetHealth();
 
@@ -182,6 +183,7 @@ public abstract class Character : Entity
 
         model.attack -= item.GetAttack();
         model.critChance -= item.GetCritChance();
+        model.critMult -= item.GetCritDamage();
         model.health -= item.GetHealth();
         model.maxHealth -= item.GetHealth();
 
