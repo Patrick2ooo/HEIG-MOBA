@@ -26,6 +26,9 @@ public class MinionScript : Entity
         attributes.attackRange = 1;
         attributes.attack = 1;
         attributes.radius = 0.4f;
+        WindUpDuration = 0.4f;
+        AttackDuration = 0.2f;
+        RecoveryDuration = 0.4f;
     }
 
     // Update is called once per frame
@@ -37,23 +40,43 @@ public class MinionScript : Entity
             _targets.Dequeue();
         }
 
-        if (Target)
+        if (Target && model.windUpTime + model.attackTime + model.recoveryTime <= 0)
         {
             agent.destination = Target.transform.position;
             if (Vector3.Distance(transform.position, Target.transform.position) - model.radius - Target.GetRadius()
                 <= model.attackRange)
             {
-                DealAutoDamage(Target);
+                model.windUpTime = WindUpDuration;
+                agent.ResetPath();
             }
         } 
         else if (_targets.Count > 0)
         {
             Target = _targets.First();
         }
-        else
+        else if(model.attackTime + model.recoveryTime < 0)
         {
             agent.destination = destination;
         }
+
+        if (model.windUpTime > 0)
+        {
+            model.windUpTime -= Time.deltaTime;
+            if (model.windUpTime <= 0) model.attackTime = AttackDuration + model.windUpTime;
+        }
+
+        if (model.attackTime > 0)
+        {
+            model.attackTime -= Time.deltaTime;
+            if (model.attackTime <= 0)
+            {
+                model.recoveryTime = RecoveryDuration + model.attackTime;
+                Debug.Log("deal");
+                DealAutoDamage(Target);
+            }
+        }
+
+        if (model.recoveryTime > 0) model.recoveryTime -= Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

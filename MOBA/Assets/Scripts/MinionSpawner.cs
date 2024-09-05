@@ -48,7 +48,7 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
             if (model.isOwnedLocallyInHierarchy && (model.minionWaves + 1) * 10 < Time)
             {
                 model.minionWaves += 1;
-                int minionsToSpawn = 1;
+                int minionsToSpawn = 4;
                 if (Time % (2 * CycleLength) >= CycleLength) minionsToSpawn *= 2;
                 for (int i = 0; i < minionsToSpawn; ++i)
                 {

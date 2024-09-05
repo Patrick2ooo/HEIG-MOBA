@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Normal.Realtime;
 using UnityEngine;
@@ -11,6 +12,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     public DamageManager damageManager;
     public ExpGoldsManager expGoldsManager;
     protected Entity Target;
+    protected float WindUpDuration, AttackDuration, RecoveryDuration;
 
     protected abstract int GetGoldBounty();
     protected abstract int GetExpBounty();
@@ -85,10 +87,22 @@ public abstract class Entity : RealtimeComponent<Attributes>{
     
     protected virtual void DealAutoDamage(Entity target)
     {
-        if(damageManager == null){
+        if (model.attackTime <= 0)
+        {
+            model.attackTime += AttackDuration;
+            StartCoroutine(StartAttack(target));
+        }
+    }
+
+    protected virtual IEnumerator StartAttack(Entity target)
+    {
+        yield return new WaitForSeconds(model.attackTime);
+        if(!damageManager){
             damageManager = FindObjectOfType<DamageManager>();
         }
         damageManager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        model.recoveryTime = RecoveryDuration;
+        model.attackTime = 0;
     }
 
     private void UpdateMoveSpeed(Attributes updated, float speed)
@@ -102,7 +116,7 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         // dégâts reçus = dégâts de base * (pen + (1-pen) * 100 / (def + 100))
         float phys = physDmg * (physPen + (1 - physPen) * 100 / (model.physDef + 100));
         model.health = Math.Max(0, 
-            model.health - (critChance >= Random.Range(0, 1) ? phys * critMult : phys)
+            model.health - (critChance >= Random.Range(0, 1) ? phys * (1.5f + critMult) : phys)
                    - magDmg * (magPen + (1 - magPen) * 100 / (model.magDef + 100))
         );
         if (GetEntityByID(attackerID) is Character)
