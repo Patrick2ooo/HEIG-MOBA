@@ -8,6 +8,10 @@ public class PreBuildSetup : IPreprocessBuildWithReport
 
     public void OnPreprocessBuild(BuildReport report)
     {
+        // Ensure scenes are added to the build settings
+       // Log build report and scene setup
+        Debug.Log("Running PreBuildSetup. Modifying scenes for build.");
+
         // Ensure scenes are added to the build settings with MainMenu as the first scene
         EditorBuildSettingsScene[] scenes = new EditorBuildSettingsScene[]
         {
@@ -16,6 +20,12 @@ public class PreBuildSetup : IPreprocessBuildWithReport
         };
 
         EditorBuildSettings.scenes = scenes;
+
+        // Log each scene added to the build settings
+        foreach (var scene in scenes)
+        {
+            Debug.Log("Scene added to build: " + scene.path);
+        }
     }
 
 }
