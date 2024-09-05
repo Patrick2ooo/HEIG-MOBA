@@ -277,6 +277,7 @@ public abstract class Character : Entity
                             agent.SetDestination(hit.point);
                             model.Target = null;
                             model.recoveryTime = 0;
+                            model.windUpTime = 0;
                             break;
                         case CharactersLayer:
                             model.Target = hit.collider.gameObject.GetComponent<Entity>();
@@ -320,6 +321,13 @@ public abstract class Character : Entity
 
     public bool isAttacking()
     {
+        if(model.windUpTime > 0)
+            Debug.Log("WindUp");
+        if(model.attackTime > 0)
+            Debug.Log("attackTime");
+        if(model.recoveryTime > 0)
+            Debug.Log("recoveryTime");
+        
         if (model.windUpTime > 0 || model.attackTime > 0 || model.recoveryTime > 0)
         {
             Debug.Log("isAttacking");
