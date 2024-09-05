@@ -18,6 +18,8 @@ TagManager:
   - cost
   - Tower
   - Minion
+  - buy
+  - Projectile
   layers:
   - Default
   - TransparentFX

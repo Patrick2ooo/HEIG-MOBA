@@ -5,7 +5,7 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 {
     public const double CycleLength = 60;
 
-    public Vector3 leftSideSpawner, rightSideSpawner;
+    private Vector3 leftSideSpawner = new(-51, 0, 0), rightSideSpawner = new(51, 0, 0);
 
     public DamageManager damageManager;
     public ExpGoldsManager expGoldsManager;

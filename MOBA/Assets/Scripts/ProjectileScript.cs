@@ -34,7 +34,7 @@ public class ProjectileScript : Entity
     {
         //à voir
         attributes.attackRange = 1;
-        attributes.attack = 1;
+        attributes.attack = 15;
         attributes.radius = 0.4f;
     }
 
@@ -81,11 +81,16 @@ public class ProjectileScript : Entity
 
     {   
         //when hitting the target, get his model and reduce his health by the attack value of the projectile
-        if (collision.gameObject.layer == LayerMask.NameToLayer("character")) {
-            Entity entity = collision.gameObject.GetComponent<Entity>();
-            DealAutoDamage(entity);
+        if (collision.gameObject.CompareTag("Minion")) {
+            DealAutoDamage(collision.transform.GetComponent<Entity>());
             model.isDestroyed = true;
         }             
+        //if collision with an object that have the tag player, destroy the projectile
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            DealAutoDamage(collision.transform.GetComponent<Entity>());
+            model.isDestroyed = true; 
+        }           
                     
     }
 }

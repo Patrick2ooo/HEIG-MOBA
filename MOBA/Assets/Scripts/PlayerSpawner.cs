@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] public Camera playerCamera;
+    public Camera playerCamera;
     private Realtime _realtime;
     public GameObject ui;
     public GameObject deathScreen;
-    public Vector3 leftBase, rightBase;
+    public static Vector3 LeftBase = new(-51, 0, 0), RightBase = new(51, 0, 0);
     public DamageManager damageManager;
     public ExpGoldsManager expGoldsManager;
 
@@ -23,8 +23,9 @@ public class PlayerSpawner : MonoBehaviour
     private void DidConnect(Realtime realtime)
     {
         ushort side = (ushort)(FindObjectsOfType<Character>().Length % 2);
-        GameObject playerObject = Realtime.Instantiate(prefabName: "PlayerComponents", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
-        PlayerScript player = playerObject.transform.GetChild(0).gameObject.GetComponent<PlayerScript>();
+        GameObject playerObject = Realtime.Instantiate("PlayerComponents", ownedByClient: true, preventOwnershipTakeover: true, useInstance: realtime);
+        PlayerScript player = playerObject.GetComponentInChildren<PlayerScript>();
+        player.transform.position = side == 0 ? LeftBase : RightBase;
         player.mainCamera = playerCamera;
         player.SetSide(side);
         damageManager.player = player;
@@ -33,18 +34,19 @@ public class PlayerSpawner : MonoBehaviour
         player.expGoldsManager = expGoldsManager;
         player.SetID("0" + realtime.clientID);
         player.deathScreen = deathScreen;
-        player.playerBase = side == 0 ? leftBase : rightBase;
+        player.playerBase = side == 0 ? LeftBase : RightBase;
         playerCamera.GetComponent<CameraScript>().target = player.transform;
         player.InitInventory();
-        Instantiate(ui);
-        Debug.Log(FindObjectsOfType<ShopAction>().Length);
+        ui.SetActive(true);
         ShopAction shopAction = GameObject.FindWithTag("shopMenu").GetComponent<ShopAction>();
         GameObject.FindWithTag("shopButton").GetComponent<Button>().onClick.AddListener(shopAction.Show);
         ShopAction.player = player;
+        InventoryManagement.myCharacter = player;
         GameObject.FindWithTag("spellA").GetComponent<Button>().onClick.AddListener(player.SpellA);
         GameObject.FindWithTag("spellB").GetComponent<Button>().onClick.AddListener(player.SpellB);
         GameObject.FindWithTag("spellC").GetComponent<Button>().onClick.AddListener(player.SpellC);
         HealthBar.PlayerSide = player.GetSide();
+        playerCamera.gameObject.SetActive(true);
     }
 
     private void Disconnect(Realtime realtime)

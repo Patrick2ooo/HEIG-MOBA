@@ -8,6 +8,7 @@ public class PlayerScript : Character
 
     protected override void SetValues(Attributes attributes)
     {
+        base.SetValues(attributes);
         attributes.moveSpeed = 3.5f;
         attributes.maxHealth = 100;
         attributes.health = 100;
@@ -15,6 +16,7 @@ public class PlayerScript : Character
         attributes.attack = 1;
         attributes.attackPerLevel = 1;
         attributes.radius = 0.5f;
+        attributes.golds = 2000;
     }
 
     // Update is called once per frame

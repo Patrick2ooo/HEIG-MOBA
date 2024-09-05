@@ -34,6 +34,10 @@ namespace Scripts
         public virtual float GetCritChance() {
             return 0;
         }
+
+        public virtual float GetCritDamage() {
+            return 0;
+        }
         
         public virtual List<string> GetRecipe() {
             return new List<string>();
@@ -66,9 +70,10 @@ namespace Scripts
         public virtual string GetDescription() {
             StringBuilder sb = new StringBuilder();
 
-            if(GetAttack() != 0) sb.AppendLine("Attack : " + GetAttack() + "\n");
-            if(GetHealth() != 0) sb.AppendLine("Health : " + GetHealth() + "\n");
-            if(GetCritChance() != 0) sb.AppendLine("Critical Chance : " + GetCritChance() + "\n");
+            if(GetAttack() != 0) sb.AppendLine("Attack : " + GetAttack());
+            if(GetHealth() != 0) sb.AppendLine("Health : " + GetHealth());
+            if(GetCritChance() != 0) sb.AppendLine("Critical Chance : " + GetCritChance());
+            if(GetCritDamage() != 0) sb.AppendLine("Critical Damage : " + GetCritDamage());
 
             return sb.ToString();
         }

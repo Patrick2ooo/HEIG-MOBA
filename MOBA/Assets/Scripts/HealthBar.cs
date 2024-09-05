@@ -26,7 +26,7 @@ public class HealthBar : MonoBehaviour
         // Adjust the position above the tower or at the parent's position
         if (_parent.tag == "Tower")
         {
-            transform.position = _parent.position + new Vector3(0f, -6.0f, -1.0f);
+            transform.position = _parent.position + new Vector3(0f, 2f, -1f);
         }
         else
         {
@@ -34,6 +34,6 @@ public class HealthBar : MonoBehaviour
         }
 
         // Simplify the rotation to face upwards correctly
-        transform.rotation = Quaternion.Euler(90, 0, 0);
+        transform.rotation = Quaternion.Euler(60, 0, 0);
     }
 }

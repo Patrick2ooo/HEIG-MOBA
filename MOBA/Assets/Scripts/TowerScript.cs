@@ -5,14 +5,14 @@ using Normal.Realtime;
 
 public class TowerScript : Entity
 {
-    public GameObject projectilePrefab; // Assign the projectile prefab in the Inspector
+    private static int id = 0;
+    
     public Transform towerTop; // Assign the tower top transform in the Inspector
-    public float shootingInterval = 5f; // Time between each shot
-    public int side = 0;
     private List<Transform> playersInRange = new List<Transform>(); // List to track players in the detection zone
     private List<Transform> minionsInRange = new List<Transform>(); // List to track minions in the detection zone
     private Transform currentTarget = null; // The current target (player or minion)
 
+    
     private float shootTimer = 0f;
     private bool oneShot = true;
     private Realtime _realtime;
@@ -20,9 +20,14 @@ public class TowerScript : Entity
     void Start()
     {
         _realtime = GetComponent<Realtime>();
-        model.side = (ushort)side;
         // Check for player disconnections every few seconds
         InvokeRepeating("CheckForDisconnectedPlayers", 2.0f, 2.0f);
+        // Initialize the child collider script to reference this TowerScript
+        TowerColliderTrigger trigger = GetComponentInChildren<TowerColliderTrigger>();
+        if (trigger != null)
+        {
+            trigger.Initialize(this); // Pass this TowerScript to the child
+        }
     }
     
     protected override int GetGoldBounty()
@@ -40,11 +45,8 @@ public class TowerScript : Entity
         attributes.maxHealth = 5500;   
         attributes.health = 5500;
         attributes.healthRegen = 20;
-    }
-
-    void Update()
-    {
-
+        attributes.entityID = "t" + (++id);
+        attributes.radius = 0.825f;
     }
 
     public Transform SelectTarget()
@@ -82,19 +84,19 @@ public class TowerScript : Entity
         return projectile;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnterFromChild(Collider other)
     {
         //should we check the side of the player and minion there?
         if (other.CompareTag("Player"))
         {
             // Add the player to the list
-            if (!playersInRange.Contains(other.transform))
+            if (!playersInRange.Contains(other.transform) && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 playersInRange.Add(other.transform);
             }
 
             // Update target if there's no current target
-            if (currentTarget == null)
+            if (currentTarget == null && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 currentTarget = other.transform;
             }
@@ -102,20 +104,20 @@ public class TowerScript : Entity
         else if (other.CompareTag("Minion"))
         {
             // Add the minion to the list
-            if (!minionsInRange.Contains(other.transform))
+            if (!minionsInRange.Contains(other.transform) && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 minionsInRange.Add(other.transform);
             }
 
             // Update target if there's no current target
-            if (currentTarget == null)
+            if (currentTarget == null && other.GetComponent<Entity>().GetSide() != GetSide())
             {
                 currentTarget = other.transform;
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExitFromChild(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -154,5 +156,10 @@ public class TowerScript : Entity
         {
             currentTarget = null;
         }
+    }
+
+    protected override void KillSelf()
+    {
+        Realtime.Destroy(transform.parent.gameObject);
     }
 }

@@ -1,7 +1,4 @@
-using System;
 using Normal.Realtime;
-using Normal.Realtime.Serialization;
-using UnityEngine;
 
 public class ExpGoldsManager : RealtimeComponent<ExpGoldsManagerModel>
 {
