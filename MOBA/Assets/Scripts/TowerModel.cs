@@ -25,7 +25,6 @@ public class TowerModel : RealtimeComponent<NormcoreTimer>
         tower = GetComponentInChildren<TowerScript>();
     }
 
-
     public double time
     {
         get
