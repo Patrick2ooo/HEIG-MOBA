@@ -2,13 +2,11 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
-
-
-public static class PreBuildSetup : IPreprocessBuildWithReport
+public class PreBuildSetup : IPreprocessBuildWithReport
 {
     public int callbackOrder => 0;
 
-    public static void OnPreprocessBuild(BuildReport report)
+    public void OnPreprocessBuild(BuildReport report)
     {
         // Ensure scenes are added to the build settings with MainMenu as the first scene
         EditorBuildSettingsScene[] scenes = new EditorBuildSettingsScene[]
