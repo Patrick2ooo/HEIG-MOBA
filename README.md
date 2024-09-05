@@ -1,9 +1,7 @@
-# HEIG-MOBA
+# Ressurection
 
-## Description
-L'objectif final de ce projet consiste à faire un MOBA (Multiplayer Online Battle Arena) très simple permettant pour le moment de faire un duel entre 2 joueur sur une map de base.
-Les personnage que les joueurs pourront jouer auront au minimum 2 spells et une capacité passive. Il y aura aussi un système de shop permettant au joueur d'acheté des items leur permettant d'augmenter leur statistique.
+## Comment contribuer au projet
 
-### Exigence fonctionnelle
+Afin de contribuer au code, il faut tout d'abord créer une branche depuis dev. Vous pourrez ensuite implémenter les changements souhaités sur celle-ci, la push puis la merge dans dev de nouveau.
 
-### Exigence non-fonctionnelle
+Lors des pushs, les tests sont lancés afin de vérifier que tout fonctionne. Lors d'un merge, les builds PC et Android sont créés.
