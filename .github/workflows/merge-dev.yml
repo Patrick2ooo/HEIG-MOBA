@@ -88,7 +88,6 @@ jobs:
         with:
           targetPlatform: StandaloneWindows
           projectPath: MOBA
-          buildMethod: WorkshopScene.PreBuildSetup.OnPreprocessBuild
 
       - uses: actions/upload-artifact@v4
         with:
