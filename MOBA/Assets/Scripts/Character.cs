@@ -15,12 +15,12 @@ public abstract class Character : Entity
     public GameObject movementIcon;
     public GameObject deathScreen;
     public Vector3 playerBase;
+    public Animator playerAnim;
     
     private const int MapLayer = 3, UILayer = 5, CharactersLayer = 6, ColliderLayer = 8;
     private static readonly Vector3 IconOffset = new(0, 0.1f, 0);
     private RealtimeView _view;
     private float _deathTimer;
-    public Animator playerAnim;
 
     public abstract void SpellA();
     public abstract void SpellB();
@@ -128,7 +128,6 @@ public abstract class Character : Entity
                 break;
             }
         }
-
         return emplacement;
     }
 

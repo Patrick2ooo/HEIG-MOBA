@@ -24,7 +24,7 @@ public class HealthBar : MonoBehaviour
     private void UpdatePositionAndRotation()
     {
         // Adjust the position above the tower or at the parent's position
-        if (_parent.tag == "Tower")
+        if (_parent.CompareTag("Tower"))
         {
             transform.position = _parent.position + new Vector3(0f, 2f, -1f);
         }

@@ -42,7 +42,7 @@ public class PlayerScript : Character
             }
         }
 
-        //logic du joueur qui tire à modifier et discuter pour le mettre dans un spell
+        // logique du personnage qui tire à modifier et discuter pour le mettre dans un spell
         /*if (Input.GetKeyDown(KeyCode.Space))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);

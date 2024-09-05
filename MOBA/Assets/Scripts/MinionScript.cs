@@ -40,6 +40,7 @@ public class MinionScript : Entity
             _targets.Dequeue();
         }
 
+        // if the minion isn't attacking
         if (Target && model.windUpTime + model.attackTime + model.recoveryTime <= 0)
         {
             agent.destination = Target.transform.position;
@@ -74,7 +75,6 @@ public class MinionScript : Entity
                 DealAutoDamage(Target);
             }
         }
-
         if (model.recoveryTime > 0) model.recoveryTime -= Time.deltaTime;
     }
 

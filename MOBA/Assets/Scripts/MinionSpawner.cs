@@ -5,11 +5,10 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
 {
     public const double CycleLength = 60;
 
-    private Vector3 leftSideSpawner = new(-51, 0, 0), rightSideSpawner = new(51, 0, 0);
-
     public DamageManager damageManager;
     public ExpGoldsManager expGoldsManager;
 
+    private Vector3 leftSideSpawner = new(-51, 0, 0), rightSideSpawner = new(51, 0, 0);
     private bool _timeSet;
 
     public double Time
@@ -42,6 +41,7 @@ public class MinionSpawner : RealtimeComponent<NormcoreTimer>
             model.time = realtime.roomTime;
         }
         
+        // add minions if needed
         if ((model.minionWaves + 1) * 10 < Time)
         {
             model.RequestOwnership(true);
