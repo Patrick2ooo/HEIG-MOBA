@@ -34,7 +34,7 @@ public class ProjectileScript : Entity
     {
         //à voir
         attributes.attackRange = 1;
-        attributes.attack = 1;
+        attributes.attack = 15;
         attributes.radius = 0.4f;
     }
 
