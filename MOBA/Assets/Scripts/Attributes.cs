@@ -14,7 +14,10 @@ public partial class Attributes
     public readonly Stack<string> LastHittersID = new();
     public Entity Target;
     
-    // synched variables
+    // synched variables,
+    // the first value is the property id
+    // the second is whether the update should be sent reliably or not
+    // the third is whether an event should be added if the variable is changed or not
     [RealtimeProperty(1, true, true)] private float _health = 1;
     [RealtimeProperty(2, false, true)] private ushort _side;
     [RealtimeProperty(3, true, true)] private int _physDef;

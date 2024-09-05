@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
+// base class for every element on the game
 public abstract class Entity : RealtimeComponent<Attributes>{
     
     public NavMeshAgent agent;
@@ -71,6 +72,8 @@ public abstract class Entity : RealtimeComponent<Attributes>{
         model.side = side;
     }
 
+    // this is called by the Normcore API when a new model is added to the scene
+    // (hence it happens when a new entity is created)
     protected override void OnRealtimeModelReplaced(Attributes previousModel, Attributes currentModel)
     {
         base.OnRealtimeModelReplaced(previousModel, currentModel);

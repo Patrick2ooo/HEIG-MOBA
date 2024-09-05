@@ -6,6 +6,7 @@ using TMPro;
 using Scripts;
 using UnityEngine.EventSystems;
 
+//base class for player characters
 public abstract class Character : Entity
 {
     private static readonly int[] Levels = {0, 10, 30, 60, 100, 140, 190, 250, 320, 400, 490, 570};
@@ -25,7 +26,7 @@ public abstract class Character : Entity
     public abstract void SpellB();
     public abstract void SpellC();
 
-    protected override void SetValues(Attributes model)
+    protected override void SetValues(Attributes nModel)
     {
         transform.position = playerBase;
     }
@@ -67,10 +68,6 @@ public abstract class Character : Entity
 
     protected override void Update()
     {
-        if (agent.isStopped)
-        {
-            //playerAnim.SetBool("isWalking", false);
-        }
         if (model.entityID == "0" + realtime.clientID)
         {
             if (_deathTimer <= 0)
@@ -123,10 +120,10 @@ public abstract class Character : Entity
         }
     }
     
-    protected uint GetItemEmplacmentByName(string name) {
+    protected uint GetItemEmplacementByName(string itemName) {
         uint emplacement = 6;
         for(uint i = 0; i < Attributes.NbInventorySlots; ++i) {
-            if(model.inventory[i].GetName() == name) {
+            if(model.inventory[i].GetName() == itemName) {
                 emplacement = i;
                 break;
             }
@@ -146,24 +143,24 @@ public abstract class Character : Entity
         uint extraGoldNeeded = 0;
         if (item.IsCrafted()) {
             //do he have all needed to?
-            foreach(string name in item.GetRecipe()) {
-                uint emplacement = GetItemEmplacmentByName(name);
-                if (emplacement == 6) extraGoldNeeded += Item.GetItemByName(name).GetCost();
+            foreach(string s in item.GetRecipe()) {
+                uint emplacement = GetItemEmplacementByName(s);
+                if (emplacement == 6) extraGoldNeeded += Item.GetItemByName(s).GetCost();
                 else if (nextEmptyEmplacement == 6) nextEmptyEmplacement = emplacement;
             }
 
             if(extraGoldNeeded + item.GetCost() > model.golds) return false;
 
             //let's convert them on the new item
-            foreach(string name in item.GetRecipe()) {
-                uint emplacement = GetItemEmplacmentByName(name);
+            foreach(string s in item.GetRecipe()) {
+                uint emplacement = GetItemEmplacementByName(s);
                 if (emplacement != 6) DropItem(emplacement, false);
             }
         }
 
         //Find an empty emplacement
         if(nextEmptyEmplacement == 6) {
-            nextEmptyEmplacement = GetItemEmplacmentByName("Item");
+            nextEmptyEmplacement = GetItemEmplacementByName("Item");
 
             if(nextEmptyEmplacement == 6) return false;
         }
@@ -211,6 +208,7 @@ public abstract class Character : Entity
         if (model.Target)
         {
             if(model.recoveryTime > 0) return;
+            // si l'on est à portée
             if (Vector3.Distance(transform.position, model.Target.transform.position) - model.radius - model.Target.GetRadius() <= model.attackRange)
             {
                 // logique d'attaque
@@ -256,9 +254,11 @@ public abstract class Character : Entity
 
     private void CheckForScreenInteraction()
     {
+        // lors d'un clic
         if (Input.GetMouseButton(0))
         {
             if(model.attackTime > 0) return;
+            // faire un raycast sans prendre en compte la couche 
             if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, layerMask:~(1 << ColliderLayer)))
             {
                 var eventData = new PointerEventData(EventSystem.current)
