@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Normal.Realtime;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -57,6 +58,71 @@ public class GameManager : MonoBehaviour
                 e.expGoldsManager = expGoldsManager;
             }
         } 
+        else{
+            //set there the tower and nexus positions that already exist for all the player
+            _leftBase = PlayerSpawner.LeftBase;
+            _rightBase = PlayerSpawner.RightBase;
+
+        // Reposition Nexus
+        Nexus[] nexusArray = FindObjectsOfType<Nexus>();
+        foreach (var nexus in nexusArray)
+        {
+            if (nexus.GetSide() == 0)
+            {
+                nexus.transform.position = _leftBase + 0.5f * Offset;
+            }
+            else if (nexus.GetSide() == 1)
+            {
+                nexus.transform.position = _rightBase - 0.5f * Offset;
+            }
+        }
+
+        _leftBase += 0.5f * Offset;
+        _rightBase -= 0.5f * Offset;
+
+        // Reposition Towers based on their ID
+        TowerScript[] towerArray = FindObjectsOfType<TowerScript>().OrderBy(tower => int.Parse(((tower.GetComponent<Entity>()).GetID()).Substring(1))).ToArray();
+        foreach (var tower in towerArray)
+        {
+            string towerID = (tower.GetComponent<Entity>()).GetID();
+
+            // Calculate position based on tower's ID
+            if (tower.GetSide() == 0)
+            {
+                Debug.Log(towerID);
+                if (towerID == "t1")
+                {
+                    tower.transform.parent.position = _leftBase + 1 * Offset;
+                }
+                else if (towerID == "t3")
+                {
+                    tower.transform.parent.position = _leftBase + 2 * Offset;
+                }
+                else if (towerID == "t5")
+                {
+                    tower.transform.parent.position = _leftBase + 3 * Offset;
+                }
+            }
+            else if (tower.GetSide() == 1)
+            {
+                Debug.Log(towerID);
+                if (towerID == "t2")
+                {
+                    tower.transform.parent.position = _rightBase - 1 * Offset;
+                }
+                else if (towerID == "t4")
+                {
+                    tower.transform.parent.position = _rightBase - 2 * Offset;
+                }
+                else if (towerID == "t6")
+                {
+                    tower.transform.parent.position = _rightBase - 3 * Offset;
+                }
+            }
+        }
+
+        
+        }
     }
 
     private void Update()
