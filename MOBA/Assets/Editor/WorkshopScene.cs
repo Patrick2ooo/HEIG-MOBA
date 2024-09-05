@@ -4,7 +4,7 @@ using UnityEditor.Build.Reporting;
 
 
 namespace WorkshopScene{
-    public static class PreBuildSetup : IPreprocessBuildWithReport
+    public static class PreBuildSetup
     {
         public int callbackOrder => 0;
 
