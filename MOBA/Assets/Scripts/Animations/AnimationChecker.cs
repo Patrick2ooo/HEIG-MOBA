@@ -42,9 +42,10 @@ public class AnimationChecker : MonoBehaviour
             }
         }
 
-        // Iterate over characters and check if they have moved
+        // Iterate over characters and check if they have done an action
         for (int i = 0; i < nbChars; i++)
         {
+            // Moves
             Transform currentTransform = characters[i].transform;
 
             if (CheckTransformsIdentical(currentTransform.position, currentTransform.rotation, currentTransform.localScale,
@@ -61,6 +62,18 @@ public class AnimationChecker : MonoBehaviour
             oldPositions[i] = currentTransform.position;
             oldRotations[i] = currentTransform.rotation;
             oldScales[i] = currentTransform.localScale;
+            
+            
+            // Attacks
+            if (characters[i].GetComponent<PlayerScript>().isAttacking())
+            {
+                animators[i].SetBool("isAttacking", true);
+            }
+            else
+            {
+                animators[i].SetBool("isAttacking", false);
+            }
+
         }
     }
 

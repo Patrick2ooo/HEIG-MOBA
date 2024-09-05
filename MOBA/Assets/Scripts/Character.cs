@@ -317,5 +317,20 @@ public abstract class Character : Entity
         
         return myItems;
     }
+
+    public bool isAttacking()
+    {
+        if (model.windUpTime > 0 || model.attackTime > 0 || model.recoveryTime > 0)
+        {
+            Debug.Log("isAttacking");
+            return true;
+        }
+        else
+        {
+            
+            Debug.Log("isNotAttacking");
+            return false;
+        }
+    }
     
 }
