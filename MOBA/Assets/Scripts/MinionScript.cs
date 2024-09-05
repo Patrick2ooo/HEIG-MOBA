@@ -71,7 +71,6 @@ public class MinionScript : Entity
             if (model.attackTime <= 0)
             {
                 model.recoveryTime = RecoveryDuration + model.attackTime;
-                Debug.Log("deal");
                 DealAutoDamage(Target);
             }
         }

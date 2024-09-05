@@ -48,10 +48,8 @@ public class TowerModel : RealtimeComponent<NormcoreTimer>
     {
         GameObject projectileShot = null;
         
-        //Debug.LogError("Tower ownership status: " + _realtimeView.isOwnedLocallyInHierarchy);
         if (!_realtimeView.isOwnedRemotelySelf && !_realtimeView.isOwnedLocallyInHierarchy)
         {
-            //Debug.Log("Requesting ownership...");
             _realtimeView.RequestOwnership();
         }
         else

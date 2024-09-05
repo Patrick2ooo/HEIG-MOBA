@@ -65,7 +65,7 @@ public class AnimationChecker : MonoBehaviour
             
             
             // Attacks
-            if (characters[i].GetComponent<PlayerScript>().isAttacking())
+            if (characters[i].GetComponent<PlayerScript>().IsAttacking())
             {
                 animators[i].SetBool("isAttacking", true);
             }

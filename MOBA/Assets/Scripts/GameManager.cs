@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
             // Calculate position based on tower's ID
             if (tower.GetSide() == 0)
             {
-                Debug.Log(towerID);
                 if (towerID == "t1")
                 {
                     tower.transform.parent.position = _leftBase + 1 * Offset;
@@ -105,7 +104,6 @@ public class GameManager : MonoBehaviour
             }
             else if (tower.GetSide() == 1)
             {
-                Debug.Log(towerID);
                 if (towerID == "t2")
                 {
                     tower.transform.parent.position = _rightBase - 1 * Offset;

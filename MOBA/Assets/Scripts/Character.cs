@@ -319,26 +319,9 @@ public abstract class Character : Entity
         return myItems;
     }
 
-    public bool isAttacking()
+    public bool IsAttacking()
     {
-        if(model.windUpTime > 0)
-            Debug.Log("WindUp");
-        if(model.attackTime > 0)
-            Debug.Log("attackTime");
-        if(model.recoveryTime > 0)
-            Debug.Log("recoveryTime");
-        
-        if (model.windUpTime > 0 || model.attackTime > 0 || model.recoveryTime > 0)
-        {
-            Debug.Log("isAttacking");
-            return true;
-        }
-        else
-        {
-            
-            Debug.Log("isNotAttacking");
-            return false;
-        }
+        return model.windUpTime > 0 || model.attackTime > 0 || model.recoveryTime > 0;
     }
     
 }
