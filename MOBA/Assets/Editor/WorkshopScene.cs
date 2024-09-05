@@ -11,7 +11,7 @@ public class PreBuildSetup : IPreprocessBuildWithReport
         // Ensure scenes are added to the build settings
         EditorBuildSettingsScene[] scenes = new EditorBuildSettingsScene[]
         {
-            //new EditorBuildSettingsScene("Assets/Scenes/UIs/MainMenu.unity", true),
+            new EditorBuildSettingsScene("Assets/Scenes/UIs/MainMenu.unity", true),
             new EditorBuildSettingsScene("Assets/Scenes/SampleScene.unity", true)
         };
 
