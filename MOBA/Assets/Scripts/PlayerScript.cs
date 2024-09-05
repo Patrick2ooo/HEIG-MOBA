@@ -17,7 +17,7 @@ public class PlayerScript : Character
         attributes.attackPerLevel = 5;
         attributes.radius = 0.5f;
         attributes.golds = 2000;
-        WindUpDuration = 0.4f;
+        WindUpDuration = 0.7f;
         AttackDuration = 0.2f;
         RecoveryDuration = 0.4f;
     }
