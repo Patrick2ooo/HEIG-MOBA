@@ -19,6 +19,7 @@ public abstract class Character : Entity
     private static readonly Vector3 IconOffset = new(0, 0.1f, 0);
     private RealtimeView _view;
     private float _deathTimer;
+    public Animator playerAnim;
 
     public abstract void SpellA();
     public abstract void SpellB();
@@ -59,12 +60,17 @@ public abstract class Character : Entity
     protected void Awake()
     {
         _view = GetComponent<RealtimeView>();
+        playerAnim = GetComponentInChildren<Animator>();
     }
 
     protected override void KillSelf() { }
 
     protected override void Update()
     {
+        if (agent.isStopped)
+        {
+            //playerAnim.SetBool("isWalking", false);
+        }
         if (model.entityID == "0" + realtime.clientID)
         {
             if (_deathTimer <= 0)
@@ -266,10 +272,12 @@ public abstract class Character : Entity
                     switch (hit.collider.gameObject.layer)
                     {
                         case MapLayer:
+                            //playerAnim.SetBool("isWalking", true);
                             if(movementIcon) Instantiate(movementIcon, hit.point + IconOffset, Quaternion.identity);
                             agent.SetDestination(hit.point);
                             model.Target = null;
                             model.recoveryTime = 0;
+                            model.windUpTime = 0;
                             break;
                         case CharactersLayer:
                             model.Target = hit.collider.gameObject.GetComponent<Entity>();
@@ -287,6 +295,13 @@ public abstract class Character : Entity
             }
         }
     }
+    
+    protected override void DealAutoDamage(Entity target)
+    {
+        playerAnim.SetBool("isAttacking", true);
+        damageManager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        playerAnim.SetBool("isAttacking", false);
+    }
 
     public Item GetItem(uint slotId) {
         return model.inventory[slotId];
@@ -302,6 +317,28 @@ public abstract class Character : Entity
         }
         
         return myItems;
+    }
+
+    public bool isAttacking()
+    {
+        if(model.windUpTime > 0)
+            Debug.Log("WindUp");
+        if(model.attackTime > 0)
+            Debug.Log("attackTime");
+        if(model.recoveryTime > 0)
+            Debug.Log("recoveryTime");
+        
+        if (model.windUpTime > 0 || model.attackTime > 0 || model.recoveryTime > 0)
+        {
+            Debug.Log("isAttacking");
+            return true;
+        }
+        else
+        {
+            
+            Debug.Log("isNotAttacking");
+            return false;
+        }
     }
     
 }
