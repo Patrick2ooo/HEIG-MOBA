@@ -38,6 +38,21 @@ public class ProjectileScript : Entity
         attributes.radius = 0.4f;
     }
 
+    protected override void DealAutoDamage(Entity target)
+    {
+        if (model.attackTime <= 0)
+        {
+            model.attackTime += AttackDuration;
+            if(!damageManager)
+            {
+            damageManager = FindObjectOfType<DamageManager>();
+            }
+            damageManager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+            model.recoveryTime = RecoveryDuration;
+            model.attackTime = 0;
+        }
+    }
+
 
     void Update()
     {
