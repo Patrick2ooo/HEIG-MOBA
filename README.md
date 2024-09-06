@@ -6,6 +6,8 @@ Afin de contribuer au code, il faut tout d'abord créer une branche depuis dev. 
 
 Lors des pushs, les tests sont lancés afin de vérifier que tout fonctionne. Lors d'un merge, les builds PC et Android sont créés.
 
+Lorseque la branche de dev possède des features pouvant compter comme une nouvelle version une pull request peut être réalisée de dev sur main afin de passer par le CI/CD.
+
 ## Structure du projet
 
 Toutes les ressources en lien avec le projet se trouvent dans le dossier MOBA. Les scripts se trouvent dans MOBA/Assets/Scripts et les scènes dans MOBA/Assets/Scripts.
@@ -21,9 +23,6 @@ Ces versions proviennent de pull requests de dev sur main, lorseque la pull requ
 Vous devez installer la version 2022.3.37f1 de Unity afin de pouvoir ouvrir le projet. Il est recommandé d'utiliser un IDE pour modifier les scripts C# sur votre machine, par défaut Visual Studio est fortement recommandé, mais nombre d'entre nous avons utilisé Rider ou Visual Studio Code à la place. Notez cependant qu'il est fortement recommandé d'installer un plugin Unity dans tous les cas afin que votre IDE connaisse les différentes méthodes des packages Unity.
 
 Pour configurer votre IDE sur unity : Edit > preferences > External tools > puis il faut définir votre IDE dans External Script Editor et regenerer les fichiers du projet.
-
-## Comment contribuer
-Si une contribution doit être faite, il faut créer une branche pour chaque modification que nous souhaitons apporter. Ces modifications pourront être merge sur dev lorsequ'elle seront fonctionnelles. Lorseque la branche de dev possède des features pouvant compter comme une nouvelle version une pull request peut être réalisée de dev sur main afin de passer par le CI/CD.
 
 ## Licences / AssetStore
 Pour ce qui est des ressources externes du projet :
