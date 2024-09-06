@@ -1,39 +1,93 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
+using Normal.Realtime;
 
 public class MinionScript : Entity
 {
     public Vector3 destination;
+    private readonly Queue<Entity> _targets = new();
 
-    private NavMeshAgent _agent;
-    
-    public override int GetGoldBounty()
+    protected override int GetGoldBounty()
     {
-        return 1;
+        return 30;
     }
 
-    public override int GetExpBounty()
+    protected override int GetExpBounty()
     {
-        return 1;
+        return 5;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void SetValues(Attributes attributes)
     {
-        _agent = this.GetComponent<NavMeshAgent>();
-        _agent.SetDestination(destination);
-        Health = 10;
+        agent.SetDestination(destination);
+        attributes.maxHealth = 200;
+        attributes.health = 200;
+        attributes.attackRange = 1;
+        attributes.attack = 1;
+        attributes.radius = 0.4f;
+        WindUpDuration = 0.4f;
+        AttackDuration = 0.2f;
+        RecoveryDuration = 0.4f;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        if (Health <= 0)
+        while (_targets.Count > 0 && !_targets.First())
         {
-            Destroy(gameObject);
+            _targets.Dequeue();
+        }
+
+        // if the minion isn't attacking
+        if (Target && model.windUpTime + model.attackTime + model.recoveryTime <= 0)
+        {
+            agent.destination = Target.transform.position;
+            if (Vector3.Distance(transform.position, Target.transform.position) - model.radius - Target.GetRadius()
+                <= model.attackRange)
+            {
+                model.windUpTime = WindUpDuration;
+                agent.ResetPath();
+            }
+        } 
+        else if (_targets.Count > 0)
+        {
+            Target = _targets.First();
+        }
+        else if(model.attackTime + model.recoveryTime < 0)
+        {
+            agent.destination = destination;
+        }
+
+        if (model.windUpTime > 0)
+        {
+            model.windUpTime -= Time.deltaTime;
+            if (model.windUpTime <= 0) model.attackTime = AttackDuration + model.windUpTime;
+        }
+
+        if (model.attackTime > 0)
+        {
+            model.attackTime -= Time.deltaTime;
+            if (model.attackTime <= 0)
+            {
+                model.recoveryTime = RecoveryDuration + model.attackTime;
+                DealAutoDamage(Target);
+            }
+        }
+        if (model.recoveryTime > 0) model.recoveryTime -= Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Entity e = other.transform.parent.GetComponent<Entity>();
+        if(e.GetSide() != model.side && !other.CompareTag("Projectile"))
+        {
+            _targets.Enqueue(e);
+            if (Target == null)
+            {
+                Target = e;
+            }
         }
     }
 }

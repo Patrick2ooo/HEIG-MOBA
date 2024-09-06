@@ -4,7 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - camera
+  - minionSpawner
+  - spellA
+  - spellB
+  - spellC
+  - deathScreen
+  - shopButton
+  - shopMenu
+  - goldLabel
+  - selectedItemName
+  - selectedItemLogo
+  - selectedItemDescription
+  - cost
+  - Tower
+  - Minion
+  - buy
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -14,7 +29,7 @@ TagManager:
   - UI
   - character
   - cam
-  - 
+  - collider
   - 
   - 
   - 

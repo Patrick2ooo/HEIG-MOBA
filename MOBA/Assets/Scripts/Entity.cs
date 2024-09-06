@@ -1,66 +1,159 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
+using Normal.Realtime;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public abstract class Entity : MonoBehaviour
-{
-    public ushort side;
-    protected int PhysDef, MagDef;
+// base class for every element on the game
+public abstract class Entity : RealtimeComponent<Attributes>{
+    
+    public NavMeshAgent agent;
+    public DamageManager damageManager;
+    public ExpGoldsManager expGoldsManager;
+    protected Entity Target;
+    protected float WindUpDuration, AttackDuration, RecoveryDuration;
 
-    protected float Attack, AttackRange, Health = 1, MaxHealth = 1, WindUpTime, AttackTime, RecoveryTime;
+    protected abstract int GetGoldBounty();
+    protected abstract int GetExpBounty();
+    protected abstract void SetValues(Attributes model);
 
-    protected string Name;
+    public static Entity GetEntityByID(string id)
+    {
+        return FindObjectsByType<Entity>(FindObjectsSortMode.None).FirstOrDefault(character => character.GetID() == id);
+    }
 
-    protected List<Character> LastHitters;
-
-    public abstract int GetGoldBounty();
-    public abstract int GetExpBounty();
-
+    public void SetID(string id)
+    {
+        model.entityID = id;
+    }
+    
+    public string GetID()
+    {
+        return model.entityID;
+    }
     public float GetMaxHealth()
     {
-        return MaxHealth;
+        return model.maxHealth;
     }
 
     public float GetHealth()
     {
-        return Health;
+        return model.health;
     }
 
     public float GetHealthPercent()
     {
-        return Health / MaxHealth;
+        return model.health / model.maxHealth;
     }
 
-    public bool ReceiveDamage(Character hitter, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
+    public ushort GetSide() {
+        return model.side;
+    }
+
+    public float GetRadius()
     {
-        if (Health == 0) return false; // in case it happens that the entity receive damage after its death for whatever reason
-        // dégâts reçus = dégâts de base * (pen + (1-pen) * 100 / (def + 100))
-        float phys = physDmg * (physPen + (1 - physPen) * 100 / (PhysDef + 100));
-        Health = Math.Max(0, 
-            Health - (critChance >= Random.Range(0, 1) ? phys * critMult : phys)
-                   - magDmg * (magPen + (1 - magPen) * 100 / (MagDef + 100))
-        );
-        LastHitters.Add(hitter);
-        return Health == 0; // true if dealing damage lands the killing blow
+        return model.radius;
     }
     
-    // Start is called before the first frame update
-    void Start()
+    public float GetAttack()
     {
-        
+        return model.attack;
     }
 
-    // Update is called once per frame
+    public void SetTarget(Entity target)
+    {
+        model.Target = target;
+    }
+
+    public void SetSide(ushort side)
+    {
+        model.side = side;
+    }
+
+    // this is called by the Normcore API when a new model is added to the scene
+    // (hence it happens when a new entity is created)
+    protected override void OnRealtimeModelReplaced(Attributes previousModel, Attributes currentModel)
+    {
+        base.OnRealtimeModelReplaced(previousModel, currentModel);
+        if (currentModel != null)
+        {
+            if (currentModel.isFreshModel)
+            {
+                SetValues(currentModel);
+            }
+            
+            currentModel.moveSpeedDidChange += UpdateMoveSpeed;
+        }
+    }
+    
+    protected virtual void DealAutoDamage(Entity target)
+    {
+        if (model.attackTime <= 0)
+        {
+            model.attackTime += AttackDuration;
+            StartCoroutine(StartAttack(target));
+        }
+    }
+
+    protected virtual IEnumerator StartAttack(Entity target)
+    {
+        yield return new WaitForSeconds(model.attackTime);
+        if(!damageManager){
+            damageManager = FindObjectOfType<DamageManager>();
+        }
+        damageManager.AddDamage(target, model.attack, 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        model.recoveryTime = RecoveryDuration;
+        model.attackTime = 0;
+    }
+
+    private void UpdateMoveSpeed(Attributes updated, float speed)
+    {
+        agent.speed = speed;
+    }
+
+    public void ReceiveDamage(string attackerID, float physDmg, float magDmg, float physPen, float magPen, float critChance, float critMult)
+    {
+        if (model.health <= 0) return; // in case the entity receive damage after its death for whatever reason
+        // dégâts reçus = dégâts de base * (pen + (1-pen) * 100 / (def + 100))
+        float phys = physDmg * (physPen + (1 - physPen) * 100 / (model.physDef + 100));
+        model.health = Math.Max(0, 
+            model.health - (critChance >= Random.Range(0, 1) ? phys * (1.5f + critMult) : phys)
+                   - magDmg * (magPen + (1 - magPen) * 100 / (model.magDef + 100))
+        );
+        if (GetEntityByID(attackerID) is Character)
+        {
+            model.LastHittersID.Push(attackerID);
+        }
+    }
+
     protected virtual void Update()
     {
-        if (Health == 0)
+        if (model.health <= 0)
         {
-            Character killer = LastHitters.Last();
-            killer.Golds += GetGoldBounty();
-            killer.Exp += GetExpBounty();
+            if (model.LastHittersID.Count > 0)
+            {
+                Entity killer = GetEntityByID(model.LastHittersID.Peek());
+                if (killer is Character)
+                {
+                    expGoldsManager.AddGain(killer, GetExpBounty(), GetGoldBounty());
+                }
+            }
+            model.LastHittersID.Clear();
+            KillSelf();
         }
+        
+        model.RegenTimer += Time.deltaTime;
+        while (model.RegenTimer >= 1)
+        {
+            model.health = Math.Min(model.health + model.healthRegen, model.maxHealth);
+            --(model.RegenTimer);
+        }
+    }
+
+    protected virtual void KillSelf()
+    {
+        Realtime.Destroy(gameObject);
     }
 }

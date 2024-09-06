@@ -1,93 +1,92 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Normal.Realtime;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 public class PlayerScript : Character
 {
-    public Camera mainCamera;
-    private const int MapLayer = 3, CharactersLayer = 6;
-    public GameObject icon;
-    public NavMeshAgent nav;
-    private static readonly Vector3 Offset = new(0, 0.1f, 0);
-    private RealtimeView _view;
+    private bool _nextAttackBuffed, _boostedStats;
+    private float _cTimer;
 
-    private void Awake()
+    protected override void SetValues(Attributes attributes)
     {
-        _view = GetComponent<RealtimeView>();
-    }
-
-    public override int GetGoldBounty()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override int GetExpBounty()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        nav = GetComponent<NavMeshAgent>();
-        AttackRange = 1.5f;
-        Attack = 2;
-        AttackPerLevel = 1;
-        if (_view.isOwnedLocallyInHierarchy)
-        {
-            GetComponent<RealtimeTransform>().RequestOwnership();
-        }
+        base.SetValues(attributes);
+        attributes.moveSpeed = 3.5f;
+        attributes.maxHealth = 1000;
+        attributes.health = 1000;
+        attributes.attackRange = 1.0f;
+        attributes.attack = 50;
+        attributes.attackPerLevel = 5;
+        attributes.radius = 0.5f;
+        attributes.golds = 2000;
+        WindUpDuration = 0.7f;
+        AttackDuration = 0.2f;
+        RecoveryDuration = 0.4f;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        if (_view.isOwnedLocallyInHierarchy)
+        base.Update();
+        if (_boostedStats)
         {
-            base.Update();
-            if (Input.GetMouseButton(0))
+            if (_cTimer > 0)
             {
-                if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
-                {
-                    switch (hit.collider.gameObject.layer)
-                    {
-                        case MapLayer:
-                            if(icon) Instantiate(icon, hit.point + Offset, Quaternion.identity);
-                            nav.SetDestination(hit.point);
-                            Target = null;
-                            break;
-                        case CharactersLayer:
-                            Target = hit.collider.gameObject.GetComponent<Entity>();
-                            Vector3 pos = Target.transform.position;
-                            if (Target.side == side)
-                            {
-                                Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100, ~(1 << CharactersLayer));
-                                pos = hit.point;
-                                Target = null;
-                            }
-                            nav.SetDestination(pos);
-                            break;
-                    }
-                }
+                _cTimer -= Time.deltaTime;
             }
-            if (Target)
+
+            if (_cTimer <= 0)
             {
-                if (Vector3.Distance(transform.position, Target.transform.position) <= AttackRange)
-                {
-                    // logique d'attaque
-                    nav.ResetPath();
-                    DealAutoDamage(Target);
-                }
-                else
-                {
-                    nav.SetDestination(Target.transform.position);
-                }
+                _boostedStats = false;
+                model.physDef -= 20;
+                model.magDef -= 20;
+                model.moveSpeed /= 1.1f;
             }
         }
+
+        // logique du personnage qui tire à modifier et discuter pour le mettre dans un spell
+        /*if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 targetPosition = hit.point;
+                targetPosition.y = transform.position.y;
+                
+                Vector3 direction = (targetPosition - transform.position).normalized;
+                Vector3 spawnPosition = transform.position + direction * 1.0f;
+
+                // Instantiate the projectile   
+                GameObject proj = Realtime.Instantiate("Projectile", spawnPosition, Quaternion.LookRotation(targetPosition - transform.position), preventOwnershipTakeover: true, useInstance: _realtime);
+
+                // Set the direction of the projectile
+                ProjectileScript projScript = proj.GetComponent<ProjectileScript>();
+                projScript.SetDirection((targetPosition - transform.position).normalized);
+            }
+        }*/
+
+    }
+
+    protected override void DealAutoDamage(Entity target)
+    {
+        damageManager.AddDamage(target, model.attack + (_nextAttackBuffed ? 10 : 0), 0, model.physPen, model.magPen, model.critChance, model.critMult);
+        if (_nextAttackBuffed) _nextAttackBuffed = false;
+    }
+
+    public override void SpellA()
+    {
+        _nextAttackBuffed = true;
+    }
+
+    public override void SpellB()
+    {
+        model.health = Math.Min(model.health + 50, model.maxHealth);
+    }
+
+    public override void SpellC()
+    {
+        model.physDef += 20;
+        model.magDef += 20;
+        model.moveSpeed *= 1.1f;
+        _boostedStats = true;
+        _cTimer = 5f;
     }
 }
