@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="49b1c882-f1fb-4299-8782-ac32b2bd517b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/MOBA/Assets/Resources/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/MOBA/Assets/Resources/HealthBar.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MOBA/Assets/Scripts/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MOBA/Assets/Scripts/Entity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MOBA/Assets/Scripts/items/CravacheSevere.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MOBA/Assets/Scripts/items/CravacheSevere.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MOBA/Library/InspectorExpandedItems.asset" beforeDir="false" afterPath="$PROJECT_DIR$/MOBA/Library/InspectorExpandedItems.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MOBA/Library/SceneVisibilityState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/MOBA/Library/SceneVisibilityState.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MOBA/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/MOBA/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MOBA/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/MOBA/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
-    </list>
+    <list default="true" id="49b1c882-f1fb-4299-8782-ac32b2bd517b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,9 +24,12 @@
     <setting file="file://$PROJECT_DIR$/MOBA/Assets/Scripts/items/Database.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MOBA/Assets/Scripts/items/Item.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2lK7qIt3ilzt4ha4orcbcd0Xwhm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -42,8 +37,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/LeVraiGG-inventory",
+    "git-widget-placeholder": "dev",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,6 +58,7 @@
       <option name="presentableId" value="Default" />
       <updated>1724917103381</updated>
       <workItem from="1724917105318" duration="4956000" />
+      <workItem from="1725562605021" duration="714000" />
     </task>
     <servers />
   </component>

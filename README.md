@@ -13,3 +13,11 @@ Toutes les ressources en lien avec le projet se trouvent dans le dossier MOBA. L
 ## Comment setup votre machine pour contribuer au jeu
 
 Vous devez installer la version 2022.3.37f1 de Unity afin de pouvoir ouvrir le projet. Il est recommandé d'utiliser un IDE pour modifier les scripts C# sur votre machine, par défaut Visual Studio est fortement recommandé, mais nombre d'entre nous avons utilisé Rider ou Visual Studio Code à la place. Notez cependant qu'il est fortement recommandé d'installer un plugin Unity dans tous les cas afin que votre IDE connaisse les différentes méthodes des packages Unity.
+
+Pour configurer votre IDE sur unity : Edit > preferences > External tools > puis il faut définir votre IDE dans External Script Editor et regenerer les fichiers du projet.
+
+## Comment contribuer
+Si une contribution doit être faite, il faut créer une branche pour chaque modification que nous souhaitons apporter. Ces modifications pourront être merge sur dev lorsequ'elle seront fonctionnelles.
+
+## Licences / AssetStore
+Dans ce repo des assets de l'unity store ont été utilisés et importés dans le projet à des fins de test. Avoir accès à ce repo ne donne pas droit à l'utilisation de ces assets. Ils sont trouvables dans le dossier AssetStore. Il s'agit d'icônes.

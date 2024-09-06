@@ -38,21 +38,13 @@ public class InventoryManagement : MonoBehaviour
         Invoke(nameof(ItemChange), delay);
     }
     
+    // Updates inventory Icons
     public void ItemChange()
     {
-        Debug.Log("ItemChange");
         Item[] items = myCharacter.GetInventory();
-        Debug.Log("GetInventory Done");
-
-        /*
-        for (int i = 0; i < 6; ++i)
-        {
-            Icons[i] = GameObject.Find("ItemIcon" + i);
-        }*/
         
         Sprite[] sprites = new Sprite[6];
         
-        Debug.Log("Entering for loop");
         for (int i = 0; i < 6; ++i)
         {
 
@@ -72,9 +64,7 @@ public class InventoryManagement : MonoBehaviour
             }
             
         }
-        //newImage = maCravache.sprite;
-        //Debug.Log("attack : " + maCravache.GetAttack());
-        //oldImage.sprite = newImage;
+        
     }
 
     public void GetCharacter()
