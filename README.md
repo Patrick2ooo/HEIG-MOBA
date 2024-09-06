@@ -23,7 +23,7 @@ Vous devez installer la version 2022.3.37f1 de Unity afin de pouvoir ouvrir le p
 Pour configurer votre IDE sur unity : Edit > preferences > External tools > puis il faut définir votre IDE dans External Script Editor et regenerer les fichiers du projet.
 
 ## Comment contribuer
-Si une contribution doit être faite, il faut créer une branche pour chaque modification que nous souhaitons apporter. Ces modifications pourront être merge sur dev lorsequ'elle seront fonctionnelles.
+Si une contribution doit être faite, il faut créer une branche pour chaque modification que nous souhaitons apporter. Ces modifications pourront être merge sur dev lorsequ'elle seront fonctionnelles. Lorseque la branche de dev possède des features pouvant compter comme une nouvelle version une pull request peut être réalisée de dev sur main afin de passer par le CI/CD.
 
 ## Licences / AssetStore
 Dans ce repo des assets de l'unity store ont été utilisés et importés dans le projet à des fins de test. Avoir accès à ce repo ne donne pas droit à l'utilisation de ces assets. Ils sont trouvables dans le dossier AssetStore. Il s'agit d'icônes.
