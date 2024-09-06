@@ -26,4 +26,7 @@ Pour configurer votre IDE sur unity : Edit > preferences > External tools > puis
 Si une contribution doit être faite, il faut créer une branche pour chaque modification que nous souhaitons apporter. Ces modifications pourront être merge sur dev lorsequ'elle seront fonctionnelles. Lorseque la branche de dev possède des features pouvant compter comme une nouvelle version une pull request peut être réalisée de dev sur main afin de passer par le CI/CD.
 
 ## Licences / AssetStore
-Dans ce repo des assets de l'unity store ont été utilisés et importés dans le projet à des fins de test. Avoir accès à ce repo ne donne pas droit à l'utilisation de ces assets. Ils sont trouvables dans le dossier AssetStore. Il s'agit d'icônes.
+Pour ce qui est des ressources externes du projet :
+- Dans ce repo des assets de l'unity store ont été utilisés et importés dans le projet à des fins de test. Avoir accès à ce repo ne donne pas droit à l'utilisation de ces assets. Ils sont trouvables dans le dossier AssetStore. Il s'agit d'icônes.
+
+- Les animations et modèle du joueur proviennent de mixamo qui est une ressource en ligne d'Adobe.
