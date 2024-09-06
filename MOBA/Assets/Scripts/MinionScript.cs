@@ -21,8 +21,8 @@ public class MinionScript : Entity
     protected override void SetValues(Attributes attributes)
     {
         agent.SetDestination(destination);
-        attributes.maxHealth = 10;
-        attributes.health = 10;
+        attributes.maxHealth = 200;
+        attributes.health = 200;
         attributes.attackRange = 1;
         attributes.attack = 1;
         attributes.radius = 0.4f;

@@ -10,8 +10,8 @@ public class PlayerScript : Character
     {
         base.SetValues(attributes);
         attributes.moveSpeed = 3.5f;
-        attributes.maxHealth = 100;
-        attributes.health = 100;
+        attributes.maxHealth = 1000;
+        attributes.health = 1000;
         attributes.attackRange = 1.0f;
         attributes.attack = 50;
         attributes.attackPerLevel = 5;
